@@ -8,6 +8,13 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Nav Section */
 .nav {
   background: #64ef8b;
   height: 6vh;
@@ -20,11 +27,7 @@ body {
   font-size: 24px;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
+/* Header Section */
 
 .header-section {
   min-height: 40vh;
@@ -50,6 +53,8 @@ body {
   color: #64ef8b;
 }
 
+/* Build Section */
+
 .build-section {
   height: 54vh;
   width: 100vw;
@@ -62,9 +67,111 @@ body {
 }
 
 .sticker-builder {
-  background: rgb(51, 50, 50);
+  background: rgb(0, 0, 0);
   width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.builder-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sticker-border {
+  border-style: dotted;
+  border-width: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  margin-bottom: 15px;
+
+  border-color: rgb(230, 230, 230);
+}
+
+.sticker-option-text {
+  font-size: 20px;
+}
+
+.order-btn {
+  margin-top: 70px;
+  width: 150px;
+  height: 35px;
+  border-radius: 6px;
+  background-color: #64ef8b;
+  border-width: 0cm;
+  font-weight: 800;
+}
+
+.order-btn:hover {
+  margin-top: 70px;
+  width: 155px;
+  height: 36px;
+  border-radius: 6px;
+  background-color: #5dcb7c;
+  border-width: 0cm;
+  cursor: pointer;
+}
+
+.option-wrapper {
+  margin-bottom: 7px;
+}
+
+@media (min-width: 400px) {
+  .sticker-for-sale {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 700px) {
+  .sticker-for-sale {
+    font-size: 60px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .sticker-for-sale {
+    font-size: 80px;
+  }
+}
+
+.sticker-for-sale {
+  font-weight: 600;
+}
+
+@media (min-width: 400px) {
+  .builder-title {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 700px) {
+  .builder-title {
+    font-size: 35px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .builder-title {
+    font-size: 200%;
+  }
+}
+
+.builder-title {
+  margin-top: 50px;
+  text-align: center;
+  letter-spacing: 2px;
+
+  font-weight: 600;
+}
+
+/* Marketing Card */
 
 .marketing-card {
   width: 40%;
@@ -81,27 +188,25 @@ body {
 
 @media (min-width: 400px) {
   .marketing-text {
-    text-align: center;
     font-size: 25px;
-
-    font-weight: 100;
   }
 }
 
 @media (min-width: 700px) {
   .marketing-text {
-    text-align: center;
     font-size: 45px;
-
-    font-weight: 100;
   }
 }
 
 @media (min-width: 1000px) {
   .marketing-text {
-    text-align: center;
     font-size: 360%;
-
-    font-weight: 100;
   }
+}
+
+.marketing-text {
+  text-align: center;
+  letter-spacing: 2px;
+
+  font-weight: 100;
 }
