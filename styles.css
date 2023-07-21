@@ -79,6 +79,29 @@ body {
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.marketing-text {
-  text-align: center;
+@media (min-width: 400px) {
+  .marketing-text {
+    text-align: center;
+    font-size: 25px;
+
+    font-weight: 100;
+  }
+}
+
+@media (min-width: 700px) {
+  .marketing-text {
+    text-align: center;
+    font-size: 45px;
+
+    font-weight: 100;
+  }
+}
+
+@media (min-width: 1000px) {
+  .marketing-text {
+    text-align: center;
+    font-size: 360%;
+
+    font-weight: 100;
+  }
 }
