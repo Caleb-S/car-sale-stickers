@@ -97,6 +97,7 @@ body {
 
 .sticker-option-text {
   font-size: 20px;
+  margin-left: 15px;
 }
 
 .order-btn {
@@ -114,13 +115,34 @@ body {
   width: 155px;
   height: 36px;
   border-radius: 6px;
-  background-color: #5dcb7c;
+  filter: brightness(0.8) contrast(1.2);
   border-width: 0cm;
   cursor: pointer;
 }
 
 .option-wrapper {
   margin-bottom: 7px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.add-btn {
+  width: 30px;
+}
+
+.add-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.add-btn:hover {
+  width: 31px;
+  margin-right: -1px;
+  margin-bottom: -1px;
+  filter: brightness(0.8) contrast(1.2);
+  cursor: pointer;
 }
 
 @media (min-width: 400px) {
