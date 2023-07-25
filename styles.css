@@ -20,7 +20,7 @@ body {
   height: 6vh;
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  padding-left: 60px;
 }
 
 .nav-title {
@@ -45,7 +45,7 @@ body {
   height: auto;
   margin-top: auto;
   margin-bottom: auto;
-  margin-left: 20px;
+  margin-left: 60px;
 }
 
 .header-title {
@@ -59,9 +59,6 @@ body {
   height: 54vh;
   width: 100vw;
   background: rgb(0, 0, 0);
-}
-
-.build-section {
   display: flex;
   flex-direction: row;
 }
@@ -72,6 +69,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 }
 
 .builder-container {
@@ -89,10 +87,57 @@ body {
   padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-
   margin-bottom: 15px;
-
   border-color: rgb(230, 230, 230);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 400px) {
+  .sticker-email {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 700px) {
+  .sticker-email {
+    font-size: 21px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .sticker-email {
+    font-size: 28px;
+  }
+}
+
+.sticker-email {
+  word-wrap: normal;
+  white-space: nowrap;
+}
+
+@media (min-width: 400px) {
+  .sticker-num {
+    font-size: 32px;
+  }
+}
+
+@media (min-width: 700px) {
+  .sticker-num {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .sticker-num {
+    font-size: 64px;
+  }
+}
+
+.sticker-num {
+  word-wrap: normal;
+  white-space: nowrap;
 }
 
 .sticker-option-text {
@@ -101,19 +146,20 @@ body {
 }
 
 .order-btn {
-  margin-top: 70px;
   width: 150px;
   height: 35px;
   border-radius: 6px;
   background-color: #64ef8b;
   border-width: 0cm;
   font-weight: 800;
+  position: relative;
+  top: -18px;
 }
 
 .order-btn:hover {
-  margin-top: 70px;
+  margin-top: -2px;
   width: 155px;
-  height: 36px;
+  height: 37px;
   border-radius: 6px;
   filter: brightness(0.8) contrast(1.2);
   border-width: 0cm;
@@ -186,9 +232,11 @@ body {
 }
 
 .builder-title {
-  margin-top: 50px;
+  /* margin-top: 50px; */
   text-align: center;
   letter-spacing: 2px;
+  position: relative;
+  bottom: -18px;
 
   font-weight: 600;
 }
@@ -231,4 +279,79 @@ body {
   letter-spacing: 2px;
 
   font-weight: 100;
+}
+
+/* Payment Page */
+.payment {
+  width: 100vw;
+  height: 94vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.product-summary {
+  width: 500px;
+  height: 100%;
+  background: black;
+
+  padding-top: 5%;
+
+  display: flex;
+  flex-direction: column;
+  color: white;
+  box-shadow: -2px 1px 2px rgba(0, 0, 0, 0.438);
+}
+
+.payment-section {
+  width: 50%;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  justify-content: flex-start;
+  align-items: end;
+  padding-left: 30px;
+}
+
+/* good visually upto 2000px wide */
+/*
+.summary-deco {
+  background-color: #29d25993;
+  position: absolute;
+  top: 10vh;
+  bottom: 0;
+  left: 290px;
+  right: 0;
+
+  width: 500px;
+  height: 80vh;
+  z-index: -1;
+  rotate: 90;
+  transform: rotate(-24.05deg);
+  box-shadow: -2px 0px 2px rgba(0, 0, 0, 0.164);
+}
+*/
+
+/* version 2 */
+.summary-deco {
+  background-color: #29d25993;
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  left: 200px;
+  right: 0;
+  margin-bottom: -60vh;
+  margin-left: -105px;
+  margin-top: -150px;
+
+  width: 40vw;
+  height: 70vh;
+  z-index: -1;
+  rotate: 90;
+  transform: rotate(-23.05deg);
+  box-shadow: -2px 0px 2px rgba(0, 0, 0, 0.164);
 }
