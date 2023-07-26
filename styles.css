@@ -95,23 +95,39 @@ body {
 }
 
 @media (min-width: 400px) {
+  .sticker-for-sale {
+    font-size: 40px;
+  }
+}
+@media (min-width: 700px) {
+  .sticker-for-sale {
+    font-size: 60px;
+  }
+}
+@media (min-width: 1000px) {
+  .sticker-for-sale {
+    font-size: 80px;
+  }
+}
+.sticker-for-sale {
+  font-weight: 600;
+}
+
+@media (min-width: 400px) {
   .sticker-email {
     font-size: 14px;
   }
 }
-
 @media (min-width: 700px) {
   .sticker-email {
     font-size: 21px;
   }
 }
-
 @media (min-width: 1000px) {
   .sticker-email {
     font-size: 28px;
   }
 }
-
 .sticker-email {
   word-wrap: normal;
   white-space: nowrap;
@@ -122,19 +138,16 @@ body {
     font-size: 32px;
   }
 }
-
 @media (min-width: 700px) {
   .sticker-num {
     font-size: 48px;
   }
 }
-
 @media (min-width: 1000px) {
   .sticker-num {
     font-size: 64px;
   }
 }
-
 .sticker-num {
   word-wrap: normal;
   white-space: nowrap;
@@ -192,45 +205,20 @@ body {
 }
 
 @media (min-width: 400px) {
-  .sticker-for-sale {
-    font-size: 40px;
-  }
-}
-
-@media (min-width: 700px) {
-  .sticker-for-sale {
-    font-size: 60px;
-  }
-}
-
-@media (min-width: 1000px) {
-  .sticker-for-sale {
-    font-size: 80px;
-  }
-}
-
-.sticker-for-sale {
-  font-weight: 600;
-}
-
-@media (min-width: 400px) {
   .builder-title {
     font-size: 15px;
   }
 }
-
 @media (min-width: 700px) {
   .builder-title {
     font-size: 35px;
   }
 }
-
 @media (min-width: 1000px) {
   .builder-title {
     font-size: 200%;
   }
 }
-
 .builder-title {
   /* margin-top: 50px; */
   text-align: center;
@@ -261,23 +249,19 @@ body {
     font-size: 25px;
   }
 }
-
 @media (min-width: 700px) {
   .marketing-text {
     font-size: 45px;
   }
 }
-
 @media (min-width: 1000px) {
   .marketing-text {
     font-size: 360%;
   }
 }
-
 .marketing-text {
   text-align: center;
   letter-spacing: 2px;
-
   font-weight: 100;
 }
 
@@ -299,6 +283,7 @@ body {
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   color: white;
   box-shadow: -2px 1px 2px rgba(0, 0, 0, 0.438);
 }
@@ -317,25 +302,6 @@ body {
   padding-left: 30px;
 }
 
-/* good visually upto 2000px wide */
-/*
-.summary-deco {
-  background-color: #29d25993;
-  position: absolute;
-  top: 10vh;
-  bottom: 0;
-  left: 290px;
-  right: 0;
-
-  width: 500px;
-  height: 80vh;
-  z-index: -1;
-  rotate: 90;
-  transform: rotate(-24.05deg);
-  box-shadow: -2px 0px 2px rgba(0, 0, 0, 0.164);
-}
-*/
-
 /* version 2 */
 .summary-deco {
   background-color: #29d25993;
@@ -344,9 +310,9 @@ body {
   bottom: 0;
   left: 200px;
   right: 0;
-  margin-bottom: -60vh;
-  margin-left: -105px;
-  margin-top: -150px;
+  margin-bottom: -57vh;
+  margin-left: -50px;
+  margin-top: -100px;
 
   width: 40vw;
   height: 70vh;
@@ -362,30 +328,32 @@ body {
   border-radius: 6px;
   background-color: #64ef8b;
   border-width: 0cm;
-  font-weight: 800;
+  font-weight: 600;
   position: relative;
   top: -18px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Product Scrollbox */
 .product-scrollbox {
   height: 100%;
-  padding: 20px;
+  position: fixed;
+  top: 6vh;
+
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 6vh;
+
   overflow: auto;
-
-  /* Webkit-based browsers (e.g., Chrome and Safari) */
-  scrollbar-color: #00ff00 transparent; /* Set the color of the thumb and track */
-  scrollbar-width: thin; /* Set the width of the scrollbar */
-
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
 }
 
-/* Hide the scrollbar for Firefox */
 .product-scrollbox::-webkit-scrollbar {
-  width: 0.5em;
+  width: 0em;
 }
 
 .product-scrollbox::-webkit-scrollbar-track {
@@ -394,4 +362,97 @@ body {
 
 .product-scrollbox::-webkit-scrollbar-thumb {
   background-color: transparent;
+}
+
+/* ----- */
+
+@media (min-width: 400px) {
+  .sticker-for-sale-sum {
+    font-size: 30px;
+  }
+}
+@media (min-width: 700px) {
+  .sticker-for-sale-sum {
+    font-size: 50px;
+  }
+}
+@media (min-width: 1000px) {
+  .sticker-for-sale-sum {
+    font-size: 70px;
+  }
+}
+.sticker-for-sale-sum {
+  font-weight: 600;
+}
+/* For Sale */
+
+@media (min-width: 400px) {
+  .sticker-email.sum {
+    font-size: 9px;
+  }
+}
+@media (min-width: 700px) {
+  .sticker-email-sum {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1000px) {
+  .sticker-email-sum {
+    font-size: 23px;
+  }
+}
+.sticker-email-sum {
+  word-wrap: normal;
+  white-space: nowrap;
+}
+/* Email */
+
+@media (min-width: 400px) {
+  .sticker-num-sum {
+    font-size: 22px;
+  }
+}
+@media (min-width: 700px) {
+  .sticker-num-sum {
+    font-size: 38px;
+  }
+}
+@media (min-width: 1000px) {
+  .sticker-num-sum {
+    font-size: 56px;
+  }
+}
+.sticker-num-sum {
+  word-wrap: normal;
+  white-space: nowrap;
+}
+/* Number */
+
+.add-btn-sum img {
+  width: 30px;
+}
+
+.remove-btn-sum img {
+  width: 30px;
+}
+
+.remove-btn-sum-small img {
+  width: 20px;
+}
+
+.add-btn-sum-small img {
+  width: 20px;
+}
+.quantity-num {
+  padding: 10px;
+}
+.quantity-title {
+  margin-top: 10px;
+}
+
+.divider {
+  width: 120%;
+  margin-left: -10%;
+  height: 0.1px;
+  background-color: rgba(255, 255, 255, 0.492);
 }
