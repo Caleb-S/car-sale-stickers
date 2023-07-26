@@ -6,8 +6,9 @@
     <title>Car Sale Stickers</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="checkout.css" />
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="checkout.js" defer></script>
+    <script defer src="https://js.stripe.com/v3/"></script>
+    <script defer src="checkout.js"></script>
+    <script defer src="sticker-builder.js"></script>
   </head>
   <body>
     <div class="nav">
@@ -15,30 +16,88 @@
     </div>
 
     <div class="payment">
+      <!-- Product Summary-->
       <div class="product-summary">
         <div class="summary-deco"></div>
-        <div class="builder-container">
-          <!-- Sticker Preview -->
-          <div class="sticker-border">
-            <text class="sticker-for-sale">FOR SALE</text>
-            <text class="sticker-num">555-555-5555</text>
-            <text class="sticker-email">Emmanuel.rodriguez@icloud.com</text>
-          </div>
-          <div class="option-wrapper">
-            <!-- <button class="mobile-Num-btn"></button> -->
-            <div class="add-btn" id="mobile-btn">
-              <img src="assets/add-btn.png" alt="Cover Photo" />
+        <div class="product-scrollbox">
+          <div class="builder-container">
+            <!-- Sticker Preview -->
+            <div class="sticker-border">
+              <text class="sticker-for-sale">FOR SALE</text>
+              <text class="sticker-num">555-555-5555</text>
+              <text class="sticker-email">Emmanuel.rodriguez@icloud.com</text>
             </div>
-            <text class="sticker-option-text">Mobile Number</text>
-          </div>
-          <div class="option-wrapper">
-            <!-- <button class="email-btn"></button> -->
-            <div class="add-btn" id="email-btn">
-              <img src="assets/add-btn.png" alt="Cover Photo" />
+
+            <div class="option-wrapper">
+              <!-- <button class="mobile-Num-btn"></button> -->
+              <div class="add-btn" id="mobile-btn">
+                <img src="assets/add-btn.png" alt="Cover Photo" />
+              </div>
+              <text class="sticker-option-text">Mobile Number</text>
             </div>
-            <text class="sticker-option-text">Email</text>
+
+            <div class="option-wrapper">
+              <!-- <button class="email-btn"></button> -->
+              <div class="add-btn" id="email-btn">
+                <img src="assets/add-btn.png" alt="Cover Photo" />
+              </div>
+              <text class="sticker-option-text">Email</text>
+            </div>
           </div>
+          <!-- Builder Container End-->
+          <div class="builder-container">
+            <!-- Sticker Preview -->
+            <div class="sticker-border">
+              <text class="sticker-for-sale">FOR SALE</text>
+              <text class="sticker-num">555-555-5555</text>
+              <text class="sticker-email">Emmanuel.rodriguez@icloud.com</text>
+            </div>
+
+            <div class="option-wrapper">
+              <!-- <button class="mobile-Num-btn"></button> -->
+              <div class="add-btn" id="mobile-btn">
+                <img src="assets/add-btn.png" alt="Cover Photo" />
+              </div>
+              <text class="sticker-option-text">Mobile Number</text>
+            </div>
+
+            <div class="option-wrapper">
+              <!-- <button class="email-btn"></button> -->
+              <div class="add-btn" id="email-btn">
+                <img src="assets/add-btn.png" alt="Cover Photo" />
+              </div>
+              <text class="sticker-option-text">Email</text>
+            </div>
+          </div>
+          <!-- Builder Container End-->
+          <div class="builder-container">
+            <!-- Sticker Preview -->
+            <div class="sticker-border">
+              <text class="sticker-for-sale">FOR SALE</text>
+              <text class="sticker-num">555-555-5555</text>
+              <text class="sticker-email">Emmanuel.rodriguez@icloud.com</text>
+            </div>
+
+            <div class="option-wrapper">
+              <!-- <button class="mobile-Num-btn"></button> -->
+              <div class="add-btn" id="mobile-btn">
+                <img src="assets/add-btn.png" alt="Cover Photo" />
+              </div>
+              <text class="sticker-option-text">Mobile Number</text>
+            </div>
+
+            <div class="option-wrapper">
+              <!-- <button class="email-btn"></button> -->
+              <div class="add-btn" id="email-btn">
+                <img src="assets/add-btn.png" alt="Cover Photo" />
+              </div>
+              <text class="sticker-option-text">Email</text>
+            </div>
+          </div>
+          <!-- Builder Container End-->
+          <button class="variant-btn"></button>
         </div>
+        <!-- Scroll Box End-->
       </div>
 
       <!-- Payment Section-->
