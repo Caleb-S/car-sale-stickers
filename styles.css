@@ -509,6 +509,7 @@ body {
   padding-top: 20px;
   border-top: 2px solid rgb(255, 255, 255);
   font-weight: 600;
+  cursor: pointer;
 }
 
 .order-subtotal::before {
