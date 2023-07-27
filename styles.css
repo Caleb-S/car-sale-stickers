@@ -347,7 +347,7 @@ body {
 
   padding-left: 20px;
   padding-right: 20px;
-  padding-bottom: 6vh;
+
   padding-top: 20px;
 
   overflow: auto;
@@ -494,4 +494,36 @@ body {
 
 .quantity-title {
   margin-bottom: 10px;
+}
+
+.order-subtotal {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background: black;
+  margin-top: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 2px solid rgb(255, 255, 255);
+  font-weight: 600;
+}
+
+.order-subtotal::before {
+  content: "";
+  position: absolute;
+  top: -17px; /* Adjust this value to control the distance of the glow from the top */
+  left: 0;
+  width: 100%;
+  height: 20px; /* Adjust this value to control the height of the glow */
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.544),
+    rgb(0, 0, 0)
+  ); /* Adjust opacity or colors as needed */
+  border-radius: 0px; /* Adjust this value to control the roundness of the corners */
+}
+
+.order-total-section {
 }
