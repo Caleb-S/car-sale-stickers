@@ -26,6 +26,27 @@ document.addEventListener("DOMContentLoaded", () => {
         const builderContainer = document.createElement("div");
         builderContainer.classList.add("builder-container");
 
+        /* Sticker Preview */
+        const stickerBorder = document.createElement('div');
+        stickerBorder.classList.add('sticker-border');
+        builderContainer.appendChild(stickerBorder);
+
+        const forSaleTxt = document.createElement('text');
+        forSaleTxt.classList.add('sticker-for-sale-sum');
+        forSaleTxt.textContent = 'FOR SALE';
+        stickerBorder.appendChild(forSaleTxt);
+
+        const stickerNumber = document.createElement('text');
+        stickerNumber.classList.add('sticker-num-sum');
+        stickerNumber.textContent = '555-555-5555';
+        stickerBorder.appendChild(stickerNumber);
+
+
+        const stickerEmail = document.createElement('text');
+        stickerEmail.classList.add('sticker-email-sum');
+        stickerEmail.textContent = 'Emmanuel.rodriguez@icloud.com';
+        stickerBorder.appendChild(stickerEmail);
+
         /* Option Wrapper */
         const optionWrapper1 = document.createElement("div");
         optionWrapper1.classList.add("option-wrapper");
