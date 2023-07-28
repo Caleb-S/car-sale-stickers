@@ -436,17 +436,38 @@ body {
   width: 30px;
 }
 
+.add-btn-sum:hover {
+  filter: brightness(0.8) contrast(1.2);
+  cursor: pointer;
+}
+
 .remove-btn-sum img {
   width: 30px;
+}
+
+.remove-btn-sum:hover {
+  filter: brightness(0.8) contrast(1.2);
+  cursor: pointer;
 }
 
 .remove-btn-sum-small img {
   width: 20px;
 }
 
+.remove-btn-sum-small:hover {
+  filter: brightness(0.8) contrast(1.2);
+  cursor: pointer;
+}
+
 .add-btn-sum-small img {
   width: 20px;
 }
+
+.add-btn-sum-small:hover {
+  filter: brightness(0.8) contrast(1.2);
+  cursor: pointer;
+}
+
 .quantity-num {
   padding-left: 10px;
   padding-right: 10px;
@@ -543,4 +564,11 @@ body {
 .total-price {
   font-weight: 600;
   text-align: right;
+}
+
+/* fade out for when an item is deleted in cart */
+.fade-out {
+  opacity: 0;
+  color: #ff5757;
+  transition: opacity 0.5s linear, color 0.3s ease-out;
 }

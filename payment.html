@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="checkout.css" />
     <script defer src="https://js.stripe.com/v3/"></script>
     <script defer src="checkout.js"></script>
-    <script defer src="sticker-builder.js"></script>
+    <script defer src="product-summary.js"></script>
   </head>
   <body>
     <div class="nav">
@@ -72,9 +72,9 @@
             </div>
           </div>
           <!-- End one -->
-          <div class="divider divider-custom"></div>
-
+          
           <div class="builder-container">
+            <div class="divider divider-custom"></div>
             <!-- Sticker Two -->
             <div class="sticker-border">
               <text class="sticker-for-sale-sum">FOR SALE</text>
@@ -116,9 +116,9 @@
             </div>
           </div>
           <!-- End two -->
-          <div class="divider divider-custom"></div>
 
           <div class="builder-container">
+            <div class="divider divider-custom"></div>
             <!-- Sticker three, sum = summary -->
             <div class="sticker-border">
               <text class="sticker-for-sale-sum">FOR SALE</text>
@@ -161,7 +161,6 @@
           <!-- End three -->
           <button class="variant-btn">Add Variant</button>
           <div class="order-total-section"></div>
-          
 
           <!-- Order Total Section-->
           <div class="order-subtotal">
@@ -186,7 +185,8 @@
           <div class="total-price">
             <text>$40.23</text>
           </div>
-        </div> <!-- Scroll Box End-->
+        </div>
+        <!-- Scroll Box End-->
       </div>
 
       <!-- Payment Section-->
