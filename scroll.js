@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// Pointer control for subtotal div, if scrollbox not at bottom show pointer cuser.
+// Pointer control for subtotal div, if scrollbox not at bottom show pointer
 const productScrollbox = document.querySelector('.product-scrollbox');
 const orderSubtotal = document.querySelector('.order-subtotal');
 
