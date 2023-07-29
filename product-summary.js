@@ -19,6 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
             currentTarget.scrollIntoView({ behavior: "smooth" });
         }, 200, event.currentTarget);
 
+        /* logic for removing divider on first sticker */
+        const builderContainer = document.querySelector(".builder-container");
+
+        if (builderContainer) {
+            const parent = builderContainer.parentNode;
+            const builderContainersInParent = parent.querySelectorAll('.builder-container');
+
+
+            const divider = builderContainersInParent[0].querySelector(".divider");
+            divider.style.display = 'none';
+
+        }
+
     }
 
 
@@ -47,12 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
         stickerNumber.classList.add('sticker-num-sum');
         stickerNumber.textContent = '555-555-5555';
         stickerBorder.appendChild(stickerNumber);
+        stickerNumber.setAttribute("id", "sticker-num");
 
 
         const stickerEmail = document.createElement('text');
         stickerEmail.classList.add('sticker-email-sum');
         stickerEmail.textContent = 'Emmanuel.rodriguez@icloud.com';
         stickerBorder.appendChild(stickerEmail);
+        stickerEmail.setAttribute("id", "sticker-mail");
 
         /* Option Wrapper */
         const optionWrapper1 = document.createElement("div");
@@ -170,26 +185,83 @@ document.addEventListener("DOMContentLoaded", () => {
         quantityText.textContent = "" + newQuantityValue;
         const builderContainer = quantityText.closest(".builder-container");
 
-        if (newQuantityValue === 0 && builderContainer.previousElementSibling) {
 
 
-            const previousBuilderContainer = builderContainer.previousElementSibling;
 
-            if (previousBuilderContainer) {
-                // Scroll the previous builder container into view
-                previousBuilderContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+
+
+
+
+
+        if (builderContainer) {
+            const parent = builderContainer.parentNode;
+            const builderContainersInParent = parent.querySelectorAll('.builder-container');
+
+
+
+
+            if (newQuantityValue === 0 && builderContainersInParent.length > 1) {
+
+
+
+
+
+
+
+                const previousBuilderContainer = builderContainer.previousElementSibling;
+                const stickerBorder = builderContainer.querySelector(".sticker-border");
+
+
+                if (previousBuilderContainer) {
+                    // Scroll the previous builder container into view
+                    previousBuilderContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                if (builderContainer) {
+                    stickerBorder.style.borderColor = "red";
+                    const addBtnSumElements = builderContainer.querySelectorAll(".add-btn-sum");
+                    addBtnSumElements.forEach((addBtnSum) => {
+                        const imgElement = addBtnSum.querySelector("img");
+                        imgElement.src = "assets/add-btn-delete.png";
+                    });
+                    const addQuantityBtn = builderContainer.querySelector(".add-btn-sum-small");
+                    const imgElement = addQuantityBtn.querySelector("img");
+                    imgElement.src = "assets/add-btn-delete.png";
+
+                    builderContainer.classList.add("fade-out");
+                    setTimeout(() => {
+                        builderContainer.remove();
+                    }, 500); // Wait for the transition to finish (500ms in this example)
+                }
+
+                /* logic for removing divider on first sticker */
+
+                const parent = builderContainer.parentNode;
+                const builderContainersInParent = parent.querySelectorAll('.builder-container');
+
+                if (builderContainer === builderContainersInParent[0]) {
+                    const divider = builderContainersInParent[1].querySelector(".divider");
+                    divider.style.display = 'none';
+
+                }
+
+
+
+
+
+
+
+            } else if (newQuantityValue === 0 && !(builderContainersInParent.length > 1)) {
+                quantityText.textContent = "1";
+                // Add the "shake" class to apply the animation
+                builderContainer.classList.add('shake');
+
+                // Remove the "shake" class after the animation completes
+                builderContainer.addEventListener('animationend', () => {
+                    builderContainer.classList.remove('shake');
+                });
             }
-
-            if (builderContainer) {
-                builderContainer.classList.add("fade-out");
-                setTimeout(() => {
-                    builderContainer.remove();
-                }, 500); // Wait for the transition to finish (500ms in this example)
-            }
-
-
-        } else if (!builderContainer.previousElementSibling) {
-            quantityText.textContent = "1";
         }
     }
 
