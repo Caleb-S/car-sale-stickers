@@ -607,3 +607,77 @@ body {
   animation-timing-function: ease-in-out;
   animation-iteration-count: 1; /* Number of times the animation repeats */
 }
+
+@media (min-width: 400px) {
+  .sticker-input.num-input {
+    font-size: 32px;
+  }
+}
+@media (min-width: 700px) {
+  .sticker-input.num-input {
+    font-size: 48px;
+  }
+}
+@media (min-width: 1000px) {
+  .sticker-input.num-input {
+    font-size: 64px;
+  }
+}
+
+@media (min-width: 400px) {
+  .sticker-input.mail-input {
+    font-size: 14px;
+  }
+}
+@media (min-width: 700px) {
+  .sticker-input.mail-input {
+    font-size: 21px;
+  }
+}
+@media (min-width: 1000px) {
+  .sticker-input.mail-input {
+    font-size: 28px;
+  }
+}
+
+.sticker-input {
+  border: none;
+  outline: none;
+  text-align: center;
+  align-content: center;
+  width: auto;
+
+  background-color: rgba(25, 25, 25, 0);
+  color: rgb(136, 134, 134);
+
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: url("assets/custom-cursors/Text.png"), text;
+}
+
+.input-wrapper {
+  width: auto;
+}
+
+/*
+@media (min-width: 400px) {
+  .sticker-num {
+    font-size: 32px;
+  }
+}
+@media (min-width: 700px) {
+  .sticker-num {
+    font-size: 48px;
+  }
+}
+@media (min-width: 1000px) {
+  .sticker-num {
+    font-size: 64px;
+  }
+}
+.sticker-num {
+  word-wrap: normal;
+  white-space: nowrap;
+}
+*/

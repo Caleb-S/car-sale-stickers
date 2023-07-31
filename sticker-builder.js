@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
 
             params.append("sticker-num", "show");
-            params.append("num-text", mobileText.textContent);
+            params.append("num-text", mobileText.value);
 
         }
 
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
 
             params.append("sticker-mail", "show");
-            params.append("mail-text", emailText.textContent);
+            params.append("mail-text", emailText.value);
 
         }
 
@@ -70,6 +70,97 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 });
+
+
+function getTextWidth(text, font) {
+    // Create an off-screen canvas
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    // Set the font for the context
+    context.font = font;
+
+    // Measure the text width
+    const textWidth = context.measureText(text).width;
+
+    // Clean up
+    canvas.remove();
+
+    return textWidth;
+}
+
+
+
+/*
+var input = document.querySelector('.css-14rbhqw'); // get the input element
+input.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
+resizeInput.call(input); // immediately call the function
+var placeholder = "555-555-5555";
+input.value = placeholder;
+resizeInput.call(input); // immediately call the function
+
+function resizeInput() {
+    this.style.width = this.value.length + "ch";
+}
+*/
+
+
+var numInput = document.querySelector('.num-input'); // get the .num-input element
+var mailInput = document.querySelector('.mail-input'); // get the .mail-input element
+
+numInput.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
+numInput.addEventListener('focus', handleFocus); // bind the "handleFocus" callback on "focus" event
+numInput.addEventListener('blur', handleBlur); // bind the "handleBlur" callback on "blur" event
+numInput.addEventListener('focusin', handleFocusIn);
+numInput.addEventListener('focusout', handleFocusOut);
+
+mailInput.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
+mailInput.addEventListener('focus', handleFocus); // bind the "handleFocus" callback on "focus" event
+mailInput.addEventListener('blur', handleBlur); // bind the "handleBlur" callback on "blur" event
+mailInput.addEventListener('focusin', handleFocusIn);
+mailInput.addEventListener('focusout', handleFocusOut);
+
+// Initialize the inputs with the placeholder text
+numInput.value = numInput.placeholder;
+resizeInput.call(numInput);
+
+mailInput.value = mailInput.placeholder;
+resizeInput.call(mailInput);
+
+function resizeInput() {
+    this.style.width = Math.max(this.value.length, this.placeholder.length) + "ch";
+}
+
+function handleFocus() {
+    if (this.value === this.placeholder) {
+        this.value = '';
+        this.style.color = 'white';
+        this.style.backgroundColor = 'rgb(25, 25, 25)';
+
+        resizeInput.call(this);
+    }
+}
+
+function handleFocusIn() {
+    this.style.backgroundColor = 'rgb(25, 25, 25)';
+}
+
+function handleFocusOut() {
+    if (this.value !== this.placeholder) {
+
+        this.style.color = 'white';
+    }
+    this.style.backgroundColor = 'transparent';
+}
+
+function handleBlur() {
+    if (this.value === '') {
+        this.value = this.placeholder;
+        this.style.color = 'rgb(136, 134, 134)';
+        this.style.backgroundColor = 'rgb(25, 25, 25)';
+        resizeInput.call(this);
+    }
+}
 
 
 

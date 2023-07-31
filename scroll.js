@@ -110,7 +110,7 @@ function updateCursorStyle() {
     if (isScrolledToBottom()) {
         orderSubtotal.style.cursor = 'default';
     } else {
-        orderSubtotal.style.cursor = 'pointer';
+        orderSubtotal.style.cursor = 's-resize';
     }
 }
 
