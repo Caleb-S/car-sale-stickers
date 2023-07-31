@@ -1,4 +1,53 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const quantity = parseInt(params.get("quantity"));
+    const numShow = params.get("sticker-num");
+    const mailShow = params.get("sticker-mail");
+    const numTextParam = params.get("num-text");
+    const mailTextParam = params.get("mail-text");
+
+    // Add Sticker.
+    if (quantity === 1) {
+        const variantBtn = document.querySelector(".variant-btn");
+        const newOptionWrapper = createOptionWrapperElement();
+        variantBtn.parentNode.insertBefore(newOptionWrapper, variantBtn);
+
+    }
+
+    const builderContainer = document.querySelector(".builder-container");
+
+    if (builderContainer) {
+        const parent = builderContainer.parentNode;
+        const builderContainersInParent = parent.querySelectorAll('.builder-container');
+
+
+        const divider = builderContainersInParent[0].querySelector(".divider");
+        divider.style.display = 'none';
+
+    }
+
+    // change text and adjust visability of text.
+    if (numShow === "show") {
+        const mobileText = builderContainer.querySelector('#sticker-num');
+        const mobileButton = builderContainer.querySelector('#mobile-btn');
+        const mobileImage = mobileButton.querySelector('img');
+        mobileText.style.display = 'block';
+        mobileText.textContent = numTextParam;
+        mobileImage.setAttribute("src", "assets/remove-btn.png");
+    }
+
+    if (mailShow === "show") {
+        const mailText = builderContainer.querySelector('#sticker-mail');
+        const mailButton = builderContainer.querySelector('#email-btn');
+        const mailImage = mailButton.querySelector('img');
+        mailText.style.display = 'block';
+        mailText.textContent = mailTextParam;
+        mailImage.setAttribute("src", "assets/remove-btn.png");
+    }
+
+
+
+
     const variantButton = document.querySelector(".variant-btn");
     variantButton.addEventListener("click", handleVariantButtonClick);
 
@@ -32,6 +81,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+        /*
+
+        const ids = ['sticker-num', 'sticker-mail'];
+        const buttons = ['mobile-btn', 'email-btn'];
+
+        for (let i = 0; i < ids.length; i++) {
+            const itemText = builderContainer.getElementById(ids[i]);
+            const button = builderContainer.getElementById(buttons[i]);
+
+            button.addEventListener('click', () => {
+                itemText.style.display = 'block';
+            });
+        }
+        */
+
     }
 
 
@@ -61,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         stickerNumber.textContent = '555-555-5555';
         stickerBorder.appendChild(stickerNumber);
         stickerNumber.setAttribute("id", "sticker-num");
+        stickerNumber.style.display = 'none';
 
 
         const stickerEmail = document.createElement('text');
@@ -68,6 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
         stickerEmail.textContent = 'Emmanuel.rodriguez@icloud.com';
         stickerBorder.appendChild(stickerEmail);
         stickerEmail.setAttribute("id", "sticker-mail");
+        stickerEmail.style.display = 'none';
+
 
         /* Option Wrapper */
         const optionWrapper1 = document.createElement("div");
@@ -90,6 +157,18 @@ document.addEventListener("DOMContentLoaded", () => {
         NumOptionText.textContent = "Mobile Number";
         optionWrapper1.appendChild(NumOptionText);
 
+        addBtnNum.addEventListener('click', () => {
+
+
+            if (stickerNumber.style.display === 'none') {
+                stickerNumber.style.display = 'block';
+                addBtnNumImg.setAttribute("src", "assets/remove-btn.png");
+            } else {
+                stickerNumber.style.display = 'none';
+                addBtnNumImg.setAttribute("src", "assets/add-btn.png");
+            }
+        });
+
         /* Email Option*/
         const optionWrapper2 = document.createElement("div");
         optionWrapper2.classList.add("option-wrapper");
@@ -97,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const addBtnMail = document.createElement("div");
         addBtnMail.classList.add("add-btn-sum");
-        addBtnMail.setAttribute("id", "mobile-btn");
+        addBtnMail.setAttribute("id", "email-btn");
 
         const addBtnMailImg = document.createElement("img");
         addBtnMailImg.setAttribute("src", "assets/add-btn.png");
@@ -109,6 +188,18 @@ document.addEventListener("DOMContentLoaded", () => {
         MailOptionText.classList.add("sticker-option-text");
         MailOptionText.textContent = "Email";
         optionWrapper2.appendChild(MailOptionText);
+
+        addBtnMail.addEventListener('click', () => {
+
+
+            if (stickerEmail.style.display === 'none') {
+                stickerEmail.style.display = 'block';
+                addBtnMailImg.setAttribute("src", "assets/remove-btn.png");
+            } else {
+                stickerEmail.style.display = 'none';
+                addBtnMailImg.setAttribute("src", "assets/add-btn.png");
+            }
+        });
 
 
         /* Quantity Option */
@@ -211,6 +302,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const previousBuilderContainer = builderContainer.previousElementSibling;
                 const stickerBorder = builderContainer.querySelector(".sticker-border");
+                const parent = builderContainer.parentNode;
+                const builderContainersInParent = parent.querySelectorAll('.builder-container');
 
 
                 if (previousBuilderContainer) {
@@ -223,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const addBtnSumElements = builderContainer.querySelectorAll(".add-btn-sum");
                     addBtnSumElements.forEach((addBtnSum) => {
                         const imgElement = addBtnSum.querySelector("img");
-                        imgElement.src = "assets/add-btn-delete.png";
+                        imgElement.src = "assets/btn-plain-red.png";
                     });
                     const addQuantityBtn = builderContainer.querySelector(".add-btn-sum-small");
                     const imgElement = addQuantityBtn.querySelector("img");
@@ -232,19 +325,20 @@ document.addEventListener("DOMContentLoaded", () => {
                     builderContainer.classList.add("fade-out");
                     setTimeout(() => {
                         builderContainer.remove();
+                        if (builderContainer === builderContainersInParent[0]) {
+                            const divider = builderContainersInParent[1].querySelector(".divider");
+                            divider.style.display = 'none';
+
+                        }
+
                     }, 500); // Wait for the transition to finish (500ms in this example)
                 }
 
                 /* logic for removing divider on first sticker */
 
-                const parent = builderContainer.parentNode;
-                const builderContainersInParent = parent.querySelectorAll('.builder-container');
 
-                if (builderContainer === builderContainersInParent[0]) {
-                    const divider = builderContainersInParent[1].querySelector(".divider");
-                    divider.style.display = 'none';
 
-                }
+
 
 
 
