@@ -1,16 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     // JavaScript
     const mobileText = document.getElementById('sticker-num');
-    mobileText.style.display = 'none';
     const mobileButton = document.getElementById('mobile-btn');
     const mobileImage = mobileButton.querySelector('img');
+    mobileText.style.display = 'none';
 
     const emailText = document.getElementById('sticker-mail');
-    emailText.style.display = 'none';
     const emailButton = document.getElementById('email-btn');
     const emailImage = emailButton.querySelector('img');
-
+    emailText.style.display = 'none';
 
     mobileButton.addEventListener('click', () => {
         if (mobileText.style.display === 'none') {
@@ -32,79 +30,45 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-
     document.getElementById("orderButton").addEventListener("click", () => {
         // Construct the URL with query parameters
         const params = new URLSearchParams();
         params.append("quantity", 1);
 
-
-        /* https://example.com/other-page?sticker-num=show&sticker-mail=hide */
-
         if (mobileText.style.display === 'none') {
             params.append("sticker-num", "hide");
-
-
         } else {
-
             params.append("sticker-num", "show");
             params.append("num-text", mobileText.value);
-
         }
 
         if (emailText.style.display === 'none') {
             params.append("sticker-mail", "hide");
-
-
         } else {
-
             params.append("sticker-mail", "show");
             params.append("mail-text", emailText.value);
-
         }
 
         // Navigate to the payment.html page with the parameters
         window.location.href = "payment.html?" + params.toString();
     });
-
-
-
 });
 
-
+// Utility function
 function getTextWidth(text, font) {
     // Create an off-screen canvas
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
-
     // Set the font for the context
     context.font = font;
-
     // Measure the text width
     const textWidth = context.measureText(text).width;
-
     // Clean up
     canvas.remove();
-
     return textWidth;
 }
 
-
-
-/*
-var input = document.querySelector('.css-14rbhqw'); // get the input element
-input.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
-resizeInput.call(input); // immediately call the function
-var placeholder = "555-555-5555";
-input.value = placeholder;
-resizeInput.call(input); // immediately call the function
-
-function resizeInput() {
-    this.style.width = this.value.length + "ch";
-}
-*/
-
-
+// Event listeners for resizing input fields
 var numInput = document.querySelector('.num-input'); // get the .num-input element
 var mailInput = document.querySelector('.mail-input'); // get the .mail-input element
 
@@ -136,7 +100,6 @@ function handleFocus() {
         this.value = '';
         this.style.color = 'white';
         this.style.backgroundColor = 'rgb(25, 25, 25)';
-
         resizeInput.call(this);
     }
 }
@@ -147,10 +110,9 @@ function handleFocusIn() {
 
 function handleFocusOut() {
     if (this.value !== this.placeholder) {
-
         this.style.color = 'white';
     }
-    this.style.backgroundColor = 'transparent';
+    this.style.backgroundColor = 'transparent'; // Set it back to the default background color
 }
 
 function handleBlur() {
@@ -161,6 +123,3 @@ function handleBlur() {
         resizeInput.call(this);
     }
 }
-
-
-

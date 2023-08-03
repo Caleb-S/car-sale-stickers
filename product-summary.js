@@ -32,7 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const mobileButton = builderContainer.querySelector('#mobile-btn');
         const mobileImage = mobileButton.querySelector('img');
         mobileText.style.display = 'block';
-        mobileText.textContent = numTextParam;
+        mobileText.value = numTextParam;
+        handleFocusOut.call(mobileText);
         mobileImage.setAttribute("src", "assets/remove-btn.png");
     }
 
@@ -41,7 +42,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const mailButton = builderContainer.querySelector('#email-btn');
         const mailImage = mailButton.querySelector('img');
         mailText.style.display = 'block';
-        mailText.textContent = mailTextParam;
+        mailText.value = mailTextParam;
+        handleFocusOut.call(mailText);
         mailImage.setAttribute("src", "assets/remove-btn.png");
     }
 
@@ -120,19 +122,52 @@ document.addEventListener("DOMContentLoaded", () => {
         forSaleTxt.textContent = 'FOR SALE';
         stickerBorder.appendChild(forSaleTxt);
 
+        /*
         const stickerNumber = document.createElement('text');
         stickerNumber.classList.add('sticker-num-sum');
         stickerNumber.textContent = '555-555-5555';
         stickerBorder.appendChild(stickerNumber);
         stickerNumber.setAttribute("id", "sticker-num");
         stickerNumber.style.display = 'none';
+        */
+        const stickerNumber = document.createElement('input');
+        stickerNumber.classList.add('sticker-input');
+        stickerNumber.classList.add('num-input');
+        stickerNumber.setAttribute("id", "sticker-num");
+        stickerNumber.placeholder = '555-555-5555';
+        stickerNumber.addEventListener('input', resizeInput);
+        stickerNumber.addEventListener('focus', handleFocus);
+        stickerNumber.addEventListener('blur', handleBlur);
+        stickerNumber.addEventListener('focusin', handleFocusIn);
+        stickerNumber.addEventListener('focusout', handleFocusOut);
+        stickerBorder.appendChild(stickerNumber);
+        resizeInput.call(stickerNumber);
+        stickerNumber.style.display = 'none';
 
 
+
+        /*
         const stickerEmail = document.createElement('text');
         stickerEmail.classList.add('sticker-email-sum');
         stickerEmail.textContent = 'Emmanuel.rodriguez@icloud.com';
         stickerBorder.appendChild(stickerEmail);
         stickerEmail.setAttribute("id", "sticker-mail");
+        stickerEmail.style.display = 'none';
+        */
+
+        const stickerEmail = document.createElement('input');
+        stickerEmail.classList.add('sticker-input');
+        stickerEmail.classList.add('mail-input');
+        stickerEmail.setAttribute("id", "sticker-mail");
+        stickerEmail.placeholder = 'enter.emailaddress@here.com';
+        stickerEmail.addEventListener('input', resizeInput);
+        stickerEmail.addEventListener('focus', handleFocus);
+        stickerEmail.addEventListener('blur', handleBlur);
+        stickerEmail.addEventListener('focusin', handleFocusIn);
+        stickerEmail.addEventListener('focusout', handleFocusOut);
+        stickerBorder.appendChild(stickerEmail);
+        resizeInput.call(stickerEmail);
+
         stickerEmail.style.display = 'none';
 
 
@@ -363,3 +398,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+// Utility function
+function getTextWidth(text, font) {
+    // Create an off-screen canvas
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    // Set the font for the context
+    context.font = font;
+    // Measure the text width
+    const textWidth = context.measureText(text).width;
+    // Clean up
+    canvas.remove();
+    return textWidth;
+}
+
+function resizeInput() {
+    this.style.width = Math.max(this.value.length, this.placeholder.length) + "ch";
+}
+
+function handleFocus() {
+    if (this.value === this.placeholder) {
+        this.value = '';
+        this.style.color = 'white';
+        this.style.backgroundColor = 'rgb(25, 25, 25)';
+        resizeInput.call(this);
+    }
+}
+
+function handleFocusIn() {
+    this.style.backgroundColor = 'rgb(25, 25, 25)';
+}
+
+function handleFocusOut() {
+    if (this.value !== this.placeholder) {
+        this.style.color = 'white';
+    }
+    this.style.backgroundColor = 'transparent'; // Set it back to the default background color
+}
+
+function handleBlur() {
+    if (this.value === '') {
+        this.value = this.placeholder;
+        this.style.color = 'rgb(136, 134, 134)';
+        this.style.backgroundColor = 'rgb(25, 25, 25)';
+        resizeInput.call(this);
+    }
+}

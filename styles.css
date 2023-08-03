@@ -38,7 +38,8 @@ body {
 
   display: flex;
   flex-direction: column;
-  background-image: url("assets/cover-photo.jpg");
+  background-image: url("assets/cover-photo.jpeg");
+  background-size: cover;
 }
 
 .header-title-container {
@@ -654,6 +655,14 @@ body {
   padding: 0;
   border: none;
   cursor: url("assets/custom-cursors/Text.png"), text;
+}
+
+.sticker-input:hover {
+  background-color: rgb(35, 35, 35);
+}
+
+.sticker-input-hover {
+  background-color: rgb(35, 35, 35);
 }
 
 .input-wrapper {
