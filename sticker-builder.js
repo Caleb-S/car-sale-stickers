@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (mobileText.style.display === 'none') {
             mobileText.style.display = 'block';
             mobileImage.setAttribute("src", "assets/remove-btn.png");
+            mobileText.focus();
         } else {
             mobileText.style.display = 'none';
             mobileImage.setAttribute("src", "assets/add-btn.png");
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (emailText.style.display === 'none') {
             emailText.style.display = 'block';
             emailImage.setAttribute("src", "assets/remove-btn.png");
+            emailText.focus();
         } else {
             emailText.style.display = 'none';
             emailImage.setAttribute("src", "assets/add-btn.png");
@@ -77,12 +79,22 @@ numInput.addEventListener('focus', handleFocus); // bind the "handleFocus" callb
 numInput.addEventListener('blur', handleBlur); // bind the "handleBlur" callback on "blur" event
 numInput.addEventListener('focusin', handleFocusIn);
 numInput.addEventListener('focusout', handleFocusOut);
+numInput.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+        numInput.blur();// Shift focus to the button
+    }
+});
 
 mailInput.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
 mailInput.addEventListener('focus', handleFocus); // bind the "handleFocus" callback on "focus" event
 mailInput.addEventListener('blur', handleBlur); // bind the "handleBlur" callback on "blur" event
 mailInput.addEventListener('focusin', handleFocusIn);
 mailInput.addEventListener('focusout', handleFocusOut);
+mailInput.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+        mailInput.blur();// Shift focus to the button
+    }
+});
 
 // Initialize the inputs with the placeholder text
 numInput.value = numInput.placeholder;

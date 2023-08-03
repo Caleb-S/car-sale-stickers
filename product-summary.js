@@ -198,6 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (stickerNumber.style.display === 'none') {
                 stickerNumber.style.display = 'block';
                 addBtnNumImg.setAttribute("src", "assets/remove-btn.png");
+                stickerNumber.focus();
             } else {
                 stickerNumber.style.display = 'none';
                 addBtnNumImg.setAttribute("src", "assets/add-btn.png");
@@ -230,6 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (stickerEmail.style.display === 'none') {
                 stickerEmail.style.display = 'block';
                 addBtnMailImg.setAttribute("src", "assets/remove-btn.png");
+                stickerEmail.focus();
             } else {
                 stickerEmail.style.display = 'none';
                 addBtnMailImg.setAttribute("src", "assets/add-btn.png");
@@ -303,6 +305,8 @@ document.addEventListener("DOMContentLoaded", () => {
         quantityText.textContent = "" + newQuantityValue;
 
 
+
+
     }
 
     function removeBtnClickQuantity(event, quantityText) {
@@ -328,12 +332,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             if (newQuantityValue === 0 && builderContainersInParent.length > 1) {
-
-
-
-
-
-
 
                 const previousBuilderContainer = builderContainer.previousElementSibling;
                 const stickerBorder = builderContainer.querySelector(".sticker-border");
@@ -370,13 +368,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
                 /* logic for removing divider on first sticker */
-
-
-
-
-
-
-
 
 
 
