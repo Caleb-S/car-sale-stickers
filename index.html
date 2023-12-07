@@ -1,110 +1,1453 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Car Sale Stickers</title>
-    <link rel="stylesheet" href="styles.css" />
 
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="assets/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="assets/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="assets/favicon/favicon-16x16.png"
-    />
-    <link rel="manifest" href="assets/favicon/site.webmanifest" />
-  </head>
-  <body>
-    <!-- Nav menu -->
-    <div class="nav">
-      <h3 class="nav-title">CarSaleStickers.com</h3>
-    </div>
+<head>
+  <meta charset="UTF-8">
 
-    <!-- Main Body -->
-    <div class="main">
-      <div class="container">
-        <div class="header-section">
-          <!-- Header Section-->
-          <div class="header-section">
-            <div class="header-title-container">
-              <h1 class="header-title">
-                Build<br />
-                Your Own Sticker
-              </h1>
-            </div>
-            <div class="header-background"></div>
-          </div>
-          <!-- Sticker Builder Section-->
-          <div class="build-section">
-            <div class="sticker-builder">
-              <h2 class="builder-title">Build Your Sticker:</h2>
-              <div class="builder-container">
-                <!-- Sticker Preview -->
-                <div class="sticker-border">
-                  <text class="sticker-for-sale">FOR SALE</text>
-                  <!-- <text class="sticker-num" id="sticker-num">555-555-5555</text> -->
-                  <!-- <text class="sticker-email" id="sticker-mail"
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta name="description" content="Get Noticed and Sell Faster with Custom Car Sale Stickers! Design high-quality 'For Sale' stickers with your contact info. Order now for a timeless and effective solution.">
+  <meta name="theme-color" content="#5ccb7c">
+
+  
+  <title>Car Sale Stickers</title>
+  <link rel="stylesheet"  href="styles.css" />
+  <!-- Include the Lottie library from a CDN -->
+  <!-- Prefetch DNS resolution for the domain -->
+
+
+  <!-- Does not work with above library
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
+-->
+
+<!--
+<link rel="preload" as="image" fetchpriority="high" href="assets/cover-photo-mobile.webp" media="screen and (max-width: 639px)" type="image/webp">
+<link rel="alternate" as="image"   fetchpriority="low" href="assets/cover-photo-mobile.jpg" media="screen and (max-width: 639px)" type="image/jpeg">
+<link rel="preload" as="image" fetchpriority="high" href="assets/cover-photo-v2.webp" media="screen and (min-width: 640px)" type="image/webp">
+<link rel="alternate" as="image"  fetchpriority="low"  href="assets/cover-photo.jpeg" media="screen and (min-width: 640px)" type="image/jpeg">
+ -->
+
+
+
+ <link rel="preload" as="image" fetchpriority="high" href=" assets/how-to.gif2.gif"  type="image/gif">
+
+<link rel="preload" as="image" fetchpriority="high" href="assets/cover-photo-updated.webp"  type="image/webp">
+<link rel="alternate" as="image"  fetchpriority="low"  href="assets/cover-photo-updated.jpg"  type="image/jpg">
+
+<link rel="preload" as="image" fetchpriority="high" href="assets/insta-icon-indent.webp"  type="image/webp">
+<link rel="preload" as="image" fetchpriority="high" href="assets/youtube-icon-indent.webp"  type="image/webp">
+<link rel="preload" as="image" fetchpriority="high" href="assets/pinterest-icon-indent.webp"  type="image/webp">
+<link rel="preload" as="image" fetchpriority="high" href="assets/tiktok-icon-indent.webp"  type="image/webp">
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="assets/favicon/site.webmanifest" />
+
+
+
+
+  <link rel="dns-prefetch" fetchpriority="high" href="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie_light.min.js">
+
+<!-- Load the script lazily 
+<script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie_light.js" loading="lazy" async></script>
+-->
+
+</head>
+
+<body>
+
+
+
+  
+  <!-- =======================================================================
+    | Nav Menu
+    ======================================================================= -->
+  <div class="nav">
+    <h3 class="nav-title">CarSaleStickers.com</h3>
+  </div>
+
+  <!-- Main Body ==========================================================-->
+  <div class="main">
+    <div class="container">
+      <!-- ===================================================================
+        | Header Section
+        =================================================================== -->
+      <div class="header-section">
+        <div class="header-title-container">
+          <h1 class="header-title">
+            Build<br />
+            Your Own Sticker
+          </h1>
+        </div>
+        
+      </div>
+
+      <!-- ===================================================================
+        | Sticker Builder Section
+        =================================================================== -->
+      <div class="build-section">
+        <div class="sticker-builder">
+          <h2 class="builder-title">Build Your Sticker:</h2>
+          <div class="builder-container">
+            <!-- Sticker Preview -->
+            <div class="sticker-border">
+
+              <text class="sticker-for-sale">FOR<span style="font-size: 20px;"> </span>SALE</text>
+              <!-- <text class="sticker-num" id="sticker-num">555-555-5555</text> -->
+              <!-- <text class="sticker-email" id="sticker-mail"
                     >Emmanuel.rodriguez@icloud.com</text
                   > -->
 
-                  <input
-                    aria-label="Enter Your Phone Number"
-                    spellcheck="false"
-                    placeholder="555-555-5555"
-                    class="sticker-input num-input"
-                    value=""
-                    id="sticker-num"
-                  />
-                  <input
-                    aria-label="Enter Your Phone Number"
-                    spellcheck="false"
-                    placeholder="enter.emailaddress@here.com"
-                    class="sticker-input mail-input"
-                    value=""
-                    id="sticker-mail"
-                  />
-                </div>
-                <div class="option-wrapper">
-                  <!-- <button class="mobile-Num-btn"></button> -->
-                  <div class="add-btn" id="mobile-btn">
-                    <img src="assets/add-btn.png" alt="Cover Photo" />
-                  </div>
-                  <text class="sticker-option-text">Mobile Number</text>
-                </div>
-                <div class="option-wrapper">
-                  <!-- <button class="email-btn"></button> -->
-                  <div class="add-btn" id="email-btn">
-                    <img src="assets/add-btn.png" alt="Cover Photo" />
-                  </div>
-                  <text class="sticker-option-text">Email</text>
+              <input type="tel" aria-label="Enter Your Phone Number" spellcheck="false" placeholder="555-555-5555"
+                class="sticker-input num-input" value="" id="sticker-num" tabindex="0" maxlength="21" autocomplete="off"/>
+              <input type="email" aria-label="Enter Your Email" spellcheck="false" placeholder="your.email@example.com"
+                class="sticker-input mail-input" value="" id="sticker-mail" tabindex="0" maxlength="30" autocomplete="off"/>
+            </div>
+            <div class="option-wrapper">
+              <!-- <button class="mobile-Num-btn"></button> -->     
+              <div class="add-btn mobile-btn" id="mobile-btn" type="button" aria-label="Add mobile number to sticker" tabindex="0">
+                <img src="assets/add-btn.svg" alt="Add Mobile Button image" style="fill: red;"/>
+              </div>    
+              <text class="sticker-option-text mobile-txt" id="mobile-txt" style="cursor: pointer;">Mobile Number</text>
+            </div>
+            <div class="option-wrapper">
+              <!-- <button class="email-btn"></button> -->
+              <div class="add-btn email-btn" id="email-btn" type="button" aria-label="Add email number to sticker" tabindex="0" >
+                <img src="assets/add-btn.svg"  alt="Add Email Button image"/>
+              </div>
+              <text class="sticker-option-text mail-txt" id="mail-txt" style="cursor: pointer">Email</text>
+            </div>
+          </div>
+          <button id="orderButton" class="order-btn" type="button" aria-label="Proceed to checkout">ORDER</button>
+        </div>
+        <div class="marketing-card mobile-hidden" style=" max-width: 38% !important; justify-content:space-evenly !important; align-items: center !important; ">
+     
+ 
+   
+   <text class="social-text">
+   
+      Follow Us:
+</text>
+<div class="icon-row" >
+
+ 
+    <img src="assets/insta-icon-indent.webp" srcset="assets/insta-icon-indent.svg" class='large-social-icon' alt="Instagram Icon" style="cursor: pointer;" id="instagram-btn">
+
+  
+  <img src="assets/youtube-icon-indent.webp" srcset="assets/youtube-icon-indent.svg"  class='large-social-icon' alt="Youtube Icon" style="cursor: pointer" id="youtube-btn">
+  <img src="assets/pinterest-icon-indent.webp" srcset="assets/pinterest-icon-indent.svg"  class='large-social-icon' alt="Pinterest Icon" style="cursor: pointer" id="pinterest-btn">
+
+ <img src="assets/tiktok-icon-indent.webp" srcset="assets/tiktok-icon-indent.svg"  class='large-social-icon' alt="TikTok Icon" style="cursor: pointer;" id="tiktok-btn">
+ 
+
+</div>
+
+
+   <!--
+
+  
+  
+<text class="marketing-text" style="color: #000000; margin: 0px; padding: 0px; font-size: 35px;">
+  <b>For Sale + 1 Option: ~138mm</b>
+</text>
+<text class="marketing-text" style="color: #000000; margin: 0px; padding: 0px; text-align: left; font-size: 35px;">
+  <b>For Sale + 2 Options: ~220mm</b>
+</text>
+ -->
+
+       
+
+          <!-- 
+   <img src="assets\car-sticker-example-mobile.jpg" alt="Description of the image" style="width: auto; max-width: 100%;">  
+          -->
+       
+
+       
+        </div>
+      </div>
+
+      <!-- ===================================================================
+        | Benefits Section
+        =================================================================== -->
+      <div class="flex-row bg-black medium-section">
+        <div class="flex-row flex-center sub-section-m">  
+          <text class="wrapper-sm benefits-text">
+            Without a for sale sign, potential buyers are left completely
+            unaware your cars for sale.
+          </text>
+        </div>
+
+        <div class="mobile-hidden" style="
+              height: 40%;
+              background: white;
+              width: 0.05rem;
+              margin-top: auto;
+              margin-bottom: auto;
+            "></div>
+
+        <div class="flex-row flex-center sub-section-m mobile-hidden">
+          <text class="wrapper-sm benefits-text">
+            There's a reason sale signs are used by almost every sales &
+            business man on earth.
+          </text>
+        </div>
+      </div>
+
+      <!-- ===================================================================
+        | Sales Section
+        =================================================================== -->
+      <div style="background: white; width: 100%">
+        <div class="flex-row bg-white flex-center large-section" style="margin-top: 0px; height: 80vh">
+          <div class="flex-row flex-center sub-section-m">
+            <text class="marketing-text wrapper-sm" style="font-weight: 600">
+              Let every passerby know your cars for sale.
+            </text>
+
+            <dotlottie-player background="transparent" speed="1" class="sales-lotte" loop autoplay></dotlottie-player>
+          </div>
+        </div>
+
+        <script>
+          var script = document.createElement('script');
+
+          script.type = 'text/javascript';
+script.src = 'https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie_light.min.js';
+script.async = true;
+script.loading = 'none';
+//script.defer = true;
+
+script.onload = function() {
+  const animation = lottie.loadAnimation({
+            container: document.querySelector('.sales-lotte'), // Replace with your specific selector
+            loop: true,
+            autoplay: false,
+            path: 'https://lottie.host/1330341b-c93d-4a94-80c3-0283fbc902a6/dK6oWNihUp.json', // Replace with the path to your animation JSON file
+          });
+
+           // Function to start the animation
+           function startAnimation() {
+            animation.play();
+          }
+
+          // Function to stop the animation
+          function stopAnimation() {
+            animation.pause();
+          }
+
+          const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                // Animation is in the viewport, start it
+                startAnimation();
+              } else {
+                // Animation is out of the viewport, stop it
+                stopAnimation();
+              }
+            });
+          });
+
+          observer.observe(document.querySelector('.sales-lotte'));
+};
+
+
+          document.head.appendChild(script);
+
+         
+         
+
+          // Initialize the Intersection Observer
+         
+
+          // Observe the Lottie container
+        
+
+
+
+
+
+
+
+
+        </script>
+
+        <!-- =================================================================
+          | Product Section
+          ================================================================= -->
+        <div style="width:auto; height: auto;">
+          <div style="width: 100%">
+            <h2 class="product-header" >
+              Elevating Standards
+            </h2>
+          </div>
+
+          <div class="flex-col bg-white product-section" style="height:auto; padding-bottom: 20px;">
+<div class="product-flex-direction-container ">
+            <div class="product-flex-direction flex-spaced">
+              <!-- Card #1 ==================================================-->
+              <div class="flex-col product-card">
+                <h3 class="product-title">High Quality</h3>
+                <div class="flex-col flex-spaced" style="height: 100%; align-items: center">
+                  <text class="product-text" >
+                    Our stickers are easily removable and transferable, waterproof and last up to 18 months outdoors.
+                  </text>
+
+                  <button class="product-btn">Learn More</button>
                 </div>
               </div>
-              <button id="orderButton" class="order-btn">ORDER</button>
+
+              <!-- Card #2 ==================================================-->
+              <div class="flex-col product-card">
+                <h3 class="product-title">Refined Packaging</h3>
+                <div class="flex-col flex-spaced" style="height: 100%; align-items: center">
+                  <text class="product-text">
+                    Our packaging standards have been refined and it is now extremely rare for breakages or damage to
+                    occur.
+                  </text>
+
+                  <button class="product-btn">Learn More</button>
+                </div>
+              </div>
+
+              <!-- Card #3 ==================================================-->
+              <div class="flex-col product-card">
+                <h3 class="product-title">Eco Friendly</h3>
+                <div class="flex-col flex-spaced" style="height: 100%; align-items: center">
+                  <text class="product-text">
+                    We use eco solvent inks - a lower VOC content than normal
+                    solvent inks and are significantly less hazardous.
+                  </text>
+
+                  <button class="product-btn">Learn More</button>
+                </div>
+              </div>
             </div>
-            <div class="marketing-card">
-              <h1 class="marketing-text">
-                Market<br /><b>Everywhere</b><br />You Go
-              </h1>
+            </div>
+          </div>
+        </div>
+
+        <div style="background: rgba(206, 206, 206, 0.37); height: 0.08rem"></div>
+
+        <!-- =================================================================
+          | Review Section
+          ================================================================= -->
+        <div class="flex-col bg-white wrapper-section" id="review-section">
+          <div class="flex-col flex-center" style="height: 100%; padding-top: 50px">
+            <div style="width: 100%">
+              <h2 class="review-header" style="padding-left: 5%; margin-bottom: 20px">
+                Reviews
+              </h2>
+            </div>
+
+            <div class="flex-row flex-center review-scroll-wrapper" >
+              <div class="review-container" style="
+                    display: flex;
+                    overflow-x: auto;
+                    white-space: nowrap;
+
+                    padding-bottom: 50px;
+                  " id="review-container">
+                <div class="review-card" style="
+                      flex: 0 0 auto;
+                      width: 300px;
+                      margin-right: 10px;
+                      pointer-events: none;
+                    ">
+                  <div class="review-name">Lisa Davis</div>
+                  <div class="review-body" style="white-space: normal">
+                    <!-- Update this line -->
+                    Selling a car can be a hassle, but this sticker simplified
+                    the process. I managed to sell my car to my neighbor!!
+                  </div>
+                </div>
+                <!-- Add more review cards as needed -->
+                <div class="review-card" style="
+                      flex: 0 0 auto;
+                      width: 300px;
+                      margin-right: 10px;
+                      pointer-events: none;
+                    ">
+                  <div class="review-name">David Williams</div>
+                  <div class="review-body" style="white-space: normal">
+                    <!-- Update this line -->
+                    I'm not tech-savvy, but customizing my 'For Sale' sticker
+                    was a breeze. The materials are top-notch, and it's super
+                    easy to apply.
+                  </div>
+                </div>
+                <!-- Add more review cards as needed -->
+                <div class="review-card" style="
+                      flex: 0 0 auto;
+                      width: 300px;
+                      margin-right: 10px;
+                      pointer-events: none;
+                    ">
+                  <div class="review-name">Sarah Wilson</div>
+                  <div class="review-body" style="white-space: normal">
+                    <!-- Update this line -->
+                    I sold my car faster and for a better price than I
+                    expected, all thanks to this little sticker. Well worth
+                    the investment.
+                  </div>
+                </div>
+
+                <div class="review-card" style="
+                      flex: 0 0 auto;
+                      width: 300px;
+                      margin-right: 10px;
+                      pointer-events: none;
+                    ">
+                  <div class="review-name">Michael Brown</div>
+                  <div class="review-body" style="white-space: normal">
+                    <!-- Update this line -->
+                    This sticker does exactly what it promises - it grabs
+                    attention! My car went from being unnoticed to a
+                    head-turner. It's like having a silent salesman on my
+                    vehicle. Highly recommended for anyone selling their car.
+                  </div>
+                </div>
+
+                <div class="review-card" style="
+                      flex: 0 0 auto;
+                      width: 300px;
+                      margin-right: 10px;
+                      pointer-events: none;
+                    ">
+                  <div class="review-name">Harper Turner</div>
+                  <div class="review-body" style="white-space: normal">
+                    <!-- Update this line -->
+                    I'm not great with technology, but customizing this 'For
+                    Sale' sticker was surprisingly easy. The material is
+                    durable, and it stuck well. My car sold faster than
+                    expected.
+                  </div>
+                </div>
+
+                <div class="review-card" style="
+                      flex: 0 0 auto;
+                      width: 300px;
+                      margin-right: 10px;
+                      pointer-events: none;
+                    ">
+                  <div class="review-name">Felix Morales</div>
+                  <div class="review-body" style="white-space: normal">
+                    <!-- Update this line -->
+                    This sticker delivers on its promise - it gets noticed. My
+                    car went from blending in to standing out. It's a
+                    practical tool for anyone selling their car.
+                  </div>
+                </div>
+
+                <div class="review-card" style="
+                      flex: 0 0 auto;
+                      width: 300px;
+                      margin-right: 10px;
+                      pointer-events: none;
+                    ">
+                  <div class="review-name">Elijah Baker</div>
+                  <div class="review-body" style="white-space: normal">
+                    <!-- Update this line -->
+                    I was pleasantly surprised by the effectiveness of this
+                    sticker. While it didn't make my car sell overnight, it
+                    did attract more attention and inquiries than I had
+                    before.
+                  </div>
+                </div>
+
+                <div class="review-card" style="
+                      flex: 0 0 auto;
+                      width: 300px;
+                      margin-right: 10px;
+                      pointer-events: none;
+                    ">
+                  <div class="review-name">Fatima Amadi</div>
+                  <div class="review-body" style="white-space: normal">
+                    <!-- Update this line -->
+                    I found this sticker to be a helpful addition to my
+                    car-selling efforts. While it didn't result in an instant
+                    sale, it contributed to the overall success of my selling
+                    experience.
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- ===================================================================
+        | Video Section
+        =================================================================== -->
+      <div class="flex-col bg-black wrapper-section flex-center" style="align-content: center">
+        <div class="marketing-text" id="time-on-page" style="margin-top: 50px">
+          <b>Time On Page: 0 Seconds</b>
+        </div>
+
+        <div class="video-h2">
+          Passersby Who Viewed Your Sticker<span class="mobile-hidden"> In That Timeframe</span>:
+        </div>
+
+        <div class="video-size">
+          <video preload="none" id="myVideo" controlsList="nodownload nofullscreen noremoteplayback" playsinline muted
+            style="width: 100%">
+            <!-- <source src="assets\video\30 Minutes of Cars - count.mp4" type="video/mp4" /> -->
+            <source src="assets\video\5-Min-of-Cars-Count_opt.mp4" type="video/mp4" />
+            <track src="assets\video\car_count_captions.vtt" kind="captions" srclang="und" label="universal_captions">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="video-h2 video-title-compare">
+          <b><span class="mobile-hidden">The</span> exposure sale signs can open your car up to <span
+              class="mobile-hidden">is severely
+              underrated</span>:</b>
+        </div>
+
+        <ul class="video-list">
+          <li class="video-list-item">
+            If
+            <span style="color: #64ef8b">parked on a moderately busy road</span>, an estimate of
+            <span style="color: #64ef8b">500 - 1000 people</span> per hour
+            might see your sticker.
+          </li>
+
+          <li class="video-list-item">
+            On a
+            <span style="color: #64ef8b">30 minute commute to work</span>, an
+            estimate of <span style="color: #64ef8b">200 - 400 people</span>
+            might see your sticker.
+          </li>
+
+          <li class="video-list-item">
+            A <span style="color: #ff5757">car listing online</span> typically
+            gets <span style="color: #ff5757">8 views per day</span> - 700 at
+            the end of a 90 day listing.
+          </li>
+        </ul>
+      </div>
+
+      <!-- ===================================================================
+        | Second Build Section
+        =================================================================== -->
+      <div class="cta-build-section">
+        <div class="marketing-card cta-marketing-card " style="background: #000000;">
+          <!--
+          <h2 class="cta-text">
+            <b>What are you waiting for?<br>
+              <span class="mobile-hidden" style="font-size: 20px;">Your sticker could be printed as soon as tomorrow:</span></b>
+          </h2>
+        -->
+          <h2 class="cta-text">
+            <b>What are you waiting for?</b>
+          </h2>
+        </div>
+        <div class="sticker-builder cta-sticker-builder">
+          <h2 class="builder-title cta-builder-title">Build Your Sticker:</h2>
+          <div class="builder-container">
+            <!-- Sticker Preview -->
+            <div class="sticker-border">
+              <text class="sticker-for-sale cta-sticker-for-sale">FOR<span style="font-size: 20px;"> </span>SALE</text>
+              <!-- <text class="sticker-num" id="sticker-num">555-555-5555</text> -->
+              <!-- <text class="sticker-email" id="sticker-mail"
+                    >Emmanuel.rodriguez@icloud.com</text
+                  > -->
+
+              <input type="tel" aria-label="Enter Your Phone Number" spellcheck="false" placeholder="555-555-5555"
+                class="sticker-input num-input cta-num-input" value="" id="sticker-num2" tabindex="0" maxlength="21" autocomplete="off"/>
+              <input type="email" aria-label="Enter Your Email" spellcheck="false" placeholder="your.email@example.com"
+                class="sticker-input mail-input cta-mail-input" value="" id="sticker-mail2" tabindex="0"  maxlength="30" autocomplete="off"/>
+            </div>
+            <div class="option-wrapper">
+              <!-- <button class="mobile-Num-btn"></button> -->
+              <div class="add-btn mobile-btn cta-add-btn" id="mobile-btn2" type="button" aria-label="Add mobile number to sticker" tabindex="0">
+                <img src="assets/add-btn.svg" alt="Add Mobile Button image" />
+              </div>
+              <text class="sticker-option-text mobile-txt" style="cursor: pointer">Mobile Number</text>
+            </div>
+            <div class="option-wrapper">
+              <!-- <button class="email-btn"></button> -->
+              <div class="add-btn email-btn cta-add-btn" id="email-btn2" type="button" aria-label="Add email to sticker" tabindex="0">
+                <img src="assets/add-btn.svg" alt="Add Email Button image" />
+              </div>
+              <text class="sticker-option-text mail-txt" style="cursor: pointer">Email</text>
+            </div>
+          </div>
+          <button id="orderButton2" class="order-btn" type="button" aria-label="Proceed to checkout">ORDER</button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Footer -->
-    <div class="footer"></div>
+  <!-- Footer =============================================================-->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <a href="https://www.carsalestickers.com" tabindex="-1"><b>CarSaleStickers.com</a>
+        &copy; 2023</b>
+      </div>
+      <div class="footer-links">
+        <a href="#" aria-label="Read our Terms of Service" onclick="window.location.href='terms-of-service.html'" >Terms of Service</a>
+        <a href="#" aria-label="View our Privacy Policy" onclick="window.location.href='privacy-policy.html'" >Privacy Policy</a>
+        <a href="#" aria-label="Learn about Returns and Refund Policy" onclick="window.location.href='refund.html'" >Returns and Refund</a>
+        <a href="#" aria-label="Visit our Contact Page" onclick="window.location.href='contact.html'" >Contact Page</a>
+        <a href="#" aria-label="Explore our Blog" onclick="window.location.href='index.html'" >Blog</a>
+        
+      </div>
+    </div>
+  </footer>
+   <!-- Tablet Hidden ==========================================================-->
+   <script >
+    // JavaScript to handle the responsive behavior
+    const tabletHiddenElements = document.querySelectorAll(".tablet-hidden");
 
-    <script defer src="sticker-builder.js"></script>
-  </body>
+    // Store the original display value of each element
+    tabletHiddenElements.forEach(function (element) {
+      element.dataset.originalDisplay = getComputedStyle(element).display;
+    });
+
+    function setMobileHiddenDisplay() {
+      const screenWidth = document.documentElement.clientWidth;
+
+      // Check if the screen width is between 360px and 639px
+      if (screenWidth >= 639 && screenWidth <= 768) {
+        // Set the display property of elements with .mobile-hidden to 'none'
+        tabletHiddenElements.forEach(function (element) {
+          element.style.display = "none";
+        });
+      } else {
+        // Restore the original display property
+        tabletHiddenElements.forEach(function (element) {
+          element.style.display = element.dataset.originalDisplay;
+        });
+      }
+    }
+
+    // Add an event listener for window resize
+    window.addEventListener("resize", setMobileHiddenDisplay);
+
+    // Run the event listener on page load
+    setMobileHiddenDisplay();
+  </script>
+  <!-- Mobile Hidden ==========================================================-->
+  <script >
+    // JavaScript to handle the responsive behavior
+    const mobileHiddenElements = document.querySelectorAll(".mobile-hidden");
+
+    // Store the original display value of each element
+    mobileHiddenElements.forEach(function (element) {
+      element.dataset.originalDisplay = getComputedStyle(element).display;
+    });
+
+    function setMobileHiddenDisplay() {
+      const screenWidth = document.documentElement.clientWidth;
+
+      // Check if the screen width is between 360px and 639px
+      if (screenWidth >= 0 && screenWidth <= 639) {
+        // Set the display property of elements with .mobile-hidden to 'none'
+        mobileHiddenElements.forEach(function (element) {
+          element.style.display = "none";
+        });
+      } else {
+        // Restore the original display property
+        mobileHiddenElements.forEach(function (element) {
+          element.style.display = element.dataset.originalDisplay;
+        });
+      }
+    }
+
+    // Add an event listener for window resize
+    window.addEventListener("resize", setMobileHiddenDisplay);
+
+    // Run the event listener on page load
+    setMobileHiddenDisplay();
+  </script>
+  <!-- Timer Script ===================================================-->
+  <script >
+    // Initialize variable for tracking time in seconds
+    let totalTime = 0;
+    let isPageVisible = true; // Track page visibility
+
+    // Function to update the time on the page
+    function updateTimeOnPage() {
+      if (isPageVisible) {
+        totalTime++;
+        const timeOnPageDiv = document.getElementById("time-on-page");
+
+        let timeLabel;
+        let displayTime;
+
+        if (totalTime < 60) {
+          var seconds = totalTime % 60;
+          secondsLabel = totalTime % 60 === 0 ? "Second" : "Seconds";
+          displayTime = `${seconds} ${secondsLabel}`;
+          timeOnPageDiv.innerHTML = `<b>Time On Page: ${displayTime}</b>`;
+        } else {
+          const minutes = Math.floor(totalTime / 60);
+          var seconds = totalTime % 60;
+          if (seconds === 1) {
+            secondsLabel = "Second";
+          } else {
+            secondsLabel = "Seconds";
+          }
+
+          minutesLabel = totalTime <= 120 ? "Minute" : "Minutes";
+
+          displayTime = `${minutes} ${minutesLabel} ${seconds} ${secondsLabel}`;
+          timeOnPageDiv.innerHTML = `<b>Time On Page: ${displayTime}</b>`;
+        }
+      }
+    }
+
+    // Update the time every second
+    const interval = setInterval(updateTimeOnPage, 1000);
+
+    // Add an event listener to track page visibility
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        // Page is not visible
+        isPageVisible = false;
+      } else {
+        // Page is visible
+        isPageVisible = true;
+      }
+    });
+
+    window.addEventListener('focus', function () {
+      // The window has gained focus
+
+      isPageVisible = true;
+    });
+
+    // Add a 'blur' event listener to track when the window loses focus
+    window.addEventListener('blur', function () {
+      // The window has lost focus
+
+
+      isPageVisible = false;
+    });
+
+    window.addEventListener('scroll', function () {
+      // The user is scrolling the page
+      if (!pageVisible) {
+        isPageVisible = true;
+
+        setTimeout(() => {
+          if (!document.hasFocus()) {
+            isPageVisible = false;
+            console.log('Page is not visible (timed out)');
+          }
+        }, 60000); // 5 seconds (5000 milliseconds)
+      }
+
+    });
+
+    // To stop the timer when the user leaves the page, you can use the 'beforeunload' event
+    window.addEventListener("beforeunload", () => {
+      clearInterval(interval);
+    });
+
+  </script>
+  <!-- Video Script ===================================================-->
+  <script >
+    window.addEventListener('focus', function () {
+      // The window has gained focus
+      console.log('Window has focus');
+      pageVisible = true;
+    });
+
+    // Add a 'blur' event listener to track when the window loses focus
+    window.addEventListener('blur', function () {
+      // The window has lost focus
+      console.log('Window has lost focus');
+
+      pageVisible = false;
+    });
+
+    window.addEventListener('scroll', function () {
+      // The user is scrolling the page
+      if (!pageVisible) {
+        pageVisible = true;
+        console.log('User is scrolling');
+        setTimeout(() => {
+          if (!document.hasFocus()) {
+            pageVisible = false;
+            console.log('Page is not visible (timed out)');
+          }
+        }, 60000); // 5 seconds (5000 milliseconds)
+      }
+
+    });
+
+    const video = document.getElementById("myVideo");
+    let videoStarted = false;
+    let checkInterval; // Variable to store the interval for time checking
+    let isVideoPlaying = false;
+    let timeCounter = 0;
+    let pageVisible = true;
+
+    const timer = setInterval(timeTracker, 1000);
+
+    function timeTracker() {
+      if (pageVisible) {
+        timeCounter++;
+
+        // console.log(timeCounter);
+
+      }
+
+    };
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        // Page is not visible
+        pageVisible = false;
+      } else {
+        // Page is visible
+        pageVisible = true;
+      }
+    });
+
+
+    window.addEventListener("beforeunload", () => {
+      clearInterval(timer);
+    });
+
+    // Function to start the video
+    function startVideo() {
+      if (!videoStarted) {
+        // Calculate the elapsed time
+        const currentTime = Date.now();
+        //const elapsed = (currentTime - initialTimestamp) / 1000; // Subtract 5 seconds to start earlier
+
+        var elapsed = timeCounter;
+        video.load();
+
+        video.addEventListener("loadeddata", function () {
+          // Make sure elapsed time is not negative
+          video.currentTime = elapsed < 0 ? 0 : elapsed;
+          //video.currentTime = 0;
+        });
+
+        video.play();
+        isVideoPlaying = true;
+
+        videoStarted = true;
+        console.log("video started playing: ", video.currentTime);
+
+        const viewportHeightInPixels = window.innerHeight;
+        const marginInPixels = viewportHeightInPixels * 0.5;
+        const observer = new IntersectionObserver(entries => {
+
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (!isVideoPlaying) {
+                video.play();
+                console.log("video resumed", video.currentTime);
+                isVideoPlaying = true;
+                checkVideoTime();
+              }
+            } else {
+              if (isVideoPlaying) {
+                video.pause();
+                console.log("video paused", video.currentTime);
+                isVideoPlaying = false;
+              }
+            }
+          });
+        },
+          {
+            rootMargin: `${marginInPixels}px 0px ${marginInPixels}px 0px`,
+          }
+        );
+
+
+        observer.observe(video);
+
+        // Set up an interval to check video time every 10 seconds
+        checkInterval = setInterval(() => {
+          if (isVideoPlaying) {
+            checkVideoTime();
+          }
+        }, 10000); // Check every 10 seconds
+      }
+    }
+
+
+    initialTimestamp = Date.now();
+
+    // Function to check if the video should start
+    function checkVideoStart() {
+      const videoRect = video.getBoundingClientRect();
+
+      // Check if the video is at least 50vh above the viewport
+      if (videoRect.top - window.innerHeight - 59 <= 0) {
+        startVideo();
+        // Remove the scroll event listener once video starts
+        window.removeEventListener("scroll", checkVideoStart);
+      }
+    }
+
+    // Function to check video time synchronization
+    function checkVideoTime() {
+      //const currentTime = Date.now();
+      //const elapsed = (currentTime - initialTimestamp) / 1000;
+      var elapsed = timeCounter;
+      // Check if video time is out of sync by more than 5 seconds
+      var offSyncLimit = 10;
+      if (Math.abs(video.currentTime - elapsed) > offSyncLimit || Math.abs(video.currentTime - elapsed) < offSyncLimit) {
+        // Adjust video time to match elapsed time
+        video.currentTime = elapsed;
+      }
+    }
+
+    // Add an event listener to check when the page is scrolled
+    window.addEventListener("scroll", checkVideoStart);
+
+    // Start the video when the page loads (assuming it's in the viewport)
+    window.onload = checkVideoStart;
+  </script>
+  <!-- Sticker Input Sizing =================================================-->
+  <script>
+
+
+var numInputs = document.querySelectorAll('.num-input');
+var mailInputs = document.querySelectorAll('.mail-input');
+var forSaleTxt = document.querySelector('.sticker-for-sale');
+
+numInputs.forEach(inputElement => {
+  inputElement.addEventListener('input', () => {
+   
+    console.log('phone - change');
+    console.log(`1. ${forSaleTxt} 2. ${inputElement.value}`);
+    resizeInputFont(forSaleTxt, inputElement, 'phone');
+    //inputElement.style.maxWidth = Math.max(inputElement.value.length) + "ch";
+  });
+  inputElement.addEventListener('focus', () => {
+   
+   console.log('phone - change');
+   console.log(`1. ${forSaleTxt} 2. ${inputElement.value}`);
+   resizeInputFont(forSaleTxt, inputElement, 'phone');
+  // inputElement.style.maxWidth = Math.max(inputElement.value.length) + "ch";
+ });
+
+ inputElement.addEventListener('input', function () {
+    // Remove any characters that are not valid in a phone number
+    inputElement.value = inputElement.value.replace(/[^0-9+()\s\-]/g, '');
+});
+ 
+});
+
+mailInputs.forEach(inputElement => {
+  inputElement.addEventListener('input', () => {
+    console.log('mail - change');
+    console.log(`1. ${forSaleTxt} 2. ${inputElement}`);
+    resizeInputFont(forSaleTxt, inputElement, 'email');
+   // inputElement.style.maxWidth = Math.max(inputElement.value.length) + "ch";
+  });
+  inputElement.addEventListener('focus', () => {
+    console.log('mail - change');
+    console.log(`1. ${forSaleTxt} 2. ${inputElement}`);
+    resizeInputFont(forSaleTxt, inputElement, 'email');
+    //inputElement.style.maxWidth = Math.max(inputElement.value.length) + "ch";
+  });
+
+
+  inputElement.addEventListener('input', function () {
+    // Remove any characters that are not valid in an email address
+    inputElement.value = inputElement.value.replace(/[^a-zA-Z0-9@._-]/g, '');
+});
+
+
+});
+
+
+
+function resizeInputFont(forSaleTxt, userInput, inputField) {
+    if (forSaleTxt && userInput) {
+        if (inputField === 'email') {
+            if (userInput.value.length >= 10 && userInput.value.indexOf('@') + 6 <= userInput.value.length && userInput.value.includes('@')) {
+
+
+
+
+                console.log("email");
+                var referenceText = forSaleTxt.textContent;
+                var targetText = userInput.value;
+                const computedStyle = window.getComputedStyle(forSaleTxt);
+                var referenceFontSize = parseFloat(computedStyle.getPropertyValue('font-size'));
+
+
+                var desiredFontSize = calculateFontSizeToMatchWidth(referenceText, targetText, referenceFontSize);
+
+
+                // Apply the desired font size to the target text
+                userInput.style.fontSize = `${desiredFontSize}px`;
+
+
+
+            } else {
+
+
+                console.log("email - fall back");
+                var referenceText = forSaleTxt.textContent;
+                var targetText = "your.email@example.com";
+                const computedStyle = window.getComputedStyle(forSaleTxt);
+                var referenceFontSize = parseFloat(computedStyle.getPropertyValue('font-size'));
+
+
+                var desiredFontSize = calculateFontSizeToMatchWidth(referenceText, targetText, referenceFontSize);
+
+
+                // Apply the desired font size to the target text
+                userInput.style.fontSize = `${desiredFontSize}px`;
+                userInput.style.cssText += `font-size: ${desiredFontSize}px;`;
+
+
+
+
+
+            }
+        } else if (inputField === 'phone') {
+            console.log(userInput.value.length);
+
+            if (userInput.value.length >= 7) {
+
+
+
+
+                console.log("phone");
+                var referenceText = forSaleTxt.textContent;
+                var targetText = userInput.value;
+                const computedStyle = window.getComputedStyle(forSaleTxt);
+                var referenceFontSize = parseFloat(computedStyle.getPropertyValue('font-size'));
+
+
+                var desiredFontSize = calculateFontSizeToMatchWidth(referenceText, targetText, referenceFontSize);
+
+
+                // Apply the desired font size to the target text
+                userInput.style.fontSize = `${desiredFontSize}px`;
+
+
+
+
+            } else {
+
+
+                console.log("phone - fall back");
+                var referenceText = forSaleTxt.textContent;
+                var targetText = "555-555-5555";
+                const computedStyle = window.getComputedStyle(forSaleTxt);
+                var referenceFontSize = parseFloat(computedStyle.getPropertyValue('font-size'));
+
+
+                var desiredFontSize = calculateFontSizeToMatchWidth(referenceText, targetText, referenceFontSize);
+
+
+                // Apply the desired font size to the target text
+                userInput.style.fontSize = `${desiredFontSize}px`;
+               // userInput.style.cssText += `font-size: ${desiredFontSize}px;`;
+
+
+
+
+            }
+        }
+
+   
+
+        if (userInput.value.length != 0) {
+            console.log('normal');
+            // this.style.maxWidth = Math.max(this.value.length) + "ch";
+            console.log('anser: ' + userInput.value.length + "ch");
+            console.log((Math.max(userInput.value.length, userInput.placeholder.length) - 2));
+            console.log((Math.max(userInput.value.length, userInput.placeholder.length)));
+            //this.maxWidth = this.length + "ch";
+
+            const fontSizeInPx = 16; // Hardcoded font size in pixels
+            userInput.style.width = (userInput.value.length * fontSizeInPx / 16) + "ch";
+            //userInput.style.width = (Math.max(userInput.value.length) ) + "ch";
+
+        } else if (userInput.placeholder.length != 0) {
+            console.log('placeholder');
+            console.log(userInput.placeholder);
+            userInput.style.width = (Math.max(userInput.placeholder.length)) + "ch";
+
+            
+        }
+        //adjustSpaceFontSize();
+    }
+  }
+  function calculateFontSizeToMatchWidth(referenceText, targetTextValue, referenceFontSize) {
+    // Access the value of the input box
+    var referenceWidth = getTextWidth(referenceText, referenceFontSize);
+    const ghostSpaceWidth = getTextWidth('a', referenceFontSize);
+    const spaceWidth = getTextWidth('a', 20);
+    console.log(`${referenceWidth} | ${spaceWidth} | ${ghostSpaceWidth}`);
+    referenceWidth = (referenceWidth - ghostSpaceWidth) + spaceWidth;
+
+    const targetWidth = getTextWidth(targetTextValue, referenceFontSize);
+    const desiredFontSize = ((referenceFontSize * referenceWidth) / targetWidth);
+
+
+    return desiredFontSize;
+}
+
+function getTextWidth(text, fontSize) {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    //context.font = `${fontSize}px Arial`;
+    context.font = `${fontSize}px  Montserrat, sans-serif`;
+
+    return context.measureText(text).width;
+}
+
+
+
+  </script>
+
+  <!-- Review Cards Script ====================================================-->
+  <script >
+    // JavaScript to randomize the order of review cards
+    function shuffleReviewCards() {
+      var hiddenCards = 2;
+      const reviewContainer = document.getElementById("review-container");
+      const reviewCards = reviewContainer.querySelectorAll(".review-card");
+
+      // Convert NodeList to an array for easier manipulation
+      const cardsArray = Array.from(reviewCards);
+
+      // Shuffle the array
+      for (let i = cardsArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cardsArray[i], cardsArray[j]] = [cardsArray[j], cardsArray[i]];
+      }
+
+      // Clear the existing cards
+      reviewContainer.innerHTML = "";
+
+      // Append the shuffled cards back to the container
+      cardsArray.slice(0, -hiddenCards).forEach((card) => {
+        reviewContainer.appendChild(card);
+      });
+    }
+
+    // Call the function to shuffle review cards
+    shuffleReviewCards();
+
+    const reviewContainer = document.getElementById("review-container");
+const reviewSection = document.getElementById("review-section");
+let isScrolling = false;
+
+reviewSection.addEventListener("mouseenter", () => {
+  isScrolling = true;
+});
+
+reviewSection.addEventListener("mouseleave", () => {
+  isScrolling = false;
+  reviewContainer.style.overflowY = "hidden"; // Reset overflowY to "hidden" when not scrolling
+});
+
+// Define a factor to control the scroll speed (adjust as needed)
+const scrollSpeedFactor = 0.5; // Adjust this value for slower or faster scrolling
+
+// Handle scroll events
+reviewSection.addEventListener("wheel", (e) => {
+  if (isScrolling) {
+    const containerWidth =
+      reviewContainer.scrollWidth - reviewContainer.clientWidth;
+    if (e.deltaY < 0 && reviewContainer.scrollLeft <= 0) {
+      // If scrolling up at the start, allow page scroll
+      reviewContainer.style.overflowY = "auto";
+    } else if (
+      e.deltaY > 0 &&
+      reviewContainer.scrollLeft >=
+        containerWidth - containerWidth * 0.095
+    ) {
+      // If scrolling down at the end, allow page scroll
+      reviewContainer.style.overflowY = "auto";
+    } else {
+      e.preventDefault(); // Prevent default page scroll
+
+      // Scroll horizontally with slower speed
+      reviewContainer.style.overflowY = "hidden"; // Prevent page scroll while hovering
+      reviewContainer.scrollLeft += e.deltaY * scrollSpeedFactor;
+    }
+  }
+});
+
+  </script>
+  <!-- Sticker Builder Code ====================================================-->
+  <script defer src="sticker-builder.js"></script>
+  <!-- Lottie File ========================================================-->
+ 
+  <style>
+    @keyframes popupAnimation {
+      from {
+        transform: translate(0, 0) skew(0deg);
+        opacity: 1;
+      }
+      to {
+        transform: translate(calc(100% - 20px), calc(100% - 20px)) skew(50deg);
+        opacity: 0;
+      }
+    }
+  
+    .close-animation {
+      animation: popupAnimation 0.5s ease-in-out;
+    }
+  </style>
+  
+  
+  
+  
+
+  <div id="popup-container"
+  style="display: none; position: fixed; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 9999;  align-items: center; justify-content: center; backdrop-filter: blur(5px); "
+  onclick="closePopup()">
+  <div style="height: auto" id="popup-content">
+      <div id="gifContainer">
+          <img src="assets/how-to.gif2.gif" alt="Your GIF" style="width: 100%; max-height: 45vh;">
+      </div>
+
+      <button id="helpCloseBtn" style="color: #000; text-align: center; margin-top: 30px; background: #fd5659;
+          border: 0;
+          border-radius: 4px;
+          box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+          color: #000000;
+          cursor: pointer;
+          display: block;
+          font-family: Arial, sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          padding: 12px 16px;
+          transition: all 0.2s ease;
+          width: 100%;" onclick="closePopup()">Close</button>
+  </div>
+</div>
+
+<script>
+// Function to set a cookie
+function setVisitedCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    // Function to get the value of a cookie by name
+    function getVisitedCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
+    }
+
+    // Check if the 'visited' cookie exists
+    var visitedCookie = getVisitedCookie("visited");
+
+    if (visitedCookie === "") {
+      // If the 'visited' cookie doesn't exist, set it and perform actions for first-time visitors
+      setVisitedCookie("visited", "true", 365); // Set the cookie to expire in 365 days
+
+      // Actions for first-time visitors
+     // alert("Welcome! It's your first time visiting this site.");
+     displayHelpPopup();
+     
+    } else {
+      // Actions for returning visitors
+      //alert("Welcome back!");
+    }
+
+    function displayHelpPopup() {
+      var popupContainer = document.getElementById("popup-container");
+      var popupContent = document.getElementById("popup-content");
+      popupContainer.style.display = "flex";
+      var firstChild = popupContent.firstChild;
+/*
+      // Create and append the iframe
+      var iframe = document.createElement("iframe");
+      iframe.src = "terms-of-service.html";
+      iframe.id = "iframe-container";
+      iframe.setAttribute("frameborder", "0");
+      iframe.setAttribute("width", "100%");
+      iframe.setAttribute("height", "100%");
+
+
+
+      popupContent.insertBefore(iframe, firstChild);
+      */
+
+   
+    }
+
+
+    function showHelp() {
+      displayHelpPopup();
+    }
+
+
+    function closePopup() {
+   
+      document.getElementById("popup-content").classList.add("close-animation");
+
+      setTimeout(function() {
+ 
+      var popupContainer = document.getElementById("popup-container");
+      //var popupContent = document.getElementById("popup-content");
+
+      
+      document.getElementById("popup-content").classList.remove("close-animation");
+
+
+      popupContainer.style.display = "none";
+
+    }, 400);
+    }
+
+   // Function to check if an element is in the viewport with a tolerance
+   function isElementInViewport(el, tolerance = 0) {
+    var rect = el.getBoundingClientRect();
+    return (
+      rect.top - tolerance <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.left - tolerance <= (window.innerWidth || document.documentElement.clientWidth) &&
+      rect.bottom + tolerance >= 0 &&
+      rect.right + tolerance >= 0
+    );
+  }
+  function isScrollWithinDistances(distFromTop, distFromBottom) {
+    var totalHeight = document.documentElement.scrollHeight;
+    var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    var scrollPosition = window.scrollY || window.pageYOffset;
+
+    var fromTop = (scrollPosition / totalHeight) * 100; // Percentage from the top
+    var fromBottom = ((totalHeight - scrollPosition - windowHeight) / totalHeight) * 100; // Percentage from the bottom
+
+    return fromTop <= distFromTop || fromBottom <= distFromBottom;
+}
+
+
+
+  // Function to handle the visibility of the button
+  function handleButtonVisibility() {
+    var stickerBuilders = document.querySelectorAll('.sticker-builder');
+    var helpButton = document.getElementById('helpButton');
+
+    // Check if any sticker-builder is in view with increased tolerance (e.g., 20 pixels)
+    var isAnyStickerBuilderInView = Array.from(stickerBuilders).some(el => isElementInViewport(el, 20));
+
+    var isAnyStickerBuilderInView = Array.from(stickerBuilders).some(el => isScrollWithinDistances( 10, 10));
+
+    console.log(isAnyStickerBuilderInView);
+    if(isAnyStickerBuilderInView && isAnyStickerBuilderInView) {
+ // Show or hide the button based on the result
+
+    helpButton.style.display = isAnyStickerBuilderInView ? 'block' : 'none';
+    } else {
+      helpButton.style.display = "none";
+    }
+
+    adjustButtonPosition();
+  }
+
+
+ 
+
+var scrollTimer;
+  function adjustButtonPosition() {
+    var helpButton = document.getElementById('helpButton');
+    helpButton.style.bottom = '20px';
+    clearTimeout(scrollTimer);
+    
+   
+    
+    const distanceFromBottom = document.body.scrollHeight - window.scrollY - window.innerHeight;
+
+    var footer = document.querySelector('footer');
+
+
+    var footerHeight = footer.offsetHeight;
+   
+    
+    if (distanceFromBottom <= footerHeight ) {
+   
+    
+      helpButton.style.bottom = `${footerHeight - distanceFromBottom + 20}px`; // 20px is the original bottom value
+    } else {
+      helpButton.style.bottom = '20px';
+    }
+
+    scrollTimer = setTimeout(() => {
+    // This code will run after the user stops scrolling for a certain duration
+    adjustButtonPosition();
+  }, 0.05); // Adjust the duration as needed
+  
+
+  
+
+    
+  } 
+
+  
+
+    // Attach the adjustButtonPosition function to the window scroll event
+
+ 
+    window.addEventListener('scroll', handleButtonVisibility);
+    window.addEventListener('touch', handleButtonVisibility);
+   
+
+  // Attach the handleButtonVisibility function to scroll and resize events
+  window.addEventListener('scroll', handleButtonVisibility);
+  window.addEventListener('resize', handleButtonVisibility);
+
+  // Initial check when the page loads
+  handleButtonVisibility();
+
+</script>
+
+
+<button id="helpButton" style="
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+  padding: 0px;
+  background-color: #000000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  color: #000000;
+  font-weight: 600;
+  border-width: 1px;
+ 
+  border-color: rgba(255, 255, 255, 0.383);
+  border-radius: 70% 0px 0px 0px;
+  cursor: pointer;
+ 
+
+" onclick="showHelp()">
+  <img src="assets/help-icon.svg" width="20px" height="20px" style="  transform: translate(10%, 10%);">
+</button>
+
+
+  
+</body>
+
 </html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Status</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Raleway">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Roboto:wght@300&display=swap">
+</head>
+
+
+<body class="flex flex-col text-white bg-black font-[arial] min-h-screen">
+
+    <nav class="py-3 bg-[#64ef8b]" id="nav-bar">
+        <div class="container pl-[20px] md:pl-[60px]">
+            <div class="sm:text-[16px] lg:text-[20px] font-semibold text-black"
+                style="font-family: 'Roboto', sans-serif;">
+                <h1 class="font-bold cursor-pointer" onclick="window.location.href='index.html'">
+                    CarSaleStickers.com
+                </h1>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex items-center justify-center bg-black h-[94vh]">
+        <div id='status-card'
+            class="max-w-md py-6 bg-black border-2 rounded-md shadow-md border-[#64ef8b] hover:bg-[#64ef8b]">
+            <h1 class="w-full mb-4 text-2xl font-semibold text-center" id="statusMessage"></h1>
+
+            <dotlottie-player class="success-lottie"
+                src="https://lottie.host/a02b7405-5465-403b-965c-9cee1db33490/2JWB2vIKW0.json" background="transparent"
+                speed="1" style="width: 300px; height: 300px; display: none" autoplay></dotlottie-player>
+
+            <dotlottie-player class="failed-lottie"
+                src="https://lottie.host/27733f4e-45e9-4dba-9793-6b5b818286f5/aYvpph0X2q.json" background="transparent"
+                speed="1" style="width: 300px; height: 300px; display: none" autoplay></dotlottie-player>
+
+            <!-- <p class="mb-4">Order ID: <span id="orderId"></span></p> -->
+
+            <text class="w-full mb-4 text-sm text-center" style="display: none" id="extraMessage"></text>
+
+
+
+
+
+
+
+
+            <div id="return-btn" onclick="window.location.href='index.html'" class=" h-12 min-w-full -mb-6 bg-[#64ef8b] rounded-md rounded-t-none flex flex-row justify-center
+                items-center text-black text-lg font-semibold cursor-pointer hover:bg-green-500">
+                Return Home
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
+    <script>
+        // Get URL parameters using JavaScript
+        const urlParams = new URLSearchParams(window.location.search);
+        var paymentSuccess;
+        paymentSuccess = urlParams.get('status');
+        console.log(paymentSuccess);
+        if (paymentSuccess === undefined || paymentSuccess === null) {
+            paymentSuccess = false;
+        }
+
+        const orderId = urlParams.get('orderId');
+
+
+        // Update the content based on payment success status
+        const statusMessage = document.getElementById('statusMessage');
+        var extraMsg = document.getElementById('extraMessage');
+        const orderIdElement = document.getElementById('orderId');
+        var successLottie = document.querySelector(".success-lottie");
+        var failedLottie = document.querySelector(".failed-lottie");
+        var returnBtn = document.getElementById("return-btn");
+
+
+        var card = document.getElementById("status-card");
+
+        if (paymentSuccess === true || paymentSuccess === 'true') {
+            statusMessage.textContent = 'Payment Successful';
+            extraMsg.textContent = 'Your Receipt Has Been Emailed To You';
+            extraMsg.style.display = 'block';
+            extraMsg.style.color = "#64ef8b";
+            //statusMessage.classList.add('text-green-500');
+            //statusMessage.style.color = "#4ded7a";
+            statusMessage.style.color = "#64ef8b";
+
+
+            successLottie.style.display = "block";
+            failedLottie.style.display = "none";
+            //returnBtn.style.backgroundColor = "#64EF8B";
+            returnBtn.style.color = "black";
+
+            card.style.borderColor = '#64ef8b';
+
+
+        } else {
+            statusMessage.textContent = 'Payment Failed';
+            //statusMessage.classList.add('text-red-600');
+            statusMessage.style.color = "#F55050";
+
+            failedLottie.style.display = "block";
+            successLottie.style.display = "none";
+            returnBtn.style.backgroundColor = "#F55050";
+            returnBtn.style.color = "white";
+
+            card.style.borderColor = '#F55050';
+
+            card.addEventListener('mouseover', function () {
+                card.style.backgroundColor = '#F55050';
+                returnBtn.style.backgroundColor = "#f99898";
+            });
+
+            // Event listener for when the mouse leaves the element
+            card.addEventListener('mouseout', function () {
+                // Reset the border color when the mouse leaves
+                card.style.backgroundColor = ''; // or set it to the original color
+                returnBtn.style.backgroundColor = "#F55050";
+            });
+
+
+
+
+
+        }
+
+
+        // Display the order ID if available
+        if (orderId) {
+            orderIdElement.textContent = orderId;
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

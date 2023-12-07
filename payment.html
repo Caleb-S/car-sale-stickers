@@ -1,151 +1,484 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Car Sale Stickers</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="checkout.css" />
-    <script defer src="https://js.stripe.com/v3/"></script>
-    <script defer src="checkout.js"></script>
-    <script defer src="product-summary.js"></script>
 
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="assets/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="assets/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="assets/favicon/favicon-16x16.png"
-    />
-    <link rel="manifest" href="assets/favicon/site.webmanifest" />
-  </head>
-  <body>
-    <div class="nav">
-      <h3
-        class="nav-title"
-        onclick="window.location.href='index.html'"
-        style="cursor: pointer"
-      >
-        CarSaleStickers.com
-      </h3>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Sale Stickers</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="checkout.css" />
+  <script defer src="https://js.stripe.com/v3/"></script>
 
-    <div class="payment">
-      <!-- Product Summary-->
-      <div class="product-summary">
-        <div class="summary-deco"></div>
 
-        <div class="product-scrollbox">
-          <text class="summary-title">Your Stickers:</text>
+  <script defer src="product-summary.js"></script>
+  <script defer src="checkout-live.js"></script>
+  <link rel="preload" href="assets/add-btn.png" as="image" />
+  <link rel="preload" href="assets/add-btn.png" as="image" />
 
-          <!--
-          <div class="builder-container">
-          
-            <div class="sticker-border">
-              <text class="sticker-for-sale-sum">FOR SALE</text>
-              <text class="sticker-num-sum" id="sticker-num">555-555-5555</text>
-              <text class="sticker-email-sum" id="sticker-mail"
-                >Emmanuel.rodriguez@icloud.com</text
-              >
-            </div>
 
-            <div class="option-wrapper">
-              <div class="add-btn-sum" id="mobile-btn">
-                <img src="assets/add-btn.png" />
-              </div>
-              <text class="sticker-option-text">Mobile Number</text>
-            </div>
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="assets/favicon/site.webmanifest" />
+</head>
 
-            <div class="option-wrapper">
-              <div class="add-btn-sum" id="email-btn">
-                <img src="assets/add-btn.png" />
-              </div>
-              <text class="sticker-option-text">Email</text>
-            </div>
+<body style="overflow: hidden;">
+  <div class="nav">
+    <h3 class="nav-title" onclick="window.location.href='index.html'" style="cursor: pointer; ">
+      CarSaleStickers.com
+    </h3>
+  </div>
 
-            <div class="horizontal-wrapper">
-              <div class="vertical-wrapper">
-                <text class="quantity-title">Quantity:</text>
-                <div class="option-wrapper">
-                  <div class="remove-btn-sum-small">
-                    <img src="assets/remove-btn.png" />
-                  </div>
-                  <text class="quantity-num">1</text>
-                  <div class="add-btn-sum-small">
-                    <img src="assets/add-btn.png" />
-                  </div>
-                </div>
-              </div>
-              <div class="vertical-wrapper">
-                <text class="price-txt">$24</text>
-                <text class="price-txt-each">$12 each</text>
-              </div>
-            </div>
-          </div>
-      
-          <!-- End one -->
+  <div class="payment">
+    <div class="product-summary">
+      <div class="summary-deco"></div>
 
-          <!-- End three -->
+      <div class="product-scrollbox">
+        <text class="summary-title">Your Stickers:</text>
+
+
+        <div class="flex-col action-section">
           <button class="variant-btn">Add Sticker</button>
-          <div class="order-total-section"></div>
+          <button class="toPayment-btn">Proceed to Shipping</button>
+        </div>
 
-          <!-- Order Total Section-->
-          <div class="order-subtotal">
-            <text>Subtotal</text>
-            <text>$36.00</text>
-          </div>
-          <div class="divider"></div>
-          <div class="color-grey">
-            <div class="horizontal-wrapper">
-              <div class="vertical-wrapper">
-                <text>Shipping</text>
-                <text class="subtext">Free Shipping (5-7 business days)</text>
+
+
+        <div class="order-total-section"></div>
+
+        <div class="order-subtotal">
+          <text>Subtotal</text>
+          <text class="subTotalSum1">Calculating...</text>
+        </div>
+        <div class="divider"></div>
+        <div class="color-grey">
+          <div class="horizontal-wrapper">
+            <div class="vertical-wrapper">
+              <text>Shipping</text>
+              <text class="subtext">Free Shipping (10-15 business days untracked)</text>
+            </div>
+            <!--
+  <text>Free</text>
+            -->
+
+            <!--
+    <div class="dropdown" style="position: relative; display: inline-block;">
+              <text class="dropbtn" id="dropdown-btn"
+                style="background-color: transparent; font-size: 16px; border: none; color: #767171; cursor: pointer; text-align: right; display: flex; flex-direction: column; justify-content: end; align-items: end;">
+                <span style="color: #64EF8B; font-size: 14px;">Select</span></text>
+
+-->
+            <div style="position: relative; display: inline-block;">
+              <text class="shipping-cost1" id="shipping-cost1"
+                style="background-color: transparent; font-size: 16px; border: none; color: #767171; cursor: default; text-align: right; display: flex; flex-direction: column; justify-content: end; align-items: end;">
+                <span style="color: #767171; font-size: 14px;">Free</span></text>
+
+
+              <!--
+              <div class="dropdown-content" style="display: none; position:absolute; background-color: #000000; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(217, 217, 217, 0.2); color: white; border: 1px solid #ffffff; right: 0; 
+                 ">
+
+            
+                <a href="#" style="color: white; padding: 12px 16px; text-decoration: none; display: block;">Budget</a>
+                <a href="#"
+                  style="color: white; padding: 12px 16px; text-decoration: none; display: block;">Standard</a>
+                <a href="#" style="color: white; padding: 12px 16px; text-decoration: none; display: block;">Express</a>
+             
+
+
+
               </div>
-              <text>Free</text>
+                  -->
             </div>
-            <div class="horizontal-wrapper">
-              <text>Sales tax (6.5%)</text>
-              <text>$4.23</text>
-            </div>
+
+
+
           </div>
-          <div class="divider"></div>
-          <div class="total-price">
-            <text>$40.23</text>
+          <div class="horizontal-wrapper" style="display: none">
+            <text>Sales tax (6.5%)</text>
+            <text>$4.23</text>
+          </div>
+          <div class="horizontal-wrapper" style="font-size: 13px;">
+            <text><span style="color:#F85717">Note:</span> Price will vary by country.</text>
+
           </div>
         </div>
-        <!-- Scroll Box End-->
+        <div class="divider"></div>
+        <div class="total-price">
+          <text class="orderTotal">Calculating...</text>
+        </div>
+
+        <div
+          style="display: flex; flex-direction: row; font-size:12px; margin-top: 30px; justify-content:space-evenly; color: #b4d6fd; text-decoration: underline; cursor: pointer;">
+
+          <text id="privacy-btn">Privacy Policy</text>
+          <text id="refund-btn">Returns Policy</text>
+          <text id="terms-btn">Terms of Service</text>
+        </div>
       </div>
 
-      <!-- Payment Section-->
-      <div class="payment-section">
-        <!-- Display a payment form -->
-        <form id="payment-form">
-          <div id="link-authentication-element">
-            <!--Stripe.js injects the Link Authentication Element-->
-          </div>
-          <div id="payment-element">
-            <!--Stripe.js injects the Payment Element-->
-          </div>
-          <button id="submit">
-            <div class="spinner hidden" id="spinner"></div>
-            <span id="button-text">Order now</span>
-          </button>
-          <div id="payment-message" class="hidden"></div>
-        </form>
+
+    </div>
+    <div id="popup-container"
+      style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index:9999; backdrop-filter: blur(5px) "
+      onclick="closePopup()">
+      <div style="" id="popup-content">
+
+        <button style="color:#000; text-align: center; margin-top: 30px" onclick="closePopup()">Close</button>
       </div>
     </div>
 
-    <!-- Background Deco -->
-    <script type="module" src="scroll.js"></script>
-  </body>
+
+
+
+
+
+    <div class="payment-section">
+      <div class="stripe-wrapper">
+        <div id="shipping-express">
+          <div style="text-align: center; padding-top: 10px; color: grey">
+            <text style="font-size: small">Express Checkout</text>
+          </div>
+
+          <div id="express-checkout-element" style="max-width: 100%; padding-bottom: 40px; padding-top: 10px">
+          </div>
+
+
+          <div style="
+                text-align: center;
+                border-bottom: 1px solid #ccc;
+                line-height: 0.1em;
+
+                font-size: small;
+              ">
+            <span style="background-color: #fff; padding: 0 10px; color: #000">OR</span>
+          </div>
+          <h3 style="margin-bottom: 10px;  margin-top: 20px">Contact</h3>
+          <div id="link-authentication-element" style=" margin-bottom: -20px;"></div>
+
+          <form id="address-form" style="max-width: 100%; min-width: 50%; width: auto">
+            <h3 style="margin-bottom: 10px;">Shipping Details</h3>
+            <div id="address-element" style="max-width: 100%">
+            </div>
+            <div id="card-errors"
+              style="margin-top: 20px;  margin-left: auto; margin-right: auto; text-align: center; color: #FF5757; font-weight: 600;">
+            </div>
+
+          </form>
+
+        </div>
+
+
+        <!-- <div style="margin-bottom: 40px; display: none; padding: 10px; border-width: 1px 1px 1px 1px; 
+                    border-style: solid solid solid solid; 
+                    border-color:#64ef8b; box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02);   transition: opacity 0.3s;   opacity: 0.1;" id="mobile-order-summary"> -->
+
+        <!-- =============================================================
+              | Shipping Options
+              ============================================================= -->
+        <h3 style="margin-bottom: 10px;  margin-top: -15px; display: none;" id="shipping-options-title">Shipping Options
+        </h3>
+        <div class="shipping-container" style="display:none">
+
+          <div id="budget" class="shipping-card shipping-tracking-tag shipping-selected-card"
+            onclick="handleCardClick(this)">
+            <div
+              style="position: absolute; top: 0; background-color: #FF5757; color: white; font-weight: 600; width: 100%; text-align: center; padding: 3px; font-size: 12px;   border-radius: 5px 5px 0px 0px;">
+              No
+              Tracking</div>
+            <img src="assets/budget-icon.png" alt="A beautiful example image" class="shipping-icon">
+            <text class="shipping-card-title">Budget</text>
+            <text class="shipping-price">Free</text>
+
+
+          </div>
+
+          <div class="shipping-card" onclick="handleCardClick(this)" id="standard">
+            <img src="assets/standard-icon.png" alt="A beautiful example image" class="shipping-icon">
+            <text class="shipping-card-title">Standard</text>
+            <text class="shipping-price" id="standard-price">Calculating...</text>
+          </div>
+
+          <div class="shipping-card" onclick="handleCardClick(this)" id="express">
+            <img src="assets/express-icon.png" alt="A beautiful example image" class="shipping-icon">
+            <text class="shipping-card-title">Express</text>
+            <text class="shipping-price" id="express-price">Calculating...</text>
+          </div>
+
+        </div>
+        <!--
+<script>
+          function handleCardClick(clickedCard) {
+            // Remove 'selected-card' class from all shipping cards
+            document.querySelectorAll('.shipping-card').forEach(card => {
+              card.classList.remove('shipping-selected-card');
+            });
+
+            // Add 'selected-card' class to the clicked shipping card
+            clickedCard.classList.add('shipping-selected-card');
+
+            shippingMethod = clickedCard.querySelector('.shipping-card-title').textContent.toLowerCase();
+
+            updateStickerPrice(productPrice);
+          }
+        </script>
+        -->
+
+
+
+        <div id="error-message">
+        </div>
+
+        <div id="payment-section">
+
+
+
+          <form id="payment-form">
+            <h3 style="margin-bottom: 10px; display: none;" id="payment-header">Payment</h3>
+            <div id="payment-element" style="display: none;">
+            </div>
+
+
+
+        </div>
+
+
+
+
+        <!-- =============================================================
+                    | Order Summary
+                    ============================================================= -->
+        <div class="payment-container" id="mobile-order-summary" style="opacity: 100%; display: none">
+          <h3>Order Summary</h3>
+          <ul class="payment-list">
+
+          </ul>
+          <div class="payment-divider"></div>
+          <div style="display: flex; flex-direction: row; justify-content: space-between; font-weight: bold;">
+            <p>Subtotal:</p>
+            <p class="payment-subtotal">$0.00</p>
+          </div>
+          <div class="payment-divider"></div>
+          <div style="display: flex; flex-direction: row; justify-content: space-between; ">
+            <p>Shipping Cost:</p>
+            <p class="shipping-cost2">Free</p>
+          </div>
+          <div style="display: none; flex-direction: row; justify-content: space-between; ">
+            <p>Tax (8%):</p>
+            <p class="payment-tax">$0.00</p>
+          </div>
+          <div class="payment-divider"></div>
+          <div style="display: flex; flex-direction: row; justify-content: space-between; font-weight: bold;">
+            <p>Total:</p>
+            <p class="payment-total">$0.00</p>
+          </div>
+
+          <!-- =============================================================
+                    | Order Summary end
+                    ============================================================= -->
+
+
+        </div>
+        <button id="submit-payment"
+          style="display: none; margin-bottom: 50px; border-radius: 0 0 5px 5px; transition: opacity 0.3s;   opacity: 0.1;  ">
+          <div class="hidden spinner" id="spinner"></div>
+          <span id="button-text">Secure Payment</span>
+        </button>
+
+        <div id="payment-message" class="" style="margin-top: -50px; margin-bottom: 50px"></div>
+
+
+
+        </form>
+
+        <button id="continue-button">
+          Proceed to Payment
+        </button>
+
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    /*
+function calculateFontSizeToMatchWidth(referenceText, targetText, referenceFontSize) {
+const targetTextValue = targetText.value; // Access the value of the input box
+console.log(`Comparing font size for "${targetTextValue}" with reference text "${referenceText}".`);
+ 
+const referenceWidth = getTextWidth(referenceText, referenceFontSize);
+const targetWidth = getTextWidth(targetTextValue, referenceFontSize);
+
+const desiredFontSize = (referenceFontSize * referenceWidth) / targetWidth;
+
+return desiredFontSize;
+}
+
+function getTextWidth(text, fontSize) {
+const canvas = document.createElement('canvas');
+const context = canvas.getContext('2d');
+context.font = `${fontSize}px Arial`;
+return context.measureText(text).width;
+}
+
+// Example usage:
+const referenceText = "FOR SALE";
+const targetText = document.getElementById('sticker-mail'); // Replace with the actual ID or reference to the target input element
+const referenceFontSize = 50;
+
+const desiredFontSize = calculateFontSizeToMatchWidth(referenceText, targetText, referenceFontSize);
+
+// Apply the desired font size to the target text
+targetText.style.fontSize = `${desiredFontSize}px`;
+*/
+
+  </script>
+  <script>
+    // JavaScript to handle the refund button click
+    document.getElementById("refund-btn").addEventListener("click", function () {
+      var popupContainer = document.getElementById("popup-container");
+      var popupContent = document.getElementById("popup-content");
+      popupContainer.style.display = "block";
+      var firstChild = popupContent.firstChild;
+
+      // Create and append the iframe
+      var iframe = document.createElement("iframe");
+      iframe.src = "refund.html";
+      iframe.id = "iframe-container";
+      iframe.setAttribute("frameborder", "0");
+      iframe.setAttribute("width", "100% !important");
+      iframe.setAttribute("height", "100%");
+      iframe.style.minWidth = '100%';
+
+
+
+      popupContent.insertBefore(iframe, firstChild);
+
+
+    });
+
+    document.getElementById("privacy-btn").addEventListener("click", function () {
+      var popupContainer = document.getElementById("popup-container");
+      var popupContent = document.getElementById("popup-content");
+      popupContainer.style.display = "block";
+      var firstChild = popupContent.firstChild;
+
+      // Create and append the iframe
+      var iframe = document.createElement("iframe");
+      iframe.src = "privacy-policy.html";
+      iframe.id = "iframe-container";
+      iframe.setAttribute("frameborder", "0");
+      iframe.setAttribute("width", "100%");
+      iframe.setAttribute("height", "100%");
+
+
+      popupContent.insertBefore(iframe, firstChild);
+
+
+    });
+
+    document.getElementById("terms-btn").addEventListener("click", function () {
+      var popupContainer = document.getElementById("popup-container");
+      var popupContent = document.getElementById("popup-content");
+      popupContainer.style.display = "block";
+      var firstChild = popupContent.firstChild;
+
+      // Create and append the iframe
+      var iframe = document.createElement("iframe");
+      iframe.src = "terms-of-service.html";
+      iframe.id = "iframe-container";
+      iframe.setAttribute("frameborder", "0");
+      iframe.setAttribute("width", "100%");
+      iframe.setAttribute("height", "100%");
+
+
+
+      popupContent.insertBefore(iframe, firstChild);
+
+
+    });
+
+    // JavaScript to close the popup and remove the appended iframe
+    function closePopup() {
+      var popupContainer = document.getElementById("popup-container");
+      //var popupContent = document.getElementById("popup-content");
+
+      var iframeContainerToRemove = document.getElementById("iframe-container");
+      if (iframeContainerToRemove) {
+        iframeContainerToRemove.parentNode.removeChild(iframeContainerToRemove);
+      }
+
+      popupContainer.style.display = "none";
+    }
+  </script>
+  <script type="module" src="scroll.js"></script>
+
+
+  <style>
+    .loader {
+      border: 16px solid #abffc351;
+      border-radius: 50%;
+      border-top: 16px solid #64ef8b;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 2s linear infinite;
+      /* Safari */
+      animation: spin 2s linear infinite;
+      box-shadow: 0 -2px 5px rgba(255, 255, 255, 0.261);
+
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .payment-backdrop {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      background: radial-gradient(circle, #0e0e0e, #3e3e3e5d);
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      backdrop-filter: blur(5px) brightness(40%);
+      z-index: 9999;
+    }
+
+    @media (min-width: 640px) {
+      .payment-backdrop {
+        background: #3e3e3e52;
+      }
+    }
+  </style>
+
+  <div class="payment-backdrop">
+    <div class="loader" style="width: 5vw; height: 5vw; min-width: 80px; min-height: 80px"></div>
+    <div
+      style="color: #64ef8b; font-weight: 600; font-size: 24px; margin-top: 25px;  text-shadow: 1px 1px 4px  rgba(255, 255, 255, 0.3); ">
+      Processing Payment</div>
+
+  </div>
+</body>
+
 </html>

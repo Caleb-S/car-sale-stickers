@@ -1,112 +1,181 @@
+/* ============================================
+   Event Listener for DOM Content Load
+   ============================================ */
 document.addEventListener("DOMContentLoaded", () => {
-    // JavaScript
-    const mobileText = document.getElementById('sticker-num');
-    const mobileButton = document.getElementById('mobile-btn');
-    const mobileImage = mobileButton.querySelector('img');
-    mobileText.style.display = 'none';
+    // Select all elements with the class 'sticker-builder'
+    const stickerBuilders = document.querySelectorAll('.sticker-builder');
 
-    const emailText = document.getElementById('sticker-mail');
-    const emailButton = document.getElementById('email-btn');
-    const emailImage = emailButton.querySelector('img');
-    emailText.style.display = 'none';
+    stickerBuilders.forEach((stickerBuilder) => {
+        const mobileText = stickerBuilder.querySelector('.num-input');
+        const mobileButton = stickerBuilder.querySelector('.mobile-btn');
+        const mobileLabel = stickerBuilder.querySelector('.mobile-txt');
+        const mobileImage = mobileButton.querySelector('img');
+        mobileText.style.display = 'none';
 
-    mobileButton.addEventListener('click', () => {
-        if (mobileText.style.display === 'none') {
-            mobileText.style.display = 'block';
-            mobileImage.setAttribute("src", "assets/remove-btn.png");
-            mobileText.focus();
-        } else {
-            mobileText.style.display = 'none';
-            mobileImage.setAttribute("src", "assets/add-btn.png");
-        }
-    });
+        const emailText = stickerBuilder.querySelector('.mail-input');
+        const emailButton = stickerBuilder.querySelector('.email-btn');
+        const emailLabel = stickerBuilder.querySelector('.mail-txt');
+        const emailImage = emailButton.querySelector('img');
+        emailText.style.display = 'none';
 
-    emailButton.addEventListener('click', () => {
-        if (emailText.style.display === 'none') {
-            emailText.style.display = 'block';
-            emailImage.setAttribute("src", "assets/remove-btn.png");
-            emailText.focus();
-        } else {
-            emailText.style.display = 'none';
-            emailImage.setAttribute("src", "assets/add-btn.png");
-        }
-    });
+        // Mobile button click event
+        mobileButton.addEventListener('click', () => {
+            if (mobileText.style.display === 'none') {
+                mobileText.style.display = 'block';
+                mobileImage.setAttribute("src", "assets/del-btn.svg");
+                mobileButton.setAttribute('aria-label', 'Remove mobile number from sticker');
+                mobileText.focus();
+            } else {
+                mobileText.style.display = 'none';
+                mobileImage.setAttribute("src", "assets/add-btn.svg");
+                mobileButton.setAttribute('aria-label', 'Add mobile number to sticker');
+            }
+        });
 
-    document.getElementById("orderButton").addEventListener("click", () => {
-        // Construct the URL with query parameters
-        const params = new URLSearchParams();
-        params.append("quantity", 1);
+        mobileLabel.addEventListener('click', () => {
+            if (mobileText.style.display === 'none') {
+                mobileText.style.display = 'block';
+                mobileImage.setAttribute("src", "assets/del-btn.svg");
+                mobileButton.setAttribute('aria-label', 'Remove mobile number from sticker');
+                mobileText.focus();
+            } else {
+                mobileText.style.display = 'none';
+                mobileImage.setAttribute("src", "assets/add-btn.svg");
+                mobileButton.setAttribute('aria-label', 'Add mobile number to sticker');
+            }
+        });
 
-        if (mobileText.style.display === 'none') {
-            params.append("sticker-num", "hide");
-        } else {
-            params.append("sticker-num", "show");
-            params.append("num-text", mobileText.value);
-        }
 
-        if (emailText.style.display === 'none') {
-            params.append("sticker-mail", "hide");
-        } else {
-            params.append("sticker-mail", "show");
-            params.append("mail-text", emailText.value);
-        }
 
-        // Navigate to the payment.html page with the parameters
-        window.location.href = "payment.html?" + params.toString();
+
+        // Mobile button keydown event
+        mobileButton.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.keyCode === 13) {
+                if (mobileText.style.display === 'none') {
+                    mobileText.style.display = 'block';
+                    mobileImage.setAttribute("src", "assets/del-btn.svg");
+                    mobileButton.setAttribute('aria-label', 'Remove mobile number from sticker');
+                    mobileText.focus();
+                } else {
+                    mobileText.style.display = 'none';
+                    mobileImage.setAttribute("src", "assets/add-btn.svg");
+                    mobileButton.setAttribute('aria-label', 'Add mobile number to sticker');
+                }
+            }
+        });
+
+        // Email button click event
+        emailButton.addEventListener('click', () => {
+            if (emailText.style.display === 'none') {
+                emailText.style.display = 'block';
+                emailImage.setAttribute("src", "assets/del-btn.svg");
+                emailButton.setAttribute('aria-label', 'Remove email from sticker');
+                emailText.focus();
+            } else {
+                emailText.style.display = 'none';
+                emailImage.setAttribute("src", "assets/add-btn.svg");
+                emailButton.setAttribute('aria-label', 'Add email to sticker');
+            }
+        });
+
+        emailLabel.addEventListener('click', () => {
+            if (emailText.style.display === 'none') {
+                emailText.style.display = 'block';
+                emailImage.setAttribute("src", "assets/del-btn.svg");
+                emailButton.setAttribute('aria-label', 'Remove email from sticker');
+                emailText.focus();
+            } else {
+                emailText.style.display = 'none';
+                emailImage.setAttribute("src", "assets/add-btn.svg");
+                emailButton.setAttribute('aria-label', 'Add email to sticker');
+            }
+        });
+
+        // Email button keydown event
+        emailButton.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.keyCode === 13) {
+                if (emailText.style.display === 'none') {
+                    emailText.style.display = 'block';
+                    emailImage.setAttribute("src", "assets/del-btn.svg");
+                    emailButton.setAttribute('aria-label', 'Remove email from sticker');
+                    emailText.focus();
+                } else {
+                    emailText.style.display = 'none';
+                    emailImage.setAttribute("src", "assets/add-btn.svg");
+                    emailButton.setAttribute('aria-label', 'Add email to sticker');
+                }
+            }
+        });
+
+        // Order button click event
+        stickerBuilder.querySelector(".order-btn").addEventListener("click", () => {
+            const params = new URLSearchParams();
+            params.append("quantity", 1);
+
+            if (mobileText.style.display === 'none') {
+                params.append("sticker-num", "hide");
+            } else {
+                params.append("sticker-num", "show");
+                params.append("num-text", mobileText.value);
+            }
+
+            if (emailText.style.display === 'none') {
+                params.append("sticker-mail", "hide");
+            } else {
+                params.append("sticker-mail", "show");
+                params.append("mail-text", emailText.value);
+            }
+
+            window.location.href = "payment.html?" + params.toString();
+        });
     });
 });
 
-// Utility function
-function getTextWidth(text, font) {
-    // Create an off-screen canvas
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    // Set the font for the context
-    context.font = font;
-    // Measure the text width
-    const textWidth = context.measureText(text).width;
-    // Clean up
-    canvas.remove();
-    return textWidth;
-}
+/* ============================================
+   Handle Input Fields and Resizing
+   ============================================ */
 
-// Event listeners for resizing input fields
-var numInput = document.querySelector('.num-input'); // get the .num-input element
-var mailInput = document.querySelector('.mail-input'); // get the .mail-input element
+// Select num and mail input fields
+var numInputs = document.querySelectorAll('.num-input');
+var mailInputs = document.querySelectorAll('.mail-input');
 
-numInput.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
-numInput.addEventListener('focus', handleFocus); // bind the "handleFocus" callback on "focus" event
-numInput.addEventListener('blur', handleBlur); // bind the "handleBlur" callback on "blur" event
-numInput.addEventListener('focusin', handleFocusIn);
-numInput.addEventListener('focusout', handleFocusOut);
-numInput.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter') {
-        numInput.blur();// Shift focus to the button
-    }
+// Add event listeners and resize input fields
+numInputs.forEach((numInput) => {
+    numInput.addEventListener('focus', handleFocus);
+    numInput.addEventListener('blur', handleBlur);
+    numInput.addEventListener('focusin', handleFocusIn);
+    numInput.addEventListener('focusout', handleFocusOut);
+    numInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            numInput.blur();
+        }
+    });
+
+    numInput.value = numInput.placeholder;
+    resizeInput.call(numInput);
 });
 
-mailInput.addEventListener('input', resizeInput); // bind the "resizeInput" callback on "input" event
-mailInput.addEventListener('focus', handleFocus); // bind the "handleFocus" callback on "focus" event
-mailInput.addEventListener('blur', handleBlur); // bind the "handleBlur" callback on "blur" event
-mailInput.addEventListener('focusin', handleFocusIn);
-mailInput.addEventListener('focusout', handleFocusOut);
-mailInput.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter') {
-        mailInput.blur();// Shift focus to the button
-    }
+mailInputs.forEach((mailInput) => {
+    mailInput.addEventListener('focus', handleFocus);
+    mailInput.addEventListener('blur', handleBlur);
+    mailInput.addEventListener('focusin', handleFocusIn);
+    mailInput.addEventListener('focusout', handleFocusOut);
+    mailInput.addEventListener('keyup', (event) => {
+        if (event.key === 'Enter') {
+            mailInput.blur();
+        }
+    });
+
+    mailInput.value = mailInput.placeholder;
+    resizeInput.call(mailInput);
 });
 
-// Initialize the inputs with the placeholder text
-numInput.value = numInput.placeholder;
-resizeInput.call(numInput);
-
-mailInput.value = mailInput.placeholder;
-resizeInput.call(mailInput);
-
+// Function to resize input fields
 function resizeInput() {
     this.style.width = Math.max(this.value.length, this.placeholder.length) + "ch";
 }
 
+// Functions for handling focus and blur
 function handleFocus() {
     if (this.value === this.placeholder) {
         this.value = '';
@@ -124,7 +193,7 @@ function handleFocusOut() {
     if (this.value !== this.placeholder) {
         this.style.color = 'white';
     }
-    this.style.backgroundColor = 'transparent'; // Set it back to the default background color
+    this.style.backgroundColor = 'transparent';
 }
 
 function handleBlur() {
