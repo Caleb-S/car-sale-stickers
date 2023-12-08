@@ -1765,7 +1765,7 @@ iframe {
     margin-left: 25px;
     padding-left: 15px;
     padding-right: 15px;
-    display: flex;
+    display: flex !important;
   }
 
   /* =================
