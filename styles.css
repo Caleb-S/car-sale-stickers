@@ -542,6 +542,13 @@ iframe {
 |
 ============================================================================= */
 @media (min-width: 0px) {
+
+
+  .cta-marketing-card {
+  display: flex !important;
+  }
+
+
   /* =========
   | General  |
   ========= */
