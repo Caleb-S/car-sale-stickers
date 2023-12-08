@@ -1,8 +1,10 @@
+
+formatUrl();
 document.addEventListener("DOMContentLoaded", () => {
     // Get the current URL
 
 
-    formatUrl();
+
 
     // Introduce a one-second delay before updating the browser's URL
     setTimeout(() => {
