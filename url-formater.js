@@ -1,5 +1,5 @@
 
-formatUrl();
+//formatUrl();
 document.addEventListener("DOMContentLoaded", () => {
     // Get the current URL
 
@@ -8,7 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Introduce a one-second delay before updating the browser's URL
     setTimeout(() => {
-        formatUrl();
+        // formatUrl();
+
+
         // Update the browser's URL without reloading the page
         //  window.history.replaceState({}, document.title, cleanUrl);
     }, 1); // 1000 milliseconds = 1 second
