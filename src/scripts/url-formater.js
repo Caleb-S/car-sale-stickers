@@ -1,4 +1,4 @@
-
+/*
 //formatUrl();
 document.addEventListener("DOMContentLoaded", () => {
     // Get the current URL
@@ -30,3 +30,18 @@ function formatUrl() {
     }
     window.history.replaceState({}, document.title, cleanUrl);
 }
+*/
+
+// Function to remove trailing slash from a URL
+function removeTrailingSlash(url) {
+  return url.replace(/\/$/, '');
+}
+
+// Example usage
+var currentUrl = window.location.href;
+var urlWithoutTrailingSlash = removeTrailingSlash(currentUrl);
+
+console.log('Original URL:', currentUrl);
+console.log('URL without trailing slash:', urlWithoutTrailingSlash);
+
+history.replaceState({}, document.title, urlWithoutTrailingSlash);

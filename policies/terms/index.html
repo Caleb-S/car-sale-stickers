@@ -19,21 +19,7 @@
   <script src="url-formater.js"></script>
 
 
-  <script>
-    // Function to remove trailing slash from a URL
-    function removeTrailingSlash(url) {
-      return url.replace(/\/$/, '');
-    }
 
-    // Example usage
-    var currentUrl = window.location.href;
-    var urlWithoutTrailingSlash = removeTrailingSlash(currentUrl);
-
-    console.log('Original URL:', currentUrl);
-    console.log('URL without trailing slash:', urlWithoutTrailingSlash);
-
-    history.replaceState({}, document.title, urlWithoutTrailingSlash);
-  </script>
 
 </head>
 
@@ -43,9 +29,9 @@
   <nav class="py-3 bg-[#64ef8b]" id="nav-bar">
     <div class="container pl-[20px] md:pl-[60px]">
       <div class="sm:text-[16px] md:text-[20px] font-semibold text-black" style="font-family: 'Roboto', sans-serif;">
-        <h1 class="font-bold cursor-pointer" onclick="window.location.href='index.html'">
+        <a class="font-bold cursor-pointer" href="https://carsalestickers.com">
           CarSaleStickers.com
-        </h1>
+        </a>
       </div>
     </div>
   </nav>
@@ -179,7 +165,7 @@
     <p class="mt-4">
       If you have any questions or concerns about these Terms of Service,
       please contact us via our
-      <a class="text-blue-400 cursor-pointer" onclick="window.location.href='contact.html'">contact page</a>.
+      <a class="text-blue-400 cursor-pointer" href="../../contact/index.html">contact page</a>.
     </p>
     <p class="mt-10 text-base font-semibold text-red-400">
       By using our Website, you agree to these Terms of Service. If you do not
@@ -199,13 +185,20 @@
       <div class="flex flex-col text-left md:flex-col md:items-start md:order-1 md:text-[15px]"
         style="font-family: 'Raleway', sans-serif;">
 
-        <a href="#" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4" aria-label="View our Privacy Policy"
-          onclick="window.location.href='privacy-policy.html'">Privacy
+        <!-- Privacy Policy -->
+        <a href="../privacy/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+          aria-label="View our Privacy Policy">Privacy
           Policy</a>
-        <a href="#" onclick="window.location.href='refund.html'" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+
+        <!-- Returns & Refund -->
+        <a href="../refunds/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
           aria-label="Learn about Returns and Refund Policy">Returns and Refund</a>
-        <a href="#" onclick="window.location.href='contact.html'" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+
+        <!-- Contact -->
+        <a href="../../contact/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
           aria-label="Visit our Contact Page">Contact Page</a>
+
+        <!-- Blog -->
         <a href="#" onclick="window.location.href='index.html'" class="text-black md:ml-0"
           aria-label="Explore our Blog">Blog</a>
       </div>
