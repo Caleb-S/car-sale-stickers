@@ -23,6 +23,20 @@
 </head>
 
 <body class="text-white bg-black font-[arial]">
+
+  <script>
+    // Function to remove trailing slash from a URL
+    function removeTrailingSlash(url) {
+      return url.replace(/\/$/, '');
+    }
+
+    // Example usage
+    var currentUrl = window.location.href;
+    var urlWithoutTrailingSlash = removeTrailingSlash(currentUrl);
+
+    console.log('Original URL:', currentUrl);
+    console.log('URL without trailing slash:', urlWithoutTrailingSlash);
+  </script>
   <!-- Green Navbar -->
   <nav class="py-3 bg-[#64ef8b]" id="nav-bar">
     <div class="container pl-[20px] md:pl-[60px]">
