@@ -15,10 +15,8 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Roboto:wght@300&display=swap">
 
-        <script
-        src="url-formater.js"
-      ></script>
-      
+    <script src="url-formater.js"></script>
+
 </head>
 
 
@@ -28,9 +26,9 @@
         <div class="container pl-[20px] md:pl-[60px]">
             <div class="sm:text-[16px] md:text-[20px] font-semibold text-black"
                 style="font-family: 'Roboto', sans-serif;">
-                <h1 class="font-bold cursor-pointer" onclick="window.location.href='index.html'">
+                <a class="font-bold cursor-pointer" href="https://carsalestickers.com">
                     CarSaleStickers.com
-                </h1>
+                </a>
             </div>
         </div>
     </nav>
@@ -38,7 +36,7 @@
 
     <!-- Contact Content -->
 
-    
+
     <div
         class="flex-grow container mx-auto mt-8 max-w-[80vw] sm:max-w-[70vw] lg:max-w-[60vw] text-xl text-gray-100 h-screen">
 
@@ -48,7 +46,7 @@
 
 
 
-        <img src="src/assets/contact-cover.webp" alt="Cover Photo"
+        <img src="../src/assets/contact-cover.webp" alt="Cover Photo"
             class="inset-0 object-cover object-center h-auto max-h-[30vh] min-w-full mx-auto mb-10 ">
 
 
@@ -64,20 +62,27 @@
             <div>
                 <h2 class="mb-2 text-2xl font-semibold">Useful Resources:</h2>
                 <ul class="">
+
+                    <!-- Faq -->
                     <li style="display: none;"><a href="#" class="text-gray-400 hover:text-[#64EF8B]">- Frequently Asked
                             Questions</a>
                     </li>
-                    <li class="mt-2"><a href="#" onclick="window.location.href='refund.html'"
+                    <!-- Returns & Refunds -->
+                    <li class="mt-2"><a href="../policies/refunds/index.html"
                             class="text-gray-400 hover:text-[#64EF8B]">-
                             Returns &
                             Refunds</a>
                     </li>
-                    <li class="mt-2"><a href="#" onclick="window.location.href='privacy-policy.html'"
+
+                    <!-- Privacy Policy -->
+                    <li class="mt-2"><a href="../policies/privacy/index.html"
                             class="text-gray-400 hover:text-[#64EF8B]">-
                             Privacy
                             Policy</a>
                     </li>
-                    <li class="mt-2"><a href="#" onclick="window.location.href='terms-of-service.html'"
+
+                    <!-- Terms Of Service -->
+                    <li class="mt-2"><a href="../policies/terms/index.html"
                             class="text-gray-400  hover:text-[#64EF8B]">-
                             Terms
                             Of
@@ -158,15 +163,23 @@
             </div>
             <div class="flex flex-col text-left md:flex-col md:items-start md:order-1 md:text-[15px]"
                 style="font-family: 'Raleway', sans-serif;">
-                <a href="#" onclick="window.location.href='terms-of-service.html'"
-                    class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4" aria-label="Read our Terms of Service">Terms of
+
+                <!-- Terms Of Service -->
+                <a href="../policies/terms/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+                    aria-label="Read our Terms of Service">Terms of
                     Service</a>
-                <a href="#" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4" aria-label="View our Privacy Policy"
-                    onclick="window.location.href='privacy-policy.html'">Privacy
+
+                <!-- Privacy Policy -->
+                <a href="../policies/privacy/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+                    aria-label="View our Privacy Policy">Privacy
                     Policy</a>
-                <a href="#" onclick="window.location.href='refund.html'" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+
+                <!-- Returns & Refunds-->
+                <a href="../policies/refunds/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
                     aria-label="Learn about Returns and Refund Policy">Returns and Refund</a>
 
+
+                <!-- Blog -->
                 <a href="#" onclick="window.location.href='index.html'" class="text-black md:ml-0"
                     aria-label="Explore our Blog">Blog</a>
             </div>
