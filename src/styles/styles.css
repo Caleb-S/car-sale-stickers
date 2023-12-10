@@ -824,11 +824,11 @@ iframe {
     height: 35vh;
     min-height: 200px;
     background: black;
-    background-image: url("assets/cover-photo-updated.webp"), url("assets/cover-photo-updated.jpg");
+    background-image: url("../assets/cover-photo-updated.webp"), url("../assets/cover-photo-updated.jpg");
 
     /*
-    background-image: url("assets/cover-photo.jpeg"),
-      url("assets/cover-photo-v2.webp"); */
+    background-image: url("../assets/cover-photo.jpeg"),
+      url("../assets/cover-photo-v2.webp"); */
 
     color: white;
     display: flex;
@@ -855,10 +855,10 @@ iframe {
 
   .header-section {
 
-    background-image: url("assets/cover-photo-updated.webp"), url("assets/cover-photo-updated.jpg");
+    background-image: url("../assets/cover-photo-updated.webp"), url("../assets/cover-photo-updated.jpg");
     /*
-    background-image: url("assets/cover-photo-mobile.jpg"),
-      url("assets/cover-photo-mobile.webp"); */
+    background-image: url("../assets/cover-photo-mobile.jpg"),
+      url("../assets/cover-photo-mobile.webp"); */
     background-position-x: 0px;
     background-size: cover;
   }
@@ -889,7 +889,7 @@ iframe {
     border: none;
     border: none;
     color: rgb(136, 134, 134);
-    cursor: url("assets/custom-cursors/Text.png"), text;
+    cursor: url("../assets/custom-cursors/Text.png"), text;
     margin: 0;
     outline: none;
     padding: 0;
@@ -1361,11 +1361,11 @@ iframe {
   }
 
   .header-section {
-    background-image: url("assets/cover-photo-updated.webp"), url("assets/cover-photo-updated.jpg");
+    background-image: url("../assets/cover-photo-updated.webp"), url("../assets/cover-photo-updated.jpg");
 
     /*
-    background-image: url("assets/cover-photo-mobile.jpg"),
-      url("assets/cover-photo-mobile.webp"); */
+    background-image: url("../assets/cover-photo-mobile.jpg"),
+      url("../assets/cover-photo-mobile.webp"); */
     background-position-x: 0px;
     background-size: 200% 100%;
     max-width: 100%;
@@ -1671,10 +1671,10 @@ iframe {
   }
 
   .header-section {
-    background-image: url("assets/cover-photo-updated.webp"), url("assets/cover-photo-updated.jpg");
+    background-image: url("../assets/cover-photo-updated.webp"), url("../assets/cover-photo-updated.jpg");
     /*
-    background-image: url("assets/cover-photo.jpeg"),
-      url("assets/cover-photo-v2.webp"); */
+    background-image: url("../assets/cover-photo.jpeg"),
+      url("../assets/cover-photo-v2.webp"); */
     background-position-x: 0px;
     background-size: cover;
   }
@@ -1937,10 +1937,10 @@ iframe {
   | Header Section  |
   ================ */
   .header-section {
-    background-image: url("assets/cover-photo-updated.webp"), url("assets/cover-photo-updated.jpg");
+    background-image: url("../assets/cover-photo-updated.webp"), url("../assets/cover-photo-updated.jpg");
     /*
-    background-image: url("assets/cover-photo.jpeg"),
-      url("assets/cover-photo-v2.webp"); */
+    background-image: url("../assets/cover-photo.jpeg"),
+      url("../assets/cover-photo-v2.webp"); */
     background-position-x: 0px;
     background-size: cover;
     min-height: 40vh;
@@ -2098,11 +2098,11 @@ iframe {
   | Header Section  |
   ================ */
   .header-section {
-    background-image: url("assets/cover-photo-updated.webp"), url("assets/cover-photo-updated.jpg");
+    background-image: url("../assets/cover-photo-updated.webp"), url("../assets/cover-photo-updated.jpg");
 
     /*
-    background-image: url("assets/cover-photo.jpeg"),
-      url("assets/cover-photo-v2.webp"); */
+    background-image: url("../assets/cover-photo.jpeg"),
+      url("../assets/cover-photo-v2.webp"); */
     background-position-x: 0px;
     background-size: cover;
     min-height: 40vh;
@@ -2382,11 +2382,11 @@ iframe {
   | Header Section  |
   ================ */
   .header-section {
-    background-image: url("assets/cover-photo-updated.webp"), url("assets/cover-photo-updated.jpg");
+    background-image: url("../assets/cover-photo-updated.webp"), url("../assets/cover-photo-updated.jpg");
 
     /*
-    background-image: url("assets/cover-photo.jpeg"),
-      url("assets/cover-photo-v2.webp"); */
+    background-image: url("../assets/cover-photo.jpeg"),
+      url("../assets/cover-photo-v2.webp"); */
     background-position-x: 0px;
     background-size: cover;
     min-height: 40vh;

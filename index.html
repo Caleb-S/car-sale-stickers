@@ -10,12 +10,12 @@
 
   
   <title>Car Sale Stickers</title>
-  <link rel="stylesheet"  href="styles.css" />
+  <link rel="stylesheet"  href="src/styles/styles.css" />
   <!-- Include the Lottie library from a CDN -->
   <!-- Prefetch DNS resolution for the domain -->
 
   <script
-  src="url-formater.js"
+  src="src/scripts/url-formater.js"
 ></script>
 
 
@@ -27,34 +27,34 @@
 -->
 
 <!--
-<link rel="preload" as="image" fetchpriority="high" href="assets/cover-photo-mobile.webp" media="screen and (max-width: 639px)" type="image/webp">
-<link rel="alternate" as="image"   fetchpriority="low" href="assets/cover-photo-mobile.jpg" media="screen and (max-width: 639px)" type="image/jpeg">
-<link rel="preload" as="image" fetchpriority="high" href="assets/cover-photo-v2.webp" media="screen and (min-width: 640px)" type="image/webp">
-<link rel="alternate" as="image"  fetchpriority="low"  href="assets/cover-photo.jpeg" media="screen and (min-width: 640px)" type="image/jpeg">
+<link rel="preload" as="image" fetchpriority="high" href="src/assets/cover-photo-mobile.webp" media="screen and (max-width: 639px)" type="image/webp">
+<link rel="alternate" as="image"   fetchpriority="low" href="src/assets/cover-photo-mobile.jpg" media="screen and (max-width: 639px)" type="image/jpeg">
+<link rel="preload" as="image" fetchpriority="high" href="src/assets/cover-photo-v2.webp" media="screen and (min-width: 640px)" type="image/webp">
+<link rel="alternate" as="image"  fetchpriority="low"  href="src/assets/cover-photo.jpeg" media="screen and (min-width: 640px)" type="image/jpeg">
  -->
 
 
 
- <link rel="preload" as="image" fetchpriority="high" href=" assets/how-to.gif2.gif"  type="image/gif">
+ <link rel="preload" as="image" fetchpriority="high" href=" src/assets/how-to.gif2.gif"  type="image/gif">
 
-<link rel="preload" as="image" fetchpriority="high" href="assets/cover-photo-updated.webp"  type="image/webp">
-
-
-<!-- <link rel="alternate" as="image"  fetchpriority="low"  href="assets/cover-photo-updated.jpg"  type="image/jpg"> -->
+<link rel="preload" as="image" fetchpriority="high" href="src/assets/cover-photo-updated.webp"  type="image/webp">
 
 
-<link rel="preload" as="image" fetchpriority="high" href="assets/insta-icon-indent.webp"  type="image/webp">
-<link rel="preload" as="image" fetchpriority="high" href="assets/youtube-icon-indent.webp"  type="image/webp">
-<link rel="preload" as="image" fetchpriority="high" href="assets/pinterest-icon-indent.webp"  type="image/webp">
-<link rel="preload" as="image" fetchpriority="high" href="assets/tiktok-icon-indent.webp"  type="image/webp">
+<!-- <link rel="alternate" as="image"  fetchpriority="low"  href="src/assets/cover-photo-updated.jpg"  type="image/jpg"> -->
+
+
+<link rel="preload" as="image" fetchpriority="high" href="src/assets/insta-icon-indent.webp"  type="image/webp">
+<link rel="preload" as="image" fetchpriority="high" href="src/assets/youtube-icon-indent.webp"  type="image/webp">
+<link rel="preload" as="image" fetchpriority="high" href="src/assets/pinterest-icon-indent.webp"  type="image/webp">
+<link rel="preload" as="image" fetchpriority="high" href="src/assets/tiktok-icon-indent.webp"  type="image/webp">
 
 
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
-  <link rel="manifest" href="assets/favicon/site.webmanifest" />
+  <link rel="apple-touch-icon" sizes="180x180" href="src/assets/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="src/assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="src/assets/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="src/assets/favicon/site.webmanifest" />
 
 
 
@@ -119,14 +119,14 @@
             <div class="option-wrapper">
               <!-- <button class="mobile-Num-btn"></button> -->     
               <div class="add-btn mobile-btn" id="mobile-btn" type="button" aria-label="Add mobile number to sticker" tabindex="0">
-                <img src="assets/add-btn.svg" alt="Add Mobile Button image" style="fill: red;"/>
+                <img src="src/assets/add-btn.svg" alt="Add Mobile Button image" style="fill: red;"/>
               </div>    
               <text class="sticker-option-text mobile-txt" id="mobile-txt" style="cursor: pointer;">Mobile Number</text>
             </div>
             <div class="option-wrapper">
               <!-- <button class="email-btn"></button> -->
               <div class="add-btn email-btn" id="email-btn" type="button" aria-label="Add email number to sticker" tabindex="0" >
-                <img src="assets/add-btn.svg"  alt="Add Email Button image"/>
+                <img src="src/assets/add-btn.svg"  alt="Add Email Button image"/>
               </div>
               <text class="sticker-option-text mail-txt" id="mail-txt" style="cursor: pointer">Email</text>
             </div>
@@ -144,13 +144,13 @@
 <div class="icon-row" >
 
  
-    <img src="assets/insta-icon-indent.webp" srcset="assets/insta-icon-indent.svg" class='large-social-icon' alt="Instagram Icon" style="cursor: pointer;" id="instagram-btn">
+    <img src="src/assets/insta-icon-indent.webp" srcset="src/assets/insta-icon-indent.svg" class='large-social-icon' alt="Instagram Icon" style="cursor: pointer;" id="instagram-btn">
 
   
-  <img src="assets/youtube-icon-indent.webp" srcset="assets/youtube-icon-indent.svg"  class='large-social-icon' alt="Youtube Icon" style="cursor: pointer" id="youtube-btn">
-  <img src="assets/pinterest-icon-indent.webp" srcset="assets/pinterest-icon-indent.svg"  class='large-social-icon' alt="Pinterest Icon" style="cursor: pointer" id="pinterest-btn">
+  <img src="src/assets/youtube-icon-indent.webp" srcset="src/assets/youtube-icon-indent.svg"  class='large-social-icon' alt="Youtube Icon" style="cursor: pointer" id="youtube-btn">
+  <img src="src/assets/pinterest-icon-indent.webp" srcset="src/assets/pinterest-icon-indent.svg"  class='large-social-icon' alt="Pinterest Icon" style="cursor: pointer" id="pinterest-btn">
 
- <img src="assets/tiktok-icon-indent.webp" srcset="assets/tiktok-icon-indent.svg"  class='large-social-icon' alt="TikTok Icon" style="cursor: pointer;" id="tiktok-btn">
+ <img src="src/assets/tiktok-icon-indent.webp" srcset="src/assets/tiktok-icon-indent.svg"  class='large-social-icon' alt="TikTok Icon" style="cursor: pointer;" id="tiktok-btn">
  
 
 </div>
@@ -171,7 +171,7 @@
        
 
           <!-- 
-   <img src="assets\car-sticker-example-mobile.jpg" alt="Description of the image" style="width: auto; max-width: 100%;">  
+   <img src="src\assets\car-sticker-example-mobile.jpg" alt="Description of the image" style="width: auto; max-width: 100%;">  
           -->
        
 
@@ -502,9 +502,9 @@ script.onload = function() {
         <div class="video-size">
           <video preload="none" id="myVideo" controlsList="nodownload nofullscreen noremoteplayback" playsinline muted
             style="width: 100%">
-            <!-- <source src="assets\video\30 Minutes of Cars - count.mp4" type="video/mp4" /> -->
-            <source src="assets\video\5-Min-of-Cars-Count_opt.mp4" type="video/mp4" />
-            <track src="assets\video\car_count_captions.vtt" kind="captions" srclang="und" label="universal_captions">
+            <!-- <source src="src\assets\video\30 Minutes of Cars - count.mp4" type="video/mp4" /> -->
+            <source src="src\assets\video\5-Min-of-Cars-Count_opt.mp4" type="video/mp4" />
+            <track src="src\assets\video\car_count_captions.vtt" kind="captions" srclang="und" label="universal_captions">
             Your browser does not support the video tag.
           </video>
         </div>
@@ -572,14 +572,14 @@ script.onload = function() {
             <div class="option-wrapper">
               <!-- <button class="mobile-Num-btn"></button> -->
               <div class="add-btn mobile-btn cta-add-btn" id="mobile-btn2" type="button" aria-label="Add mobile number to sticker" tabindex="0">
-                <img src="assets/add-btn.svg" alt="Add Mobile Button image" />
+                <img src="src/assets/add-btn.svg" alt="Add Mobile Button image" />
               </div>
               <text class="sticker-option-text mobile-txt" style="cursor: pointer">Mobile Number</text>
             </div>
             <div class="option-wrapper">
               <!-- <button class="email-btn"></button> -->
               <div class="add-btn email-btn cta-add-btn" id="email-btn2" type="button" aria-label="Add email to sticker" tabindex="0">
-                <img src="assets/add-btn.svg" alt="Add Email Button image" />
+                <img src="src/assets/add-btn.svg" alt="Add Email Button image" />
               </div>
               <text class="sticker-option-text mail-txt" style="cursor: pointer">Email</text>
             </div>
@@ -598,8 +598,8 @@ script.onload = function() {
         &copy; 2023</b>
       </div>
       <div class="footer-links">
-        <a href="#" aria-label="Read our Terms of Service" onclick="window.location.href='terms-of-service.html'" >Terms of Service</a>
-        <a href="#" aria-label="View our Privacy Policy" onclick="window.location.href='privacy-policy.html'" >Privacy Policy</a>
+        <a href="#" aria-label="Read our Terms of Service" onclick="window.location.href='policies/terms/index.html'" >Terms of Services</a>
+        <a href="#" aria-label="View our Privacy Policy" onclick="window.location.href='policies/privacy/index.html'" >Privacy Policy</a>
         <a href="#" aria-label="Learn about Returns and Refund Policy" onclick="window.location.href='refund.html'" >Returns and Refund</a>
         <a href="#" aria-label="Visit our Contact Page" onclick="window.location.href='contact.html'" >Contact Page</a>
         <a href="#" aria-label="Explore our Blog" onclick="window.location.href='index.html'" >Blog</a>
@@ -1190,7 +1190,7 @@ reviewSection.addEventListener("wheel", (e) => {
 
   </script>
   <!-- Sticker Builder Code ====================================================-->
-  <script defer src="sticker-builder.js"></script>
+  <script defer src="src/scripts/sticker-builder.js"></script>
   <!-- Lottie File ========================================================-->
  
   <style>
@@ -1219,7 +1219,7 @@ reviewSection.addEventListener("wheel", (e) => {
   onclick="closePopup()">
   <div style="height: auto" id="popup-content">
       <div id="gifContainer">
-          <img src="assets/how-to.gif2.gif" alt="Your GIF" style="width: 100%; max-height: 45vh;">
+          <img src="src/assets/how-to.gif2.gif" alt="Your GIF" style="width: 100%; max-height: 45vh;">
       </div>
 
       <button id="helpCloseBtn" style="color: #000; text-align: center; margin-top: 30px; background: #fd5659;
@@ -1450,7 +1450,7 @@ var scrollTimer;
  
 
 " onclick="showHelp()">
-  <img src="assets/help-icon.svg" width="20px" height="20px" style="  transform: translate(10%, 10%);">
+  <img src="src/assets/help-icon.svg" width="20px" height="20px" style="  transform: translate(10%, 10%);">
 </button>
 
 
