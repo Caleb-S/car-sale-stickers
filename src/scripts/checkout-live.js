@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-
+        var stripeLoader = document.getElementById('stripe-loader');
 
 
         linkAuthenticationElement.on("ready", (event) => {
@@ -304,8 +304,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
 
-        var stripeLoader = document.getElementById('stripe-loader');
-        stripeLoader.style.display = 'none';
+
+        //stripeLoader.style.display = 'none';
 
         function updateMessage() {
             if (eventValue != undefined) {
