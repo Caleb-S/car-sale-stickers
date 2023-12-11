@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mailTextParam = params.get("mail-text");
 
     // Call the function to clear the current URL's query parameters
-    //clearCurrentUrlParams();
+    clearCurrentUrlParams();
     // Add Sticker.
     if (quantity === 1) {
         const actionSection = document.querySelector(".action-section");
