@@ -245,22 +245,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         var displayError = document.getElementById("card-errors");
 
 
-        var stripeLoader = document.getElementById('stripe-loader');
 
-        var contactTitle = document.getElementById('contact-title');
-        var shippingTitle = document.getElementById('shipping-title');
 
-        stripeLoader.style.display = 'none';
 
-        contactTitle.style.display = 'block';
-        shippingTitle.style.display = 'block';
-
-        var expressTitle = document.getElementById('express-title');
-        var expressDivider = document.getElementById('express-divider');
-        var expressDiv = document.getElementById('express-checkout-element');
 
 
         expressCheckoutElement.on('ready', ({ availablePaymentMethods }) => {
+            var expressTitle = document.getElementById('express-title');
+            var expressDivider = document.getElementById('express-divider');
+            var expressDiv = document.getElementById('express-checkout-element');
+
             if (!availablePaymentMethods) {
                 // No buttons will show
                 expressDiv.style.display = 'none';
@@ -279,6 +273,39 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+
+        linkAuthenticationElement.on("ready", (event) => {
+            stripeLoader.style.display = 'none';
+            var contactTitle = document.getElementById('contact-title');
+            contactTitle.style.display = 'block';
+
+
+
+        });
+
+        addressElement.on("ready", (event) => {
+            stripeLoader.style.display = 'none';
+            var shippingTitle = document.getElementById('shipping-title');
+            shippingTitle.style.display = 'block';
+
+
+
+        });
+
+
+        var stripeLoader = document.getElementById('stripe-loader');
+        stripeLoader.style.display = 'none';
 
         function updateMessage() {
             if (eventValue != undefined) {
@@ -325,6 +352,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
             return true;
         }
+
+
 
 
         // =========================================================================
