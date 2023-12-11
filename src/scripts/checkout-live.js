@@ -257,18 +257,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         var expressTitle = document.getElementById('express-title');
         var expressDivider = document.getElementById('express-divider');
+        var expressDiv = document.getElementById('express-checkout-element');
 
 
         expressCheckoutElement.on('ready', ({ availablePaymentMethods }) => {
             if (!availablePaymentMethods) {
                 // No buttons will show
-
+                expressDiv.style.display = 'none';
                 expressTitle.style.display = 'none';
                 expressDivider.style.display = 'none';
 
             } else {
 
-
+                expressDiv.style.display = 'block';
                 expressTitle.style.display = 'block';
                 expressDivider.style.display = 'block';
 
