@@ -112,16 +112,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-            var stripeLoader = document.getElementById('stripe-loader');
-            var expressTitle = document.getElementById('express-title');
-            var contactTitle = document.getElementById('contact-title');
-            var shippingTitle = document.getElementById('shipping-title');
-            var expressDivider = document.getElementById('express-divider');
-            stripeLoader.style.display = 'none';
-            expressTitle.style.display = 'block';
-            contactTitle.style.display = 'block';
-            shippingTitle.style.display = 'block';
-            expressDivider.style.display = 'block';
 
 
             if (!('budget' in shippingPrices)) {
@@ -172,6 +162,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ============================================================================
 
     async function initialize() {
+
+
+
+
         var paymentValue;
 
         document.addEventListener("submit", handleSubmit);
@@ -249,6 +243,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Event handler for address element change
         var displayError = document.getElementById("card-errors");
+
+
+        var stripeLoader = document.getElementById('stripe-loader');
+        var expressTitle = document.getElementById('express-title');
+        var contactTitle = document.getElementById('contact-title');
+        var shippingTitle = document.getElementById('shipping-title');
+        var expressDivider = document.getElementById('express-divider');
+        stripeLoader.style.display = 'none';
+        expressTitle.style.display = 'block';
+        contactTitle.style.display = 'block';
+        shippingTitle.style.display = 'block';
+        expressDivider.style.display = 'block';
 
         function updateMessage() {
             if (eventValue != undefined) {
