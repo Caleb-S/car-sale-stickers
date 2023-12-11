@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             shippingPrices = data.shippingQuotes;
             console.log(shippingPrices);
-     
+
 
             if (!('budget' in shippingPrices)) {
                 budgetOption.style.display = 'none';
@@ -688,7 +688,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     var newNavTitle = navTitle.cloneNode(true);
                     navTitle.parentNode.replaceChild(newNavTitle, navTitle);
                     navTitle.onclick = function () {
-                        window.location.href = 'index.html';
+                        window.location.href = 'https://carsalestickers.com';
                     };
                 }
 
@@ -728,7 +728,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     //paymentPage.style.webkitOverflowScrolling = 'auto';
                     navTitle.innerHTML = 'CarSaleStickers.com';
                     navTitle.onclick = function () {
-                        window.location.href = 'index.html';
+                        window.location.href = 'https://carsalestickers.com';
                     };
                     nav.style.position = 'static';
 
@@ -1044,7 +1044,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         switch (paymentIntent.status) {
             case "succeeded":
                 showMessage("Payment succeeded!");
-                window.location.href = "success.html?status=true";
+                window.location.href = "/checkout/success/index.html?status=true";
                 break;
             case "processing":
                 showMessage("Your payment is processing.");

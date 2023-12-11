@@ -10,9 +10,7 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <script
-  src="url-formater.js"
-></script>
+  <script src="../../src/scripts/url-formater.js"></script>
 
 </head>
 
@@ -21,9 +19,9 @@
   <nav class="py-3 bg-[#64ef8b]" id="nav-bar">
     <div class="container px-[60px]">
       <div class="font-semibold text-black sm:text-base md:text-xl ">
-        <h1 class="font-bold cursor-pointer" onclick="window.location.href='index.html'">
+        <a class="font-bold cursor-pointer" href="https://carsalestickers.com">
           CarSaleStickers.com
-        </h1>
+        </a>
       </div>
     </div>
   </nav>
@@ -135,7 +133,7 @@
       such as the right to access, correct, update, or delete your personal
       information. If you would like to exercise any of these rights or have
       questions about your data, please contact us at via our
-      <a class="text-blue-400 cursor-pointer" onclick="window.location.href='contact.html'">contact page</a>.
+      <a class="text-blue-400 cursor-pointer" href="../../contact/index.html">contact page</a>.
     </p>
 
     <h2 class="mt-10 text-2xl font-semibold">Consent to Data Processing</h2>
@@ -164,7 +162,7 @@
     <p class="mt-4">
       If you have any questions or concerns regarding our Privacy Policy or
       the data we hold about you, please contact us via our
-      <a class="text-blue-400 cursor-pointer" onclick="window.location.href='contact.html'">contact page</a>.
+      <a class="text-blue-400 cursor-pointer" href="../../contact/index.html">contact page</a>.
     </p>
     <p class="mt-10 text-base font-semibold text-red-400">
       By using our Website, you consent to the practices described in this
@@ -184,16 +182,22 @@
       </div>
       <div class="flex flex-col text-left md:flex-col md:items-start md:order-1 md:text-[15px]"
         style="font-family: 'Raleway', sans-serif;">
-        <a href="#" onclick="window.location.href='terms-of-service.html'"
-          class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4" aria-label="Read our Terms of Service">Terms of
+
+        <!-- Terms Of Service -->
+        <a href="../terms/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+          aria-label="Read our Terms of Service">Terms of
           Service</a>
 
-        <a href="#" onclick="window.location.href='refund.html'" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+        <!-- Returns & Refund -->
+        <a href="../refunds/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
           aria-label="Learn about Returns and Refund Policy">Returns and Refund</a>
-        <a href="#" onclick="window.location.href='contact.html'" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+
+        <!-- Contact Page -->
+        <a href="../../contact/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
           aria-label="Visit our Contact Page">Contact Page</a>
-        <a href="#" onclick="window.location.href='index.html'" class="text-black md:ml-0"
-          aria-label="Explore our Blog">Blog</a>
+
+        <!-- Blog -->
+        <a href="#" class="text-black md:ml-0" aria-label="Explore our Blog">Blog</a>
       </div>
     </div>
   </footer>

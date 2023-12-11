@@ -22,12 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileButton.addEventListener('click', () => {
             if (mobileText.style.display === 'none') {
                 mobileText.style.display = 'block';
-                mobileImage.setAttribute("src", "assets/del-btn.svg");
+                mobileImage.setAttribute("src", "/src/assets/del-btn.svg");
                 mobileButton.setAttribute('aria-label', 'Remove mobile number from sticker');
                 mobileText.focus();
             } else {
                 mobileText.style.display = 'none';
-                mobileImage.setAttribute("src", "assets/add-btn.svg");
+                mobileImage.setAttribute("src", "/src/assets/add-btn.svg");
                 mobileButton.setAttribute('aria-label', 'Add mobile number to sticker');
             }
         });
@@ -35,12 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileLabel.addEventListener('click', () => {
             if (mobileText.style.display === 'none') {
                 mobileText.style.display = 'block';
-                mobileImage.setAttribute("src", "assets/del-btn.svg");
+                mobileImage.setAttribute("src", "/src/assets/del-btn.svg");
                 mobileButton.setAttribute('aria-label', 'Remove mobile number from sticker');
                 mobileText.focus();
             } else {
                 mobileText.style.display = 'none';
-                mobileImage.setAttribute("src", "assets/add-btn.svg");
+                mobileImage.setAttribute("src", "/src/assets/add-btn.svg");
                 mobileButton.setAttribute('aria-label', 'Add mobile number to sticker');
             }
         });
@@ -53,12 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (event.key === 'Enter' || event.keyCode === 13) {
                 if (mobileText.style.display === 'none') {
                     mobileText.style.display = 'block';
-                    mobileImage.setAttribute("src", "assets/del-btn.svg");
+                    mobileImage.setAttribute("src", "/src/assets/del-btn.svg");
                     mobileButton.setAttribute('aria-label', 'Remove mobile number from sticker');
                     mobileText.focus();
                 } else {
                     mobileText.style.display = 'none';
-                    mobileImage.setAttribute("src", "assets/add-btn.svg");
+                    mobileImage.setAttribute("src", "/src/assets/add-btn.svg");
                     mobileButton.setAttribute('aria-label', 'Add mobile number to sticker');
                 }
             }
@@ -68,12 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
         emailButton.addEventListener('click', () => {
             if (emailText.style.display === 'none') {
                 emailText.style.display = 'block';
-                emailImage.setAttribute("src", "assets/del-btn.svg");
+                emailImage.setAttribute("src", "/src/assets/del-btn.svg");
                 emailButton.setAttribute('aria-label', 'Remove email from sticker');
                 emailText.focus();
             } else {
                 emailText.style.display = 'none';
-                emailImage.setAttribute("src", "assets/add-btn.svg");
+                emailImage.setAttribute("src", "/src/assets/add-btn.svg");
                 emailButton.setAttribute('aria-label', 'Add email to sticker');
             }
         });
@@ -81,12 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
         emailLabel.addEventListener('click', () => {
             if (emailText.style.display === 'none') {
                 emailText.style.display = 'block';
-                emailImage.setAttribute("src", "assets/del-btn.svg");
+                emailImage.setAttribute("src", "/src/assets/del-btn.svg");
                 emailButton.setAttribute('aria-label', 'Remove email from sticker');
                 emailText.focus();
             } else {
                 emailText.style.display = 'none';
-                emailImage.setAttribute("src", "assets/add-btn.svg");
+                emailImage.setAttribute("src", "/src/assets/add-btn.svg");
                 emailButton.setAttribute('aria-label', 'Add email to sticker');
             }
         });
@@ -96,12 +96,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (event.key === 'Enter' || event.keyCode === 13) {
                 if (emailText.style.display === 'none') {
                     emailText.style.display = 'block';
-                    emailImage.setAttribute("src", "assets/del-btn.svg");
+                    emailImage.setAttribute("src", "/src/assets/del-btn.svg");
                     emailButton.setAttribute('aria-label', 'Remove email from sticker');
                     emailText.focus();
                 } else {
                     emailText.style.display = 'none';
-                    emailImage.setAttribute("src", "assets/add-btn.svg");
+                    emailImage.setAttribute("src", "/src/assets/add-btn.svg");
                     emailButton.setAttribute('aria-label', 'Add email to sticker');
                 }
             }
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 params.append("mail-text", emailText.value);
             }
 
-            window.location.href = "payment.html?" + params.toString();
+            window.location.href = "checkout/index.html?" + params.toString();
         });
     });
 });

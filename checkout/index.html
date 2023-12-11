@@ -5,21 +5,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Car Sale Stickers</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="checkout.css" />
+  <link rel="stylesheet" href="/src/styles/styles.css" />
+  <link rel="stylesheet" href="/src/styles/checkout.css" />
   <script defer src="https://js.stripe.com/v3/"></script>
 
 
-  <script defer src="product-summary.js"></script>
-  <script defer src="checkout-live.js"></script>
-  <link rel="preload" href="src/assets/add-btn.png" as="image" />
-  <link rel="preload" href="src/assets/add-btn.png" as="image" />
+  <script defer src="/src/scripts/product-summary.js"></script>
+  <script defer src="/src/scripts/checkout-live.js"></script>
+  <link rel="preload" href="/src/assets/add-btn.png" as="image" />
+  <link rel="preload" href="/src/assets/add-btn.png" as="image" />
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="src/assets/favicon/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="src/assets/favicon/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="src/assets/favicon/favicon-16x16.png" />
-  <link rel="manifest" href="src/assets/favicon/site.webmanifest" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/src/assets/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/src/assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/src/assets/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="/src/assets/favicon/site.webmanifest" />
 
 
 
@@ -27,7 +27,7 @@
 
 <body style="overflow: hidden;">
   <div class="nav">
-    <h3 class="nav-title" onclick="window.location.href='index.html'" style="cursor: pointer; ">
+    <h3 class="nav-title" onclick="window.location.href='https://carsalestickers.com'" style="cursor: pointer; ">
       CarSaleStickers.com
     </h3>
   </div>
@@ -189,7 +189,7 @@
               style="position: absolute; top: 0; background-color: #FF5757; color: white; font-weight: 600; width: 100%; text-align: center; padding: 3px; font-size: 12px;   border-radius: 5px 5px 0px 0px;">
               No
               Tracking</div>
-            <img src="src/assets/budget-icon.png" alt="A beautiful example image" class="shipping-icon">
+            <img src="/src/assets/budget-icon.png" alt="A beautiful example image" class="shipping-icon">
             <text class="shipping-card-title">Budget</text>
             <text class="shipping-price">Free</text>
 
@@ -197,13 +197,13 @@
           </div>
 
           <div class="shipping-card" onclick="handleCardClick(this)" id="standard">
-            <img src="src/assets/standard-icon.png" alt="A beautiful example image" class="shipping-icon">
+            <img src="/src/assets/standard-icon.png" alt="A beautiful example image" class="shipping-icon">
             <text class="shipping-card-title">Standard</text>
             <text class="shipping-price" id="standard-price">Calculating...</text>
           </div>
 
           <div class="shipping-card" onclick="handleCardClick(this)" id="express">
-            <img src="src/assets/express-icon.png" alt="A beautiful example image" class="shipping-icon">
+            <img src="/src/assets/express-icon.png" alt="A beautiful example image" class="shipping-icon">
             <text class="shipping-card-title">Express</text>
             <text class="shipping-price" id="express-price">Calculating...</text>
           </div>
@@ -347,7 +347,7 @@ targetText.style.fontSize = `${desiredFontSize}px`;
 
       // Create and append the iframe
       var iframe = document.createElement("iframe");
-      iframe.src = "refund.html";
+      iframe.src = "/policies/refunds/index.html";
       iframe.id = "iframe-container";
       iframe.setAttribute("frameborder", "0");
       iframe.setAttribute("width", "100% !important");
@@ -369,11 +369,12 @@ targetText.style.fontSize = `${desiredFontSize}px`;
 
       // Create and append the iframe
       var iframe = document.createElement("iframe");
-      iframe.src = "privacy-policy.html";
+      iframe.src = "/policies/privacy/index.html";
       iframe.id = "iframe-container";
       iframe.setAttribute("frameborder", "0");
-      iframe.setAttribute("width", "100%");
+      iframe.setAttribute("width", "100% !important");
       iframe.setAttribute("height", "100%");
+      iframe.style.minWidth = '100%';
 
 
       popupContent.insertBefore(iframe, firstChild);
@@ -389,11 +390,12 @@ targetText.style.fontSize = `${desiredFontSize}px`;
 
       // Create and append the iframe
       var iframe = document.createElement("iframe");
-      iframe.src = "terms-of-service.html";
+      iframe.src = "/policies/terms/index.html";
       iframe.id = "iframe-container";
       iframe.setAttribute("frameborder", "0");
-      iframe.setAttribute("width", "100%");
+      iframe.setAttribute("width", "100% !important");
       iframe.setAttribute("height", "100%");
+      iframe.style.minWidth = '100%';
 
 
 
@@ -483,7 +485,7 @@ targetText.style.fontSize = `${desiredFontSize}px`;
 
   </div>
 
-  <script src="url-formater.js"></script>
+  <script src="../src/scripts/url-formater.js"></script>
 </body>
 
 </html>

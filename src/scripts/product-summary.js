@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileText.style.display = 'block';
         mobileText.value = numTextParam;
         handleFocusOut.call(mobileText);
-        mobileImage.setAttribute("src", "assets/del-btn.svg");
+        mobileImage.setAttribute("src", "/src/assets/del-btn.svg");
         resizeInput(forSaleTxt, mobileText, 'phone');
         mobileText.style.maxWidth = Math.max(mobileText.length) + "ch";
     }
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log('running first');
         resizeInput(forSaleTxt, mailText, 'email');
         handleFocusOut.call(mailText);
-        mailImage.setAttribute("src", "assets/del-btn.svg");
+        mailImage.setAttribute("src", "/src/assets/del-btn.svg");
     }
     const toPaymentButton = document.querySelector(".toPayment-btn");
     toPaymentButton.addEventListener("click", handleToPaymentButtonClick);
@@ -513,7 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
         addBtnNum.classList.add("add-btn-sum");
         addBtnNum.setAttribute("id", "mobile-btn");
         const addBtnNumImg = document.createElement("img");
-        addBtnNumImg.setAttribute("src", "assets/add-btn.svg");
+        addBtnNumImg.setAttribute("src", "/src/assets/add-btn.svg");
         addBtnNum.appendChild(addBtnNumImg);
         optionWrapper1.appendChild(addBtnNum);
         const NumOptionText = document.createElement("text");
@@ -523,13 +523,13 @@ document.addEventListener("DOMContentLoaded", () => {
         addBtnNum.addEventListener('click', () => {
             if (stickerNumber.style.display === 'none') {
                 stickerNumber.style.display = 'block';
-                addBtnNumImg.setAttribute("src", "assets/del-btn.svg");
+                addBtnNumImg.setAttribute("src", "/src/assets/del-btn.svg");
                 stickerNumber.focus();
                 updateCart();
 
             } else {
                 stickerNumber.style.display = 'none';
-                addBtnNumImg.setAttribute("src", "assets/add-btn.svg");
+                addBtnNumImg.setAttribute("src", "/src/assets/add-btn.svg");
                 updateCart();
 
             }
@@ -538,13 +538,13 @@ document.addEventListener("DOMContentLoaded", () => {
         NumOptionText.addEventListener('click', () => {
             if (stickerNumber.style.display === 'none') {
                 stickerNumber.style.display = 'block';
-                addBtnNumImg.setAttribute("src", "assets/del-btn.svg");
+                addBtnNumImg.setAttribute("src", "/src/assets/del-btn.svg");
                 stickerNumber.focus();
                 updateCart();
 
             } else {
                 stickerNumber.style.display = 'none';
-                addBtnNumImg.setAttribute("src", "assets/add-btn.svg");
+                addBtnNumImg.setAttribute("src", "/src/assets/add-btn.svg");
                 updateCart();
 
             }
@@ -557,7 +557,7 @@ document.addEventListener("DOMContentLoaded", () => {
         addBtnMail.classList.add("add-btn-sum");
         addBtnMail.setAttribute("id", "email-btn");
         const addBtnMailImg = document.createElement("img");
-        addBtnMailImg.setAttribute("src", "assets/add-btn.svg");
+        addBtnMailImg.setAttribute("src", "/src/assets/add-btn.svg");
         addBtnMail.appendChild(addBtnMailImg);
         optionWrapper2.appendChild(addBtnMail);
         const MailOptionText = document.createElement("text");
@@ -567,13 +567,13 @@ document.addEventListener("DOMContentLoaded", () => {
         addBtnMail.addEventListener('click', () => {
             if (stickerEmail.style.display === 'none') {
                 stickerEmail.style.display = 'block';
-                addBtnMailImg.setAttribute("src", "assets/del-btn.svg");
+                addBtnMailImg.setAttribute("src", "/src/assets/del-btn.svg");
                 stickerEmail.focus();
                 updateCart();
 
             } else {
                 stickerEmail.style.display = 'none';
-                addBtnMailImg.setAttribute("src", "assets/add-btn.svg");
+                addBtnMailImg.setAttribute("src", "/src/assets/add-btn.svg");
                 updateCart();
 
             }
@@ -582,13 +582,13 @@ document.addEventListener("DOMContentLoaded", () => {
         MailOptionText.addEventListener('click', () => {
             if (stickerEmail.style.display === 'none') {
                 stickerEmail.style.display = 'block';
-                addBtnMailImg.setAttribute("src", "assets/del-btn.svg");
+                addBtnMailImg.setAttribute("src", "/src/assets/del-btn.svg");
                 stickerEmail.focus();
                 updateCart();
 
             } else {
                 stickerEmail.style.display = 'none';
-                addBtnMailImg.setAttribute("src", "assets/add-btn.svg");
+                addBtnMailImg.setAttribute("src", "/src/assets/add-btn.svg");
                 updateCart();
 
             }
@@ -615,7 +615,7 @@ document.addEventListener("DOMContentLoaded", () => {
             removeBtnClickQuantity(event, quantityText);
         });
         const removeBtnQuantityImg = document.createElement("img");
-        removeBtnQuantityImg.setAttribute("src", "assets/del-btn.svg");
+        removeBtnQuantityImg.setAttribute("src", "/src/assets/del-btn.svg");
         removeBtnQuantity.appendChild(removeBtnQuantityImg);
         const quantityText = document.createElement("text");
         quantityText.classList.add("quantity-num");
@@ -629,7 +629,7 @@ document.addEventListener("DOMContentLoaded", () => {
             addBtnClickQuantity(event, quantityText);
         });
         const addBtnQuantityImg = document.createElement("img");
-        addBtnQuantityImg.setAttribute("src", "assets/add-btn.svg");
+        addBtnQuantityImg.setAttribute("src", "/src/assets/add-btn.svg");
         addBtnQuantity.appendChild(addBtnQuantityImg);
         const verticalWrapper2 = document.createElement("div");
         verticalWrapper2.classList.add("vertical-wrapper");
@@ -681,11 +681,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const addBtnSumElements = builderContainer.querySelectorAll(".add-btn-sum");
                     addBtnSumElements.forEach((addBtnSum) => {
                         const imgElement = addBtnSum.querySelector("img");
-                        imgElement.src = "assets/btn-plain-red.png";
+                        imgElement.src = "/src/assets/btn-plain-red.png";
                     });
                     const addQuantityBtn = builderContainer.querySelector(".add-btn-sum-small");
                     const imgElement = addQuantityBtn.querySelector("img");
-                    imgElement.src = "assets/del-btn.svg";
+                    imgElement.src = "/src/assets/del-btn.svg";
                     builderContainer.classList.add("fade-out");
                     setTimeout(() => {
                         builderContainer.remove();
