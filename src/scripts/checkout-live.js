@@ -246,15 +246,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
         var stripeLoader = document.getElementById('stripe-loader');
-        var expressTitle = document.getElementById('express-title');
+
         var contactTitle = document.getElementById('contact-title');
         var shippingTitle = document.getElementById('shipping-title');
-        var expressDivider = document.getElementById('express-divider');
+
         stripeLoader.style.display = 'none';
-        expressTitle.style.display = 'block';
+
         contactTitle.style.display = 'block';
         shippingTitle.style.display = 'block';
-        expressDivider.style.display = 'block';
+
+        var expressTitle = document.getElementById('express-title');
+        var expressDivider = document.getElementById('express-divider');
+
+
+        expressCheckoutElement.on('ready', ({ availablePaymentMethods }) => {
+            if (!availablePaymentMethods) {
+                // No buttons will show
+
+                expressTitle.style.display = 'none';
+                expressDivider.style.display = 'none';
+
+            } else {
+
+
+                expressTitle.style.display = 'block';
+                expressDivider.style.display = 'block';
+
+                console.log('Pheyment Methods');
+
+                console.log(availablePaymentMethods);
+
+            }
+        });
 
         function updateMessage() {
             if (eventValue != undefined) {
