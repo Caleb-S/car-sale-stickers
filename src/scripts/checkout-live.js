@@ -111,6 +111,19 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.log(shippingPrices);
 
 
+
+            var stripeLoader = document.getElementById('stripe-loader');
+            var expressTitle = document.getElementById('express-title');
+            var contactTitle = document.getElementById('contact-title');
+            var shippingTitle = document.getElementById('shipping-title');
+            var expressDivider = document.getElementById('express-divider');
+            stripeLoader.style.display = 'none';
+            expressTitle.style.display = 'block';
+            contactTitle.style.display = 'block';
+            shippingTitle.style.display = 'block';
+            expressDivider.style.display = 'block';
+
+
             if (!('budget' in shippingPrices)) {
                 budgetOption.style.display = 'none';
 

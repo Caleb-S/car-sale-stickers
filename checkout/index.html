@@ -137,30 +137,31 @@
 
 
     <div class="payment-section">
+
       <div class="stripe-wrapper">
         <div id="shipping-express">
           <div style="text-align: center; padding-top: 10px; color: grey">
-            <text style="font-size: small">Express Checkout</text>
+            <text id="express-title" style="font-size: small; display: none">Express Checkout</text>
           </div>
 
-          <div id="express-checkout-element" style="max-width: 100%; padding-bottom: 40px; padding-top: 10px">
+          <div id="express-checkout-element" style="max-width: 100%; padding-bottom: 40px; padding-top: 10px;">
           </div>
 
 
-          <div style="
+          <div id="express-divider" style="
                 text-align: center;
                 border-bottom: 1px solid #ccc;
                 line-height: 0.1em;
-
+display: none;
                 font-size: small;
               ">
             <span style="background-color: #fff; padding: 0 10px; color: #000">OR</span>
           </div>
-          <h3 style="margin-bottom: 10px;  margin-top: 20px">Contact</h3>
+          <h3 id="contact-title" style="margin-bottom: 10px;  margin-top: 20px; display: none">Contact</h3>
           <div id="link-authentication-element" style=" margin-bottom: -20px;"></div>
 
           <form id="address-form" style="max-width: 100%; min-width: 50%; width: auto">
-            <h3 style="margin-bottom: 10px;">Shipping Details</h3>
+            <h3 id="shipping-title" style="margin-bottom: 10px; display: none;">Shipping Details</h3>
             <div id="address-element" style="max-width: 100%">
             </div>
             <div id="card-errors"
@@ -233,7 +234,9 @@
         </div>
 
         <div id="payment-section">
-
+          <div class="loader" id="stripe-loader"
+            style="width: 5vw; height: 5vw; min-width: 80px; min-height: 80px; margin: auto;">
+          </div>
 
 
           <form id="payment-form">
