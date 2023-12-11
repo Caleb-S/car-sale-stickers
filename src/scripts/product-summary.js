@@ -426,7 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Create a new URL with only the base URL
             const newUrl = baseUrl;
             // Replace the current URL with the cleaned URL
-            window.history.replaceState({}, document.title, newUrl.replace(/\/index\.html$/, '/'));
+            window.history.replaceState({}, document.title, newUrl.replace(/\/index\.html$/, ''));
         }
         // Optionally, you can also return the cleaned URL
         // return newUrl;
