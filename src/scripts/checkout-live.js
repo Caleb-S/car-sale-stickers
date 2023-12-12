@@ -251,6 +251,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             elements.fetchUpdates()
                 .then(function (result) {
                     // Handle result.error
+                    console.log(result);
                 });
 
 
