@@ -248,57 +248,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         expressCheckoutElement.on('click', (event) => {
             console.log('clicked express element 101');
 
-            var payload = {
-                requestType: "updateIntent",
-                customerDetails: {
-                    intentID: intentID,
-                    shippingMethod: shippingMethod,
-                },
-                cart: cart.map(cartItem => {
-                    const productItem = {
-                        productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
-                        quantity: cartItem.quantity,
-                    };
-                    if (cartItem.phone) {
-                        productItem.phoneOption = cartItem.phone;
-                    }
-                    if (cartItem.email) {
-                        productItem.emailOption = cartItem.email;
-                    }
-
-                    return productItem;
-                }),
-            };
-
-
-            var updateData = fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data.body);
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
+            elements.fetchUpdates()
+                .then(function (result) {
+                    // Handle result.error
                 });
 
-            updateData.then(() => {
-                console.log('updated');
-            });
 
-
-
-
-
-
-            const options = {
-                emailRequired: true
-            };
-            event.resolve(options);
+            //event.resolve(options);
         });
 
 
@@ -506,7 +462,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             expressOption.style.display = 'none';
                         }
 
-                        expressCheckoutElement.mount("#express-checkout-element");
+
 
 
 
