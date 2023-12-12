@@ -506,6 +506,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                             expressOption.style.display = 'none';
                         }
 
+                        expressCheckoutElement.mount("#express-checkout-element");
+
 
 
 
