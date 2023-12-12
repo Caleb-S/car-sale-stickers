@@ -246,6 +246,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
         expressCheckoutElement.on('click', (event) => {
+            console.log('clicked express element 101');
+
             const options = {
                 emailRequired: true
             };
