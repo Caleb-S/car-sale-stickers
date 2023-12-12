@@ -11,6 +11,10 @@ var shippingPrices = {
     "overnight": "40.13"
 }
 
+
+var elements;
+
+
 document.addEventListener("DOMContentLoaded", async () => {
 
     var budgetOption = document.getElementById("budget");
@@ -42,7 +46,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         "pk_test_51NWg86IA9Fl1A3IGTsyLEeLB83hHQu0kIH8OFZipQP1BAklKyzEOnzNmrjDHyt7eRKYgeZcBwI45Bzxn60Z6icUg009NOrOYZq"
     );
     const items = [{ id: "xl-tshirt" }];
-    let elements;
+    
+   
 
     // Initialize Stripe elements and UI components
 
@@ -475,12 +480,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                             expressOption.style.display = 'none';
                         }
 
-                        (async () => {
-                            const response = await fetch('/update');
-                            if (response.status === 'requires_payment_method') {
-                                const { error } = await elements.fetchUpdates();
-                            }
-                        })();
+                        elements.fetchUpdates();
+
+                       
 
 
                         standardOption = document.getElementById("standard-price");
@@ -498,10 +500,18 @@ document.addEventListener("DOMContentLoaded", async () => {
                     console.log('updated');
                     // Add your additional code here.
 
+                    (async () => {
+                        const response = await fetch('/update');
+                        if (response.status === 'requires_payment_method') {
+                            const { error } = await elements.fetchUpdates();
+                        }
+                    })();
+    
+
                 });
+                
 
-
-
+              
 
                 checkChanges();
             } else {
@@ -591,6 +601,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // This code will run once the fetch request is completed
                     console.log('updated emai;');
                     // Add your additional code here.
+                    elements.fetchUpdates();
 
                 });
 

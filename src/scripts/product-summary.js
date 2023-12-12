@@ -1030,6 +1030,7 @@ function updateIntent() {
 
     updateData.then(() => {
         console.log('updated');
+        elements.fetchUpdates();
 
 
         updateStickerPrice(productPrice);
