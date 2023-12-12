@@ -46,8 +46,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         "pk_test_51NWg86IA9Fl1A3IGTsyLEeLB83hHQu0kIH8OFZipQP1BAklKyzEOnzNmrjDHyt7eRKYgeZcBwI45Bzxn60Z6icUg009NOrOYZq"
     );
     const items = [{ id: "xl-tshirt" }];
-    
-   
+
+
 
     // Initialize Stripe elements and UI components
 
@@ -253,21 +253,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         expressCheckoutElement.on('click', (event) => {
             console.log('clicked express element 101');
 
+
+            /*
             var expressCheckoutElement = elements.getElement('expressCheckout');
 
             expressCheckoutElement.update({
                 layout: 'horizontal',
             });
+            */
+
+            (async () => {
+                const response = await fetch('/update');
+                if (response.status === 'requires_payment_method') {
+                    const { error } = await elements.fetchUpdates();
+                }
+            })();
 
 
 
-            /*
-            elements.fetchUpdates()
-                .then(function (result) {
-                    // Handle result.error
-                    console.log(result.message);
-                });
-                */
+
 
             const options = {
                 emailRequired: true
@@ -482,7 +486,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                         elements.fetchUpdates();
 
-                       
+
 
 
                         standardOption = document.getElementById("standard-price");
@@ -506,12 +510,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                             const { error } = await elements.fetchUpdates();
                         }
                     })();
-    
+
 
                 });
-                
 
-              
+
+
 
                 checkChanges();
             } else {
