@@ -974,10 +974,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
           
             // Create the PaymentIntent and obtain clientSecret
+            /*
             const res = await fetch('/create-intent', {
               method: 'POST',
             });
-            const {client_secret: clientSecret} = await res.json();
+            */
+            //const {client_secret: clientSecret} = await res.json();
           
             const {error} = await stripe.confirmPayment({
               // `elements` instance used to create the Express Checkout Element
