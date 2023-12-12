@@ -943,7 +943,7 @@ function adjustSpaceFontSize() {
 
 function updateIntent() {
     var expressDiv = document.getElementById('express-checkout-element');
-    var loadingBar = document.querySelector('.express-title');
+    var loadingBar = document.querySelector('#express-title');
     var stripeLoader = document.getElementById('stripe-loader');
 
     expressDiv.style.display = 'none';
