@@ -262,20 +262,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
             */
 
-            (async () => {
-                const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update',
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        mode: 'cors', // Add this line to enable CORS
-
-                    });
-                if (response.status === 'requires_payment_method') {
-                    const { error } = await elements.fetchUpdates();
-                }
-            })();
+            elements.fetchUpdates();
 
 
 
@@ -517,30 +504,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     console.log('updated');
                     // Add your additional code here.
 
-                    (async () => {
-                        try {
-                            const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update', {
-                                method: "GET",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                mode: 'cors', // Add this line to enable CORS
-                            });
-
-                            if (response.status === 200) {
-                                const data = await response.json();
-                                console.log('Status:', data.status);
-                                // Handle the response status as needed
-                            } else {
-                                console.error('Failed to update:', response.status);
-                                // Handle other status codes as needed
-                            }
-                        } catch (error) {
-                            console.error('Error:', error);
-                            // Handle the error appropriately
-                        }
-                    })();
-
+                    elements.fetchUpdates();
 
 
                 });
@@ -622,6 +586,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     .then((data) => {
                         console.log(data.body);
 
+                        elements.fetchUpdates();
+
+
                         //var parsedData = JSON.parse(data.body);
                         //console.log(parsedData);
 
@@ -636,18 +603,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // This code will run once the fetch request is completed
                     console.log('updated emai;');
                     // Add your additional code here.
-                    (async () => {
-                        const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update', {
-                            method: "GET",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            mode: 'cors', // Add this line to enable CORS
-                        });
-                        if (response.status === 'requires_payment_method') {
-                            const { error } = await elements.fetchUpdates();
-                        }
-                    })();
+
+
+
 
                 });
 

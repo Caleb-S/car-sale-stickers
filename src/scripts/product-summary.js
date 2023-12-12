@@ -987,6 +987,7 @@ function updateIntent() {
         .then((response) => response.json())
         .then((data) => {
             console.log(data.body);
+            elements.fetchUpdates();
 
 
             productPrice = data.body.productPrice;
@@ -1030,18 +1031,7 @@ function updateIntent() {
 
     updateData.then(() => {
         console.log('updated');
-        (async () => {
-            const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update', {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-       
-            });
-            if (response.status === 'requires_payment_method') {
-                const { error } = await elements.fetchUpdates();
-            }
-        })();
+
 
 
         updateStickerPrice(productPrice);
