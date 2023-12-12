@@ -248,14 +248,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         expressCheckoutElement.on('click', (event) => {
             console.log('clicked express element 101');
 
-            elements.fetchUpdates()
-                .then(function (result) {
-                    // Handle result.error
-                    console.log(result);
-                });
 
 
-            //event.resolve(options);
+
+
+            const options = {
+                emailRequired: true
+            };
+            event.resolve(options);
         });
 
 
@@ -462,8 +462,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                         } else {
                             expressOption.style.display = 'none';
                         }
-
-
 
 
 
