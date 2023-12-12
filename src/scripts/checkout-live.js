@@ -962,40 +962,49 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         expressCheckoutElement.on('confirm', async (event) => {
-            console.log('submit btn');
-            console.log(paymentValue);
+
+            /* Payment Loading Screen */
             var loadingBD = document.querySelector(".payment-backdrop");
             loadingBD.style.display = "flex";
 
-            event.preventDefault();
-            // setLoading(true);
+            const {error: submitError} = await elements.submit();
+            if (submitError) {
+              handleError(submitError);
+              return;
+            }
+          
+            // Create the PaymentIntent and obtain clientSecret
+            const res = await fetch('/create-intent', {
+              method: 'POST',
+            });
+            const {client_secret: clientSecret} = await res.json();
+          
+            const {error} = await stripe.confirmPayment({
+              // `elements` instance used to create the Express Checkout Element
+              elements,
+              // `clientSecret` from the created PaymentIntent
+              clientSecret,
+              confirmParams: {
+                return_url: 'https://carsalestickers.com/checkout/success/index.html?status=true',
+              },
+            });
+          
+            if (error) {
+              // This point is only reached if there's an immediate error when
+              // confirming the payment. Show the error to your customer (for example, payment details incomplete)
+              handleError(error);
+            } else {
+              // The payment UI automatically closes with a success animation.
+              // Your customer is redirected to your `return_url`.
+            }
+
+            
+
+            /* Payment Logic */
 
             /*
-            const { error } = await stripe.confirmPayment({
-                elements,
-                confirmParams: {
-                    return_url: "http://localhost:4242/checkout.html",
-                    receipt_email: emailAddress,
-                },
-            });
-    
-    
-            if (error.type === "card_error" || error.type === "validation_error") {
-                showMessage(error.message);
-            } else {
-                showMessage("An unexpected error occurred.");
-            }
-            // setLoading(false);
-            */
-
-
-
-
-
-
             try {
                 elements.submit();
-
                 const { paymentMethod, error } = await stripe.createPaymentMethod({
                     elements,
                     params: {
@@ -1005,15 +1014,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     },
                 });
 
-
                 elements.getElement("payment")
-
-
-
-                //var paymentMethod = elements.getElement("payment");
-
-
-
 
                 var payload = {
                     requestType: "submitPayment",
@@ -1021,31 +1022,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                         intentID: intentID,
                         paymentMethod: paymentMethod,
                         shippingMethod: shippingMethod,
-
                     },
                     cart: cart.map(cartItem => {
                         const productItem = {
                             productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
-                            quantity: cartItem.quantity, // If you want to keep track of quantity, you need to modify the cart data accordingly
+                            quantity: cartItem.quantity, 
                         };
-
-                        // Add phoneOption to productItem if not null or empty
                         if (cartItem.phone) {
                             productItem.phoneOption = cartItem.phone;
                         }
-
-                        // Add emailOption to productItem if not null or empty
                         if (cartItem.email) {
                             productItem.emailOption = cartItem.email;
                         }
-
                         return productItem;
                     }),
                 };
-
-
-
-
 
                 var updateData = fetch(url, {
                     method: "POST",
@@ -1070,20 +1061,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                     console.log('payment went through');
                     // Add your additional code here.
                     checkStatus(clientSecret);
-
-
                 });
-
             }
 
             catch (error) {
                 console.log(error);
                 checkStatus(clientSecret);
             }
+            */
 
-
-
-
+        /* End Of Function */
         });
 
 
