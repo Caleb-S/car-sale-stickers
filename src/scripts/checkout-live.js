@@ -961,6 +961,131 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
         });
 
+        expressCheckoutElement.on('confirm', async (event) => {
+            console.log('submit btn');
+            console.log(paymentValue);
+            var loadingBD = document.querySelector(".payment-backdrop");
+            loadingBD.style.display = "flex";
+
+            event.preventDefault();
+            // setLoading(true);
+
+            /*
+            const { error } = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    return_url: "http://localhost:4242/checkout.html",
+                    receipt_email: emailAddress,
+                },
+            });
+    
+    
+            if (error.type === "card_error" || error.type === "validation_error") {
+                showMessage(error.message);
+            } else {
+                showMessage("An unexpected error occurred.");
+            }
+            // setLoading(false);
+            */
+
+
+
+
+
+
+            try {
+                elements.submit();
+
+                const { paymentMethod, error } = await stripe.createPaymentMethod({
+                    elements,
+                    params: {
+                        billing_details: {
+                            name: 'Jenny Rosen',
+                        },
+                    },
+                });
+
+
+                elements.getElement("payment")
+
+
+
+                //var paymentMethod = elements.getElement("payment");
+
+
+
+
+                var payload = {
+                    requestType: "submitPayment",
+                    customerDetails: {
+                        intentID: intentID,
+                        paymentMethod: paymentMethod,
+                        shippingMethod: shippingMethod,
+
+                    },
+                    cart: cart.map(cartItem => {
+                        const productItem = {
+                            productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
+                            quantity: cartItem.quantity, // If you want to keep track of quantity, you need to modify the cart data accordingly
+                        };
+
+                        // Add phoneOption to productItem if not null or empty
+                        if (cartItem.phone) {
+                            productItem.phoneOption = cartItem.phone;
+                        }
+
+                        // Add emailOption to productItem if not null or empty
+                        if (cartItem.email) {
+                            productItem.emailOption = cartItem.email;
+                        }
+
+                        return productItem;
+                    }),
+                };
+
+
+
+
+
+                var updateData = fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(payload),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log('processing payment');
+                        checkStatus(clientSecret);
+                        console.log(' payment result: ');
+                        console.log(data.body);
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+
+                updateData.then(() => {
+                    // This code will run once the fetch request is completed
+                    console.log('payment went through');
+                    // Add your additional code here.
+                    checkStatus(clientSecret);
+
+
+                });
+
+            }
+
+            catch (error) {
+                console.log(error);
+                checkStatus(clientSecret);
+            }
+
+
+
+
+        });
+
 
 
         async function handleSubmit(event) {
