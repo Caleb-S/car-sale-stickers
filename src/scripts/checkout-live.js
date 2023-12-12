@@ -248,13 +248,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         expressCheckoutElement.on('click', (event) => {
             console.log('clicked express element 101');
 
+            var expressCheckoutElement = elements.getElement('expressCheckout');
+
+            expressCheckoutElement.update({
+                layout: 'horizontal',
+            });
 
 
+
+            /*
             elements.fetchUpdates()
                 .then(function (result) {
                     // Handle result.error
                     console.log(result.message);
                 });
+                */
 
             const options = {
                 emailRequired: true
