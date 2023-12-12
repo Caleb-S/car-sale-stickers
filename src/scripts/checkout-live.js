@@ -245,6 +245,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         var displayError = document.getElementById("card-errors");
 
 
+        expressCheckoutElement.on('click', (event) => {
+            const options = {
+                emailRequired: true
+            };
+            event.resolve(options);
+        });
+
+
 
 
 
@@ -967,12 +975,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             var loadingBD = document.querySelector(".payment-backdrop");
             loadingBD.style.display = "flex";
 
-            const {error: submitError} = await elements.submit();
+            const { error: submitError } = await elements.submit();
             if (submitError) {
-              handleError(submitError);
-              return;
+                handleError(submitError);
+                return;
             }
-          
+
             // Create the PaymentIntent and obtain clientSecret
             /*
             const res = await fetch('/create-intent', {
@@ -980,27 +988,27 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
             */
             //const {client_secret: clientSecret} = await res.json();
-          
-            const {error} = await stripe.confirmPayment({
-              // `elements` instance used to create the Express Checkout Element
-              elements,
-              // `clientSecret` from the created PaymentIntent
-              clientSecret,
-              confirmParams: {
-                return_url: 'https://carsalestickers.com/checkout/success/index.html?status=true',
-              },
+
+            const { error } = await stripe.confirmPayment({
+                // `elements` instance used to create the Express Checkout Element
+                elements,
+                // `clientSecret` from the created PaymentIntent
+                clientSecret,
+                confirmParams: {
+                    return_url: 'https://carsalestickers.com/checkout/success/index.html?status=true',
+                },
             });
-          
+
             if (error) {
-              // This point is only reached if there's an immediate error when
-              // confirming the payment. Show the error to your customer (for example, payment details incomplete)
-              handleError(error);
+                // This point is only reached if there's an immediate error when
+                // confirming the payment. Show the error to your customer (for example, payment details incomplete)
+                handleError(error);
             } else {
-              // The payment UI automatically closes with a success animation.
-              // Your customer is redirected to your `return_url`.
+                // The payment UI automatically closes with a success animation.
+                // Your customer is redirected to your `return_url`.
             }
 
-            
+
 
             /* Payment Logic */
 
@@ -1072,7 +1080,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
             */
 
-        /* End Of Function */
+            /* End Of Function */
         });
 
 
