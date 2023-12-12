@@ -943,7 +943,7 @@ function adjustSpaceFontSize() {
 
 function updateIntent() {
     var expressDiv = document.getElementById('express-checkout-element');
-    var loadingBar = document.querySelector('.loading-bar');
+    var loadingBar = document.querySelector('.express-title');
     var stripeLoader = document.getElementById('stripe-loader');
 
     expressDiv.style.display = 'none';
@@ -952,10 +952,10 @@ function updateIntent() {
 
 
     if (window.getComputedStyle(stripeLoader).display !== 'none') {
-
-        loadingBar.style.display = 'none';
-    } else {
         loadingBar.style.display = 'flex';
+
+    } else {
+        loadingBar.style.display = 'none';
     }
 
     //updateStickerPrice(productPrice);
