@@ -452,6 +452,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     .then((response) => response.json())
                     .then((data) => {
                         console.log(data.body);
+                        elements.fetchUpdates();
                         productPrice = data.body.productPrice;
                         updateStickerPrice(productPrice);
                         //var parsedData = JSON.parse(data.body);
@@ -479,12 +480,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                             expressOption.style.display = 'none';
                         }
 
-                        (async () => {
-                            const response = await fetch('/update');
-                            if (response.status === 'requires_payment_method') {
-                                const { error } = await elements.fetchUpdates();
-                            }
-                        })();
 
 
 
