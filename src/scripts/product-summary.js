@@ -943,7 +943,8 @@ function adjustSpaceFontSize() {
 
 function updateIntent() {
     var expressDiv = document.getElementById('express-checkout-element');
-    expressDiv.style.display = 'none';
+    expressDiv.style.visibility = 'hidden';
+
     //updateStickerPrice(productPrice);
 
     var budgetOption = document.getElementById("budget");
@@ -996,7 +997,8 @@ function updateIntent() {
             elements.fetchUpdates()
                 .then(function (result) {
                     // Handle result.error
-                    expressDiv.style.display = 'block';
+                    expressDiv.style.visibility = 'visible';
+
                 });
 
             productPrice = data.body.productPrice;
