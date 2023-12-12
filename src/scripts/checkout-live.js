@@ -265,10 +265,11 @@ document.addEventListener("DOMContentLoaded", async () => {
             (async () => {
                 const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update',
                     {
-                        method: "POST",
+                        method: "GET",
                         headers: {
                             "Content-Type": "application/json",
                         },
+                        mode: 'cors', // Add this line to enable CORS
 
                     });
                 if (response.status === 'requires_payment_method') {
@@ -519,10 +520,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     (async () => {
                         try {
                             const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update', {
-                                method: "POST",
+                                method: "GET",
                                 headers: {
                                     "Content-Type": "application/json",
                                 },
+                                mode: 'cors', // Add this line to enable CORS
                             });
 
                             if (response.status === 200) {
@@ -636,10 +638,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // Add your additional code here.
                     (async () => {
                         const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update', {
-                            method: "POST",
+                            method: "GET",
                             headers: {
                                 "Content-Type": "application/json",
-                            }
+                            },
+                            mode: 'cors', // Add this line to enable CORS
                         });
                         if (response.status === 'requires_payment_method') {
                             const { error } = await elements.fetchUpdates();
