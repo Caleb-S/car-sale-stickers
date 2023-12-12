@@ -484,7 +484,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                             expressOption.style.display = 'none';
                         }
 
-                        elements.fetchUpdates();
+                        (async () => {
+                            const response = await fetch('/update');
+                            if (response.status === 'requires_payment_method') {
+                                const { error } = await elements.fetchUpdates();
+                            }
+                        })();
 
 
 
@@ -605,7 +610,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // This code will run once the fetch request is completed
                     console.log('updated emai;');
                     // Add your additional code here.
-                    elements.fetchUpdates();
+                    (async () => {
+                        const response = await fetch('/update');
+                        if (response.status === 'requires_payment_method') {
+                            const { error } = await elements.fetchUpdates();
+                        }
+                    })();
 
                 });
 

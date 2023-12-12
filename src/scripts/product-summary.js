@@ -1030,7 +1030,12 @@ function updateIntent() {
 
     updateData.then(() => {
         console.log('updated');
-        elements.fetchUpdates();
+        (async () => {
+            const response = await fetch('/update');
+            if (response.status === 'requires_payment_method') {
+                const { error } = await elements.fetchUpdates();
+            }
+        })();
 
 
         updateStickerPrice(productPrice);
