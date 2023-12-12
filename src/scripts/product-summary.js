@@ -944,7 +944,7 @@ function adjustSpaceFontSize() {
 function updateIntent() {
     var expressDiv = document.getElementById('express-checkout-element');
     var loadingBar = document.querySelector('.loading-bar');
-    var expressTitle = document.getElementById('#express-title');
+    var expressTitle = document.getElementById('express-title');
 
     expressDiv.style.display = 'none';
 
