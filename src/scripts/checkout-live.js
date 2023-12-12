@@ -247,16 +247,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         expressCheckoutElement.on('click', (event) => {
             console.log('clicked express element 101');
-            /*
-                        elements.fetchUpdates()
-                            .then(function (result) {
-                                // Handle result.error
-                                console.log(result);
-                            });
-            
-            
-                        event.resolve(options);
-                        */
+
+            elements.fetchUpdates()
+                .then(function (result) {
+                    // Handle result.error
+                    console.log(result);
+                });
+
+
+            //event.resolve(options);
         });
 
 
