@@ -4,6 +4,59 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&family=Roboto:wght@300&display=swap");
 
 
+@keyframes slide {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: 113px;
+  }
+}
+
+.loading-bar {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.loading-bar .bar {
+  /* min-height: 100px; */
+  height: 25px;
+  border-radius: 10px;
+  width: calc(113px * 4);
+
+  @media only screen and (max-width: 450px) {
+    width: calc(113px * 3);
+  }
+
+  @media only screen and (max-width: 350px) {
+    width: calc(113px * 2);
+  }
+
+  /* Uncomment the line below if you want to add box-shadow */
+  /* box-shadow: 0px 10px 13px -6px rgba(44, 62, 80, 1); */
+
+  background-color: #e4ffec;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 40px,
+    #64ef8b 40px,
+    #64ef8b 80px
+  );
+
+  animation: slide 0.8s linear infinite;
+  will-change: background-position;
+}
+
+
+
+
 #helpButton:hover {
   transform: scale(1.25);
   border-color: rgb(93, 203, 124) !important;

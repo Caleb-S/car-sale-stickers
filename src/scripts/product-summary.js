@@ -943,7 +943,20 @@ function adjustSpaceFontSize() {
 
 function updateIntent() {
     var expressDiv = document.getElementById('express-checkout-element');
-    expressDiv.style.visibility = 'hidden';
+    var loadingBar = document.querySelector('.loading-bar');
+    var stripeLoader = document.getElementById('stripe-loader');
+
+    expressDiv.style.display = 'none';
+
+
+
+
+    if (window.getComputedStyle(stripeLoader).display !== 'none') {
+
+        loadingBar.style.display = 'none';
+    } else {
+        loadingBar.style.display = 'flex';
+    }
 
     //updateStickerPrice(productPrice);
 
@@ -997,7 +1010,8 @@ function updateIntent() {
             elements.fetchUpdates()
                 .then(function (result) {
                     // Handle result.error
-                    expressDiv.style.visibility = 'visible';
+                    loadingBar.style.display = 'none';
+                    expressDiv.style.display = 'block';
 
                 });
 
