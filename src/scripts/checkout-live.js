@@ -263,11 +263,23 @@ document.addEventListener("DOMContentLoaded", async () => {
             */
 
             (async () => {
-                const response = await fetch('/update');
-                if (response.status === 'requires_payment_method') {
-                    const { error } = await elements.fetchUpdates();
+                try {
+                  const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update');
+                  
+                  if (response.status === 200) {
+                    const data = await response.json();
+                    console.log('Status:', data.status);
+                    // Handle the response status as needed
+                  } else {
+                    console.error('Failed to update:', response.status);
+                    // Handle other status codes as needed
+                  }
+                } catch (error) {
+                  console.error('Error:', error);
+                  // Handle the error appropriately
                 }
-            })();
+              })();
+              
 
 
 
@@ -485,12 +497,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                         }
 
                         (async () => {
-                            const response = await fetch('/update');
-                            if (response.status === 'requires_payment_method') {
-                                const { error } = await elements.fetchUpdates();
+                            try {
+                              const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update');
+                              
+                              if (response.status === 200) {
+                                const data = await response.json();
+                                console.log('Status:', data.status);
+                                // Handle the response status as needed
+                              } else {
+                                console.error('Failed to update:', response.status);
+                                // Handle other status codes as needed
+                              }
+                            } catch (error) {
+                              console.error('Error:', error);
+                              // Handle the error appropriately
                             }
-                        })();
-
+                          })();
+                          
 
 
 
@@ -510,11 +533,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // Add your additional code here.
 
                     (async () => {
-                        const response = await fetch('/update');
-                        if (response.status === 'requires_payment_method') {
-                            const { error } = await elements.fetchUpdates();
+                        try {
+                          const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update');
+                          
+                          if (response.status === 200) {
+                            const data = await response.json();
+                            console.log('Status:', data.status);
+                            // Handle the response status as needed
+                          } else {
+                            console.error('Failed to update:', response.status);
+                            // Handle other status codes as needed
+                          }
+                        } catch (error) {
+                          console.error('Error:', error);
+                          // Handle the error appropriately
                         }
-                    })();
+                      })();
+                      
 
 
                 });
@@ -611,11 +646,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                     console.log('updated emai;');
                     // Add your additional code here.
                     (async () => {
-                        const response = await fetch('/update');
-                        if (response.status === 'requires_payment_method') {
-                            const { error } = await elements.fetchUpdates();
+                        try {
+                          const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update');
+                          
+                          if (response.status === 200) {
+                            const data = await response.json();
+                            console.log('Status:', data.status);
+                            // Handle the response status as needed
+                          } else {
+                            console.error('Failed to update:', response.status);
+                            // Handle other status codes as needed
+                          }
+                        } catch (error) {
+                          console.error('Error:', error);
+                          // Handle the error appropriately
                         }
-                    })();
+                      })();
+                      
 
                 });
 
