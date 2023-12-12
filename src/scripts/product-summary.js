@@ -989,8 +989,13 @@ function updateIntent() {
         .then((response) => response.json())
         .then((data) => {
             console.log(data.body);
-            elements.fetchUpdates();
-
+            var expressDiv = document.getElementById('express-checkout-element');
+            expressDiv.style.display = 'none';
+            elements.fetchUpdates()
+                .then(function (result) {
+                    // Handle result.error
+                    expressDiv.style.display = 'block';
+                });
 
             productPrice = data.body.productPrice;
             shippingPrices = data.shippingQuotes;
