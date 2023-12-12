@@ -1167,7 +1167,7 @@ function updateStickerPrice(price) {
 
 
 
-
+    updateIntent();
 
 
 }
