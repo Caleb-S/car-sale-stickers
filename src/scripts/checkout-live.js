@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             (async () => {
                 const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update',
                     {
-                        method: "GET",
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                         },
@@ -519,7 +519,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     (async () => {
                         try {
                             const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update', {
-                                method: "GET",
+                                method: "POST",
                                 headers: {
                                     "Content-Type": "application/json",
                                 },
@@ -636,7 +636,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // Add your additional code here.
                     (async () => {
                         const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update', {
-                            method: "GET",
+                            method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
                             }
