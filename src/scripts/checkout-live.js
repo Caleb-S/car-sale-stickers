@@ -263,7 +263,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             */
 
             (async () => {
-                const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update');
+                const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update',
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+
+                    });
                 if (response.status === 'requires_payment_method') {
                     const { error } = await elements.fetchUpdates();
                 }
@@ -511,7 +518,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     (async () => {
                         try {
-                            const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update');
+                            const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update', {
+                                method: "GET",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                            });
 
                             if (response.status === 200) {
                                 const data = await response.json();
@@ -623,7 +635,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                     console.log('updated emai;');
                     // Add your additional code here.
                     (async () => {
-                        const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update');
+                        const response = await fetch('https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe/update', {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                            }
+                        });
                         if (response.status === 'requires_payment_method') {
                             const { error } = await elements.fetchUpdates();
                         }
