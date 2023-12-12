@@ -943,17 +943,17 @@ function adjustSpaceFontSize() {
 
 function updateIntent() {
     var expressDiv = document.getElementById('express-checkout-element');
-    var loadingBar = document.querySelector('#express-title');
-    var stripeLoader = document.getElementById('stripe-loader');
+    var loadingBar = document.querySelector('.loading-bar');
+    var expressTitle = document.getElementById('#express-title');
 
     expressDiv.style.display = 'none';
 
 
 
 
-    if (window.getComputedStyle(stripeLoader).display !== 'none') {
-        loadingBar.style.display = 'flex';
+    if (window.getComputedStyle(expressTitle).display !== 'none') {
 
+        loadingBar.style.display = 'flex';
     } else {
         loadingBar.style.display = 'none';
     }
