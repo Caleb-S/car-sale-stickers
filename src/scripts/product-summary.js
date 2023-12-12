@@ -942,6 +942,7 @@ function adjustSpaceFontSize() {
 }
 
 function updateIntent() {
+    expressDiv.style.display = 'none';
     //updateStickerPrice(productPrice);
 
     var budgetOption = document.getElementById("budget");
@@ -990,7 +991,7 @@ function updateIntent() {
         .then((data) => {
             console.log(data.body);
             var expressDiv = document.getElementById('express-checkout-element');
-            expressDiv.style.display = 'none';
+
             elements.fetchUpdates()
                 .then(function (result) {
                     // Handle result.error
