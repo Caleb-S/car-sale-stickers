@@ -103,8 +103,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+
+        updateStickerPrice(productPrice);
         updateIntent();
-        //updateStickerPrice(productPrice);
+
 
         console.log(cart);
     }
