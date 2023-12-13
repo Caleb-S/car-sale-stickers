@@ -725,6 +725,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 // Check if the screen width is between 360px and 639px
                 if (screenWidth >= 0 && screenWidth <= 639) {
                     mobileSummary.style.display = "block";
+                    paymentButton.style.opacity = 1;
                     setTimeout(function () {
 
                         paymentButton.style.opacity = 1;
