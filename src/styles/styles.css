@@ -13,6 +13,8 @@
   }
 }
 
+
+
 .loading-bar {
   height: 100%;
   display: flex;
@@ -28,7 +30,7 @@
   /* min-height: 100px; */
   height: 25px;
   border-radius: 10px;
-  width: calc(113px * 4);
+  width: 100%;
 
   @media only screen and (max-width: 450px) {
     width: calc(113px * 3);
@@ -292,6 +294,7 @@ iframe {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  
 }
 
 /* old product summary:
@@ -1400,10 +1403,13 @@ iframe {
   }
 
   /* old product summary */
+
+  /*
   .product-summary {
-    /* width: 100%; */
-   /* overflow-x: hidden; */
+     width: 100%; 
+   overflow-x: hidden;
   } 
+  */
 
   .sticker-border-sum {
     align-items: center;
