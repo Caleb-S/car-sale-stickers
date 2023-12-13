@@ -1,5 +1,29 @@
 var cart = [];
-var productPrice = 24.99;
+// Function to get cookie value by name
+function getCookie(name) {
+    const cookies = document.cookie.split('; ');
+    for (const cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.split('=');
+      if (cookieName === name) {
+        return decodeURIComponent(cookieValue);
+      }
+    }
+    return null;
+  }
+  
+  // Get productPrice from cookie
+  var productPrice = getCookie("productPrice");
+  
+  // If productPrice cookie is not set, default it to 24.99
+  if (productPrice === null) {
+    productPrice = 24.99;
+  }
+  
+  // Now, productPrice contains the desired value
+  console.log("Product Price:", productPrice);
+  
+
+
 
 
 // =============================================================================

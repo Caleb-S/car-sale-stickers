@@ -1,15 +1,40 @@
 var clientSecret; // <---------------- this why not working (clientSecret const && set to false, should be set to none)
 var intentID;
-const url = "https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe";
+var url = "https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe";
 var country;
-var ipaddr;
-var shippingMethod = 'budget';
-var shippingPrices = {
 
-    "standard": "19.32",
-    "express": "38.88",
-    "overnight": "40.13"
+var shippingMethod = 'budget';
+
+
+// Get productPrice from cookie
+var shippingPrices = getCookie("productPrice");
+
+// If productPrice cookie is not set, default it to 24.99
+if (shippingPrices === null) {
+    shippingPrices = 24.99;
 }
+
+// Now, productPrice contains the desired value
+console.log("shipping Prices:", shippingPrices);
+
+
+var ipaddr;
+
+
+
+
+// Get productPrice from cookie
+var shippingPrices = getCookie("productPrice");
+
+// If productPrice cookie is not set, default it to 24.99
+if (shippingPrices === null) {
+    shippingPrices = 24.99;
+}
+
+// Now, productPrice contains the desired value
+console.log("shipping Prices:", shippingPrices);
+
+
 
 
 var elements;

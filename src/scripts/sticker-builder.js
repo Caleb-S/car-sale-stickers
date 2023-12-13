@@ -1,6 +1,14 @@
 /* ============================================
    Event Listener for DOM Content Load
    ============================================ */
+
+var ipaddr;
+var shippingPrices;
+var url = "https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe";
+
+getPrice();
+
+
 document.addEventListener("DOMContentLoaded", () => {
     // Select all elements with the class 'sticker-builder'
     const stickerBuilders = document.querySelectorAll('.sticker-builder');
@@ -25,6 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 mobileImage.setAttribute("src", "/src/assets/del-btn.svg");
                 mobileButton.setAttribute('aria-label', 'Remove mobile number from sticker');
                 mobileText.focus();
+
+                if (ipaddr !== undefined && ipaddr !== null) {
+                } else {
+                    getPrice();
+                }
+
             } else {
                 mobileText.style.display = 'none';
                 mobileImage.setAttribute("src", "/src/assets/add-btn.svg");
@@ -75,6 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 emailText.style.display = 'none';
                 emailImage.setAttribute("src", "/src/assets/add-btn.svg");
                 emailButton.setAttribute('aria-label', 'Add email to sticker');
+            }
+
+            if (ipaddr !== undefined && ipaddr !== null) {
+            } else {
+                getPrice();
             }
         });
 
@@ -129,8 +148,69 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "checkout/index.html?" + params.toString();
         });
     });
+
+
+
 });
 
+
+async function getPrice() {
+
+
+
+    var payload = {
+        requestType: "getPrice",
+        customerDetails: {
+            ipAddress: await fetchUserIP()
+        }
+    };
+
+    var updateData = fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data.body);
+
+
+
+            productPrice = data.body.productPrice;
+            shippingPrices = data.shippingQuotes;
+
+            // Set productPrice cookie
+            document.cookie = "productPrice=" + encodeURIComponent(productPrice) + "; path=/";
+
+            // Set shippingQuotes cookie
+            document.cookie = "shippingQuotes=" + encodeURIComponent(shippingPrices) + "; path=/";
+
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+
+    updateData.then(() => {
+
+    });
+
+
+}
+
+async function fetchUserIP() {
+    try {
+        const response = await fetch("https://api.bigdatacloud.net/data/client-ip");
+        const data = await response.json();
+        ipaddr = data.ipString;
+        console.log(ipaddr);
+        return data.ipString;
+    } catch (error) {
+        console.error(error);
+        return null; // Return null if the IP fetch fails
+    }
+}
 /* ============================================
    Handle Input Fields and Resizing
    ============================================ */
@@ -204,3 +284,5 @@ function handleBlur() {
         resizeInput.call(this);
     }
 }
+
+
