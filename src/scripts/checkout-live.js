@@ -339,27 +339,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                         id: 'sr_1234567890',
                         amount: 500,
                         displayName: 'Standard Shipping',
-                        deliveryEstimate: {
-                            minimum: {
-                                days: 3,
-                                hours: 0,
-                                minutes: 0,
-                                seconds: 0,
-                            },
-                            maximum: {
-                                days: 5,
-                                hours: 0,
-                                minutes: 0,
-                                seconds: 0,
-                            },
-                        },
+
                     },
                     {
                         id: 'sr_0987654321',
                         amount: 1000,
                         displayName: 'Express Shipping',
-                        // Correcting deliveryEstimate to be a string
-                        deliveryEstimate: '2-3 business days',
+
                     },
                     // Add more shipping rates as needed
                 ],
