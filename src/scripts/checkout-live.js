@@ -329,19 +329,19 @@ document.addEventListener("DOMContentLoaded", async () => {
                 shippingRates: [
                     {
                         id: 'budget',
-                        amount: shippingPrices.budget,
+                        amount: convertToStripePrice(shippingPrices.budget),
                         displayName: 'Budget | No Tracking',
 
                     },
                     {
                         id: 'standard',
-                        amount: shippingPrices.standard,
+                        amount: convertToStripePrice(shippingPrices.standard),
                         displayName: 'Standard | Tracking',
 
                     },
                     {
                         id: 'express',
-                        amount: shippingPrices.express,
+                        amount: convertToStripePrice(shippingPrices.express),
                         displayName: 'Express | Tracking',
 
                     },
@@ -1439,3 +1439,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 });
+
+
+function convertToStripePrice(normalPriceInCents) {
+    // Convert cents to dollars
+    const priceInDollars = normalPriceInCents / 100.0;
+
+    // Create a Stripe price object
+    const stripePrice = {
+        currency: 'usd',  // You can adjust this based on your currency
+        product_data: {
+            name: 'Your Product Name',
+        },
+        unit_amount: Math.round(priceInDollars * 100),  // Convert back to cents for Stripe
+    };
+
+    return stripePrice;
+}
