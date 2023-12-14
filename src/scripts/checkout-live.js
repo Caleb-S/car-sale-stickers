@@ -6,16 +6,8 @@ var country;
 var shippingMethod = 'budget';
 
 
-// Get productPrice from cookie
-var shippingPrices = getCookie("productPrice");
 
-// If productPrice cookie is not set, default it to 24.99
-if (shippingPrices === null) {
-    shippingPrices = 24.99;
-}
 
-// Now, productPrice contains the desired value
-console.log("shipping Prices:", shippingPrices);
 
 
 var ipaddr;
@@ -24,11 +16,11 @@ var ipaddr;
 
 
 // Get productPrice from cookie
-var shippingPrices = getCookie("productPrice");
+var shippingPrices = getCookie("shippingPrices");
 
 // If productPrice cookie is not set, default it to 24.99
 if (shippingPrices === null) {
-    shippingPrices = 24.99;
+    shippingPrices;
 }
 
 // Now, productPrice contains the desired value
@@ -336,15 +328,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                 shippingAddressRequired: true,
                 shippingRates: [
                     {
-                        id: 'sr_1234567890',
-                        amount: 500,
-                        displayName: 'Standard Shipping',
+                        id: 'budget',
+                        amount: shippingPrices.budget,
+                        displayName: 'Budget | No Tracking',
 
                     },
                     {
-                        id: 'sr_0987654321',
-                        amount: 1000,
-                        displayName: 'Express Shipping',
+                        id: 'standard',
+                        amount: shippingPrices.standard,
+                        displayName: 'Standard | Tracking',
+
+                    },
+                    {
+                        id: 'express',
+                        amount: shippingPrices.express,
+                        displayName: 'Express | Tracking',
 
                     },
                     // Add more shipping rates as needed
