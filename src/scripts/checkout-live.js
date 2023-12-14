@@ -1441,7 +1441,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
-function convertToStripeAmount(normalAmount) {
+function convertToStripePrice(normalAmount) {
     const stripeAmount = Math.round(normalAmount * 100);
     return stripeAmount;
 }
