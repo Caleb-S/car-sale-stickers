@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             clientSecret,
             loader: "auto",
             emailRequired: true,
-            addressRequired: true,
+            shippingAddressRequired: true,
             appearance: {
                 theme: "stripe",
                 rules: {},
