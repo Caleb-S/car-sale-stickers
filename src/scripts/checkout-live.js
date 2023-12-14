@@ -330,7 +330,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
             const options = {
-                emailRequired: true
+                emailRequired: true,
+                phoneNumberRequired: true,
+                shippingAddressRequired: true
+
             };
             event.resolve(options);
         });
