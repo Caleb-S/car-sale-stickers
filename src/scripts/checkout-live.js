@@ -1441,18 +1441,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
-function convertToStripePrice(normalPriceInCents) {
-    // Convert cents to dollars
-    const priceInDollars = normalPriceInCents / 100.0;
-
-    // Create a Stripe price object
-    const stripePrice = {
-        currency: 'usd',  // You can adjust this based on your currency
-        product_data: {
-            name: 'Your Product Name',
-        },
-        unit_amount: Math.round(priceInDollars * 100),  // Convert back to cents for Stripe
-    };
-
-    return stripePrice;
+function convertToStripeAmount(normalAmount) {
+    const stripeAmount = Math.round(normalAmount * 100);
+    return stripeAmount;
 }
