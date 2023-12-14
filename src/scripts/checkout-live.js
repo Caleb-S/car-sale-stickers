@@ -172,6 +172,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("Code to run once fetch is completed.");
         console.log(clientSecret);
         // Add your additional code here.
+
+
+
         initialize();
     });
 
@@ -184,7 +187,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ============================================================================
 
     async function initialize() {
-
 
 
 
@@ -330,7 +332,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     {
                         id: 'budget',
                         amount: convertToStripePrice(shippingPrices.budget),
-                        displayName: 'Budget | No Tracking',
+                        displayName: 'Free | No Tracking',
 
                     },
                     {
@@ -352,6 +354,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             event.resolve(options);
         });
 
+
+        expressCheckoutElement.on('shippingratechange', function (event) {
+            var resolve = event.resolve;
+            var shippingRate = event.shippingRate;
+            // handle shippingratechange event
+            console.log("ShippingRate Anwser: " + shippingRate);
+
+            // call event.resolve within 20 seconds
+            resolve(payload);
+        });
 
 
 
