@@ -326,13 +326,42 @@ document.addEventListener("DOMContentLoaded", async () => {
                 body: JSON.stringify(payload),
             });
 
+            var shippingRates = [
+                {
+                    id: 'sr_1234567890',
+                    amount: 500, // Amount in cents or smallest currency unit
+                    displayName: 'Standard Shipping',
+                    deliveryEstimate: {
+                        minimum: {
+                            days: 3,
+                            hours: 0,
+                            minutes: 0,
+                            seconds: 0,
+                        },
+                        maximum: {
+                            days: 5,
+                            hours: 0,
+                            minutes: 0,
+                            seconds: 0,
+                        },
+                    },
+                },
+                {
+                    id: 'sr_0987654321',
+                    amount: 1000,
+                    displayName: 'Express Shipping',
+                    deliveryEstimate: '2-3 business days', // Using a string instead of an object
+                },
+                // Add more shipping rates as needed
+            ];
 
 
 
             const options = {
                 emailRequired: true,
                 phoneNumberRequired: true,
-                shippingAddressRequired: true
+                shippingAddressRequired: true,
+                shippingRates: shippingRates,
 
             };
             event.resolve(options);
