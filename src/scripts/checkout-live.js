@@ -293,6 +293,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 requestType: "saveCart",
                 customerDetails: {
                     intentID: intentID,
+                    shippingMethod: shippingMethod
                 },
                 cart: cart.map(cartItem => {
                     const productItem = {
