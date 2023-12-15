@@ -242,14 +242,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                         lineItems: [
                             {
                                 name: 'For Sale Sticker - sass.caleb@icloud.com',
-                                amount: 2590
+                                amount: 2590,
                             },
                             {
                                 name: 'For Sale Sticker - sass.caleb@icloud.com + 02108585296',
-                                amount: 2590
+                                amount: 2590,
 
                             },
-                        ]
+                        ],
 
                     };
                     event.resolve(options);
