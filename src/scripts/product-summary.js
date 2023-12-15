@@ -24,7 +24,8 @@ if (productPrice === null) {
 console.log("Product Price:", productPrice);
 
 
-
+var pendingRequest = false;
+var fetchingData = false;
 
 
 
@@ -975,19 +976,6 @@ async function updateIntent() {
     var loadingBar = document.querySelector('.loading-bar');
     var expressTitle = document.getElementById('express-title');
 
-    expressDiv.style.display = 'none';
-
-
-
-
-    if (window.getComputedStyle(expressTitle).display !== 'none') {
-
-        loadingBar.style.display = 'flex';
-    } else {
-        loadingBar.style.display = 'none';
-    }
-
-    //updateStickerPrice(productPrice);
 
     var budgetOption = document.getElementById("budget");
     var standardOption = document.getElementById("standard");
@@ -998,115 +986,174 @@ async function updateIntent() {
     var expressPrice = document.getElementById("express-price");
 
 
-    var payload = {
-        requestType: "updateIntent",
-        customerDetails: {
-            intentID: intentID,
-            shippingMethod: shippingMethod,
-            ipAddress: await fetchUserIP(),
+    if (fetchingData) {
+        pendingRequest = true;
+        console.log("already running | pending: " + pendingRequest);
+        return;
+    } else {
+        console.log("running | pending: " + pendingRequest);
+        fetchingData = true;
+        pendingRequest = false;
+        expressDiv.style.display = 'none';
+        if (window.getComputedStyle(expressTitle).display !== 'none') {
 
-        },
-        cart: cart.map(cartItem => {
-            const productItem = {
-                productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
-                quantity: cartItem.quantity,
-            };
-
-            if (cartItem.phone) {
-                productItem.phoneOption = cartItem.phone;
-            }
-
-            if (cartItem.email) {
-                productItem.emailOption = cartItem.email;
-            }
-
-            return productItem;
-        }),
-    };
-
-    var updateData = fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data.body);
-
-
-            elements.fetchUpdates()
-                .then(function (result) {
-                    // Handle result.error
-                    loadingBar.style.display = 'none';
-                    expressDiv.style.display = 'block';
-
-                });
-
-            if (productPrice === undefined) {
-                productPrice = data.body.productPrice;
-            } else if ((data.body.productPrice !== productPrice) && data.body.productPrice) {
-                productPrice = data.body.productPrice;
-            }
-
-            if (shippingPrices === undefined) {
-                console.log(shippingPrices);
-                shippingPrices = data.shippingQuotes;
-                console.log("setting: " + shippingPrices);
-            } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
-                console.log(shippingPrices);
-                shippingPrices = data.shippingQuotes;
-                console.log("changing: " + shippingPrices);
-            }
-            /*
-
-            if (!('budget' in shippingPrices)) {
-                budgetOption.style.display = 'none';
-            } else {
-                budgetOption.style.display = 'flex';
-            }
-
-            if ('standard' in shippingPrices) {
-                standardOption.style.display = 'flex';
-                standardPrice.textContent = "$" + shippingPrices.standard;
-
-            } else {
-                standardOption.style.display = 'none';
-
-            }
-
-            if ('express' in shippingPrices) {
-                expressOption.style.display = 'flex';
-                expressPrice.textContent = "$" + shippingPrices.express;
-            } else {
-                expressOption.style.display = 'none';
-            }
-*/
+            loadingBar.style.display = 'flex';
+        } else {
+            loadingBar.style.display = 'none';
+        }
 
 
 
+        var payload = {
+            requestType: "updateIntent",
+            customerDetails: {
+                intentID: intentID,
+                shippingMethod: shippingMethod,
+                ipAddress: await fetchUserIP(),
 
+            },
+            cart: cart.map(cartItem => {
+                const productItem = {
+                    productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
+                    quantity: cartItem.quantity,
+                };
 
+                if (cartItem.phone) {
+                    productItem.phoneOption = cartItem.phone;
+                }
 
+                if (cartItem.email) {
+                    productItem.emailOption = cartItem.email;
+                }
 
+                return productItem;
+            }),
+        };
 
-            // Handle the response data here
+        var updateData = fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
         })
-        .catch((error) => {
-            console.error("Error:", error);
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.body);
+
+
+
+
+                if (productPrice === undefined) {
+                    productPrice = data.body.productPrice;
+                } else if ((data.body.productPrice !== productPrice) && data.body.productPrice) {
+                    productPrice = data.body.productPrice;
+                }
+
+                if (shippingPrices === undefined) {
+                    console.log(shippingPrices);
+                    shippingPrices = data.shippingQuotes;
+                    console.log("setting: " + shippingPrices);
+                } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
+                    console.log(shippingPrices);
+                    shippingPrices = data.shippingQuotes;
+                    console.log("changing: " + shippingPrices);
+                }
+
+
+                if (!('budget' in shippingPrices)) {
+                    budgetOption.style.display = 'none';
+                } else {
+                    budgetOption.style.display = 'flex';
+                }
+
+                if ('standard' in shippingPrices) {
+                    standardOption.style.display = 'flex';
+                    standardPrice.textContent = "$" + shippingPrices.standard;
+
+                } else {
+                    standardOption.style.display = 'none';
+
+                }
+
+                if ('express' in shippingPrices) {
+                    expressOption.style.display = 'flex';
+                    expressPrice.textContent = "$" + shippingPrices.express;
+                } else {
+                    expressOption.style.display = 'none';
+                }
+
+
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
+
+        updateData.then(() => {
+            console.log('updated');
+
+            updateStickerPrice(productPrice);
+            if (elements) {
+                elements.fetchUpdates()
+                    .then(function (result) {
+                        // Handle result.error
+
+
+
+
+                        if (pendingRequest) {
+
+                            setTimeout(() => {
+                                fetchingData = false;
+
+                                updateIntent();
+
+                            }, 5000);
+
+
+                        } else {
+                            fetchingData = false;
+
+                            if (window.getComputedStyle(expressTitle).display !== 'none') {
+                                loadingBar.style.display = 'none';
+                                expressDiv.style.display = 'block';
+                            }
+
+                        }
+
+                    });
+
+            } else {
+                if (pendingRequest) {
+
+                    setTimeout(() => {
+                        fetchingData = false;
+
+                        updateIntent();
+
+                    }, 5000);
+
+
+                } else {
+                    fetchingData = false;
+                    if (window.getComputedStyle(expressTitle).display !== 'none') {
+                        loadingBar.style.display = 'none';
+                        expressDiv.style.display = 'block';
+                    }
+
+                }
+            }
+
+
+
+
+
+
+
+
+            // Add your additional code here.
         });
-
-    updateData.then(() => {
-        console.log('updated');
-
-
-
-        updateStickerPrice(productPrice);
-
-        // Add your additional code here.
-    });
-
+    }
 
 }
 
