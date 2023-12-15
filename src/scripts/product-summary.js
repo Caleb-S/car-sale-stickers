@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const phone = numDisplay !== 'none' ? numInput.value : null;
                 const email = mailDisplay !== 'none' ? mailInput.value : null;
                 const quantity = parseInt(stickerQuantity.textContent);
-                console.log('quantitiy: ', quantity);
+                // console.log('quantitiy: ', quantity);
 
                 // Add the item to the cart
                 if (quantity > 0) {

@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 ],
 
             };
-            event.resolve(options);
+            //event.resolve(options);
         });
 
 
