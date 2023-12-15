@@ -224,85 +224,85 @@ document.addEventListener("DOMContentLoaded", async () => {
                 expressDiv.style.display = 'none';
                 loadingBar.style.display = 'flex';
 
-                const options = {
-                    emailRequired: true,
-                    phoneNumberRequired: true,
-                    shippingAddressRequired: true,
-                    shippingRates: [
-                        {
-                            id: 'budget',
-                            amount: convertToStripePrice(shippingPrices.budget),
-                            displayName: 'Free | No Tracking',
 
-                        },
-                        {
-                            id: 'standard',
-                            amount: convertToStripePrice(shippingPrices.standard),
-                            displayName: 'Standard | Tracking',
+                /* display express checkout button again */
+                loadingBar.style.display = 'none';
+                expressDiv.style.display = 'block';
 
-                        },
-                        {
-                            id: 'express',
-                            amount: convertToStripePrice(shippingPrices.express),
-                            displayName: 'Express | Tracking',
+                elements.fetchUpdates()
+                    .then(() => {
+                        const options = {
+                            emailRequired: true,
+                            phoneNumberRequired: true,
+                            shippingAddressRequired: true,
+                            shippingRates: [
+                                {
+                                    id: 'budget',
+                                    amount: convertToStripePrice(shippingPrices.budget),
+                                    displayName: 'Free | No Tracking',
 
-                        },
-                        // Add more shipping rates as needed
-                    ],
+                                },
+                                {
+                                    id: 'standard',
+                                    amount: convertToStripePrice(shippingPrices.standard),
+                                    displayName: 'Standard | Tracking',
 
-                };
-            }
+                                },
+                                {
+                                    id: 'express',
+                                    amount: convertToStripePrice(shippingPrices.express),
+                                    displayName: 'Express | Tracking',
 
-            /* display express checkout button again */
-            loadingBar.style.display = 'none';
-            expressDiv.style.display = 'block';
+                                },
+                                // Add more shipping rates as needed
+                            ],
 
-            elements.fetchUpdates()
-                .then(() => {
-
+                        };
 
 
-                    var payload = {
-                        requestType: "saveCart",
-                        customerDetails: {
-                            intentID: intentID,
-                            shippingMethod: shippingMethod
-                        },
-                        cart: cart.map(cartItem => {
-                            const productItem = {
-                                productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
-                                quantity: 1, // If you want to keep track of quantity, you need to modify the cart data accordingly
-                            };
 
-                            // Add phoneOption to productItem if not null or empty
-                            if (cartItem.phone) {
-                                productItem.phoneOption = cartItem.phone;
-                            }
 
-                            // Add emailOption to productItem if not null or empty
-                            if (cartItem.email) {
-                                productItem.emailOption = cartItem.email;
-                            }
+                        var payload = {
+                            requestType: "saveCart",
+                            customerDetails: {
+                                intentID: intentID,
+                                shippingMethod: shippingMethod
+                            },
+                            cart: cart.map(cartItem => {
+                                const productItem = {
+                                    productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
+                                    quantity: 1, // If you want to keep track of quantity, you need to modify the cart data accordingly
+                                };
 
-                            return productItem;
-                        }),
-                    };
+                                // Add phoneOption to productItem if not null or empty
+                                if (cartItem.phone) {
+                                    productItem.phoneOption = cartItem.phone;
+                                }
 
-                    console.log(JSON.stringify(payload, null, 2));
-                    // Perform the POST request
-                    fetch(url, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(payload),
+                                // Add emailOption to productItem if not null or empty
+                                if (cartItem.email) {
+                                    productItem.emailOption = cartItem.email;
+                                }
+
+                                return productItem;
+                            }),
+                        };
+
+                        console.log(JSON.stringify(payload, null, 2));
+                        // Perform the POST request
+                        fetch(url, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(payload),
+                        });
+
+                        event.resolve(options);
+
                     });
 
-                    event.resolve(options);
-
-                });
-
-        });
+            });
 
 
         expressCheckoutElement.on('shippingratechange', function (event) {
