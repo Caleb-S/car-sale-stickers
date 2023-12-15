@@ -307,7 +307,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             // Start checking the condition
 
-            //checkConditionAndExecute();
+            checkConditionAndExecute();
         });
 
 
