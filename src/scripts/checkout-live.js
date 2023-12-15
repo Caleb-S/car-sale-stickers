@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-            while (fetchingData || pendingRequest) {
+            if (!fetchingData && !pendingRequest) {
 
                 /* hide express checkout, show loading bar */
                 expressDiv.style.display = 'none';
