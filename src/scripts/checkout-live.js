@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             expressDiv.style.display = 'none';
             loadingBar.style.display = 'flex';
             var checks = 0;
-
+            event.resolve(options);
             // Function to check the condition and execute code
             const checkConditionAndExecute = (event) => {
                 console.log('test');
@@ -284,15 +284,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                         event.resolve(options);
 
                         console.log('resolved');
-
-                        if (checks > 10) {
-                            // Create a new click event
-                            const clickEvent = new Event('click');
-
-                            // Trigger the click event on the expressCheckoutElement
-                            expressCheckoutElement.dispatchEvent(clickEvent);
-                        }
-
+                        /*
+                                                if (checks > 10) {
+                                                    // Create a new click event
+                                                    const clickEvent = new Event('click');
+                        
+                                                    // Trigger the click event on the expressCheckoutElement
+                                                    expressCheckoutElement.dispatchEvent(clickEvent);
+                                                }
+                        */
                         // Display express checkout button again
                         loadingBar.style.display = 'none';
                         expressDiv.style.display = 'block';
