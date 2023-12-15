@@ -290,7 +290,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     });
                 } else {
                     // If the condition is still false, check again after a delay
-                    setTimeout(checkConditionAndExecute, 1000); // Adjust the delay as needed
+                    setTimeout(checkConditionAndExecute, 100); // Adjust the delay as needed
                 }
             };
 
