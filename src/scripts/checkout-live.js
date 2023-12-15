@@ -301,8 +301,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                         event.resolve(options);
 
                     });
+            }
 
-            });
+        });
+
 
 
         expressCheckoutElement.on('shippingratechange', function (event) {
