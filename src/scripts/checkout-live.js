@@ -302,11 +302,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     if (checks <= 10) {
                         checks += 1;
                         console.log('checking: ' + checks);
-                        setTimeout(checkConditionAndExecute(), 100);
+                        setTimeout(checkConditionAndExecute(event), 100);
                     } else {
                         checks += 1;
                         console.log('checking2 : ' + checks);
-                        setTimeout(checkConditionAndExecute(), 2000);
+                        setTimeout(checkConditionAndExecute(event), 2000);
                     }
                     // Adjust the delay as needed
 
@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             // Start checking the condition
 
-            checkConditionAndExecute();
+            checkConditionAndExecute(event);
         });
 
 
