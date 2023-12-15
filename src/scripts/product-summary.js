@@ -1042,24 +1042,25 @@ async function updateIntent() {
                 console.log(data.body);
 
 
+                if (data.body) {
 
+                    if (productPrice === undefined) {
+                        productPrice = data.body.productPrice;
+                    } else if ((data.body.productPrice !== productPrice) && data.body.productPrice) {
+                        productPrice = data.body.productPrice;
+                    }
 
-                if (productPrice === undefined) {
-                    productPrice = data.body.productPrice;
-                } else if ((data.body.productPrice !== productPrice) && data.body.productPrice) {
-                    productPrice = data.body.productPrice;
+                    if (shippingPrices === undefined) {
+                        console.log(shippingPrices);
+                        shippingPrices = data.shippingQuotes;
+                        console.log("setting: " + shippingPrices);
+                    } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
+                        console.log(shippingPrices);
+                        shippingPrices = data.shippingQuotes;
+                        console.log("changing: " + shippingPrices);
+                    }
+
                 }
-
-                if (shippingPrices === undefined) {
-                    console.log(shippingPrices);
-                    shippingPrices = data.shippingQuotes;
-                    console.log("setting: " + shippingPrices);
-                } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
-                    console.log(shippingPrices);
-                    shippingPrices = data.shippingQuotes;
-                    console.log("changing: " + shippingPrices);
-                }
-
 
                 if (!('budget' in shippingPrices)) {
                     budgetOption.style.display = 'none';
