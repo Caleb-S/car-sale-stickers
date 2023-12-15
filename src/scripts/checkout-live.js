@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             loadingBar.style.display = 'flex';
 
             // Function to check the condition and execute code
-            const checkConditionAndExecute = () => {
+            const checkConditionAndExecute = (event) => {
                 console.log('test');
                 if (!fetchingData && !pendingRequest) {
                     /* hide express checkout, show loading bar */
@@ -290,12 +290,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                     });
                 } else {
                     // If the condition is still false, check again after a delay
-                    setTimeout(checkConditionAndExecute, 100); // Adjust the delay as needed
+                    setTimeout(checkConditionAndExecute(event), 100); // Adjust the delay as needed
                 }
             };
 
             // Start checking the condition
-            checkConditionAndExecute();
+            checkConditionAndExecute(event);
         });
 
 
