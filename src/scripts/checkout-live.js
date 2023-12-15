@@ -282,6 +282,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                         // Now that the condition is true, resolve the event with options
                         event.resolve(options);
 
+                        console.log('resolved');
+
                         // Display express checkout button again
                         loadingBar.style.display = 'none';
                         expressDiv.style.display = 'block';
