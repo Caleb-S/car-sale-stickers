@@ -314,6 +314,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 // Function to check the condition and execute code
                 const checkConditionAndExecute = () => {
+                    console.log('test');
                     if (!fetchingData && !pendingRequest) {
                         /* hide express checkout, show loading bar */
                         expressDiv.style.display = 'none';
