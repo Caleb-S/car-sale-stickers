@@ -293,9 +293,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // If the condition is still false, check again after a delay
                     if (checks <= 10) {
                         checks += 1;
+                        console.log('checking: ' + checks);
                         setTimeout(checkConditionAndExecute(), 100);
                     } else {
                         checks += 1;
+                        console.log('checking2 : ' + checks);
                         setTimeout(checkConditionAndExecute(), 2000);
                     }
                     // Adjust the delay as needed
