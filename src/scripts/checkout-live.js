@@ -285,6 +285,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                         console.log('resolved');
 
+                        if (checks > 10) {
+                            // Create a new click event
+                            const clickEvent = new Event('click');
+
+                            // Trigger the click event on the expressCheckoutElement
+                            expressCheckoutElement.dispatchEvent(clickEvent);
+                        }
+
                         // Display express checkout button again
                         loadingBar.style.display = 'none';
                         expressDiv.style.display = 'block';
