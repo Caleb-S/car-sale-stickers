@@ -206,6 +206,34 @@ document.addEventListener("DOMContentLoaded", async () => {
             expressDiv.style.display = 'none';
             loadingBar.style.display = 'flex';
             var checks = 0;
+
+            const options = {
+                emailRequired: true,
+                phoneNumberRequired: true,
+                shippingAddressRequired: true,
+                shippingRates: [
+                    {
+                        id: 'budget',
+                        amount: convertToStripePrice(shippingPrices.budget),
+                        displayName: 'Free | No Tracking',
+
+                    },
+                    {
+                        id: 'standard',
+                        amount: convertToStripePrice(shippingPrices.standard),
+                        displayName: 'Standard | Tracking',
+
+                    },
+                    {
+                        id: 'express',
+                        amount: convertToStripePrice(shippingPrices.express),
+                        displayName: 'Express | Tracking',
+
+                    },
+                    // Add more shipping rates as needed
+                ],
+
+            };
             event.resolve(options);
             // Function to check the condition and execute code
             const checkConditionAndExecute = (event) => {
