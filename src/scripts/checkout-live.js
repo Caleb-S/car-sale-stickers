@@ -207,76 +207,99 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
             */
 
-            elements.fetchUpdates();
 
-            var payload = {
-                requestType: "saveCart",
-                customerDetails: {
-                    intentID: intentID,
-                    shippingMethod: shippingMethod
-                },
-                cart: cart.map(cartItem => {
-                    const productItem = {
-                        productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
-                        quantity: 1, // If you want to keep track of quantity, you need to modify the cart data accordingly
+
+
+
+
+
+
+
+
+            while (fetchingData || pendingRequest) {
+
+                /* hide express checkout, show loading bar */
+                expressDiv.style.display = 'none';
+                loadingBar.style.display = 'flex';
+
+                const options = {
+                    emailRequired: true,
+                    phoneNumberRequired: true,
+                    shippingAddressRequired: true,
+                    shippingRates: [
+                        {
+                            id: 'budget',
+                            amount: convertToStripePrice(shippingPrices.budget),
+                            displayName: 'Free | No Tracking',
+
+                        },
+                        {
+                            id: 'standard',
+                            amount: convertToStripePrice(shippingPrices.standard),
+                            displayName: 'Standard | Tracking',
+
+                        },
+                        {
+                            id: 'express',
+                            amount: convertToStripePrice(shippingPrices.express),
+                            displayName: 'Express | Tracking',
+
+                        },
+                        // Add more shipping rates as needed
+                    ],
+
+                };
+            }
+
+            /* display express checkout button again */
+            loadingBar.style.display = 'none';
+            expressDiv.style.display = 'block';
+
+            elements.fetchUpdates()
+                .then(() => {
+
+
+
+                    var payload = {
+                        requestType: "saveCart",
+                        customerDetails: {
+                            intentID: intentID,
+                            shippingMethod: shippingMethod
+                        },
+                        cart: cart.map(cartItem => {
+                            const productItem = {
+                                productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
+                                quantity: 1, // If you want to keep track of quantity, you need to modify the cart data accordingly
+                            };
+
+                            // Add phoneOption to productItem if not null or empty
+                            if (cartItem.phone) {
+                                productItem.phoneOption = cartItem.phone;
+                            }
+
+                            // Add emailOption to productItem if not null or empty
+                            if (cartItem.email) {
+                                productItem.emailOption = cartItem.email;
+                            }
+
+                            return productItem;
+                        }),
                     };
 
-                    // Add phoneOption to productItem if not null or empty
-                    if (cartItem.phone) {
-                        productItem.phoneOption = cartItem.phone;
-                    }
+                    console.log(JSON.stringify(payload, null, 2));
+                    // Perform the POST request
+                    fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(payload),
+                    });
 
-                    // Add emailOption to productItem if not null or empty
-                    if (cartItem.email) {
-                        productItem.emailOption = cartItem.email;
-                    }
+                    event.resolve(options);
 
-                    return productItem;
-                }),
-            };
+                });
 
-            console.log(JSON.stringify(payload, null, 2));
-            // Perform the POST request
-            fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-
-
-
-
-            const options = {
-                emailRequired: true,
-                phoneNumberRequired: true,
-                shippingAddressRequired: true,
-                shippingRates: [
-                    {
-                        id: 'budget',
-                        amount: convertToStripePrice(shippingPrices.budget),
-                        displayName: 'Free | No Tracking',
-
-                    },
-                    {
-                        id: 'standard',
-                        amount: convertToStripePrice(shippingPrices.standard),
-                        displayName: 'Standard | Tracking',
-
-                    },
-                    {
-                        id: 'express',
-                        amount: convertToStripePrice(shippingPrices.express),
-                        displayName: 'Express | Tracking',
-
-                    },
-                    // Add more shipping rates as needed
-                ],
-
-            };
-            //event.resolve(options);
         });
 
 
