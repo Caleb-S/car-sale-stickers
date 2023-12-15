@@ -310,6 +310,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                         // Now that the condition is true, resolve the event with options
                         //event.resolve(options);
+
+                        expressCheckoutElement.update(options);
                         elements.fetchUpdates();
 
                         console.log('resolved');
