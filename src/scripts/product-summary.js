@@ -1151,7 +1151,7 @@ function updateStickerPrice(price) {
         const stickerQuantity = container.querySelector('.quantity-num');
         const quantity = parseInt(stickerQuantity.textContent);
         if ((quantity * price)) {
-            priceText.textContent = "$" + (quantity * price);
+            priceText.textContent = "$" + (quantity * price).toFixed(2);
             subTotal += (quantity * price);
         }
 
@@ -1165,19 +1165,19 @@ function updateStickerPrice(price) {
     } else {
 
         if (shippingMethod === 'standard') {
-            shippingValueMobile.textContent = "$" + shippingPrices.standard;
-            shippingValueDesktop.textContent = "$" + shippingPrices.standard;
+            shippingValueMobile.textContent = "$" + (shippingPrices.standard).toFixed(2);
+            shippingValueDesktop.textContent = "$" + (shippingPrices.standard).toFixed(2);
             shippingValue = shippingPrices.standard;;
         } else if (shippingMethod === 'express') {
-            shippingValueMobile.textContent = "$" + shippingPrices.express;
-            shippingValueDesktop.textContent = "$" + shippingPrices.express;
+            shippingValueMobile.textContent = "$" + (shippingPrices.express).toFixed(2);
+            shippingValueDesktop.textContent = "$" + (shippingPrices.express).toFixed(2);
             shippingValue = shippingPrices.express;
         }
 
         /*
         shippingValueMobile.textContent = "$" + shippingValue;
         */
-        orderTotal += Number(parseFloat(shippingValue).toFixed(2));
+        orderTotal += Number(parseFloat(shippingValue));
 
     }
     subTotalText.textContent = "$" + subTotal.toFixed(2);
@@ -1222,7 +1222,7 @@ function updateStickerPrice(price) {
 
         var priceDiv = document.createElement('div');
         priceDiv.className = 'payment-price';
-        priceDiv.textContent = "$" + (price * item.quantity); // You may need to calculate the price based on the cart data
+        priceDiv.textContent = "$" + (price * item.quantity).toFixed(2); // You may need to calculate the price based on the cart data
 
         listItem.appendChild(detailsDiv);
         listItem.appendChild(priceDiv);
