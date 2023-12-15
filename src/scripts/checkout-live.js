@@ -292,10 +292,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 } else {
                     // If the condition is still false, check again after a delay
                     if (checks <= 10) {
-
+                        checks += 1;
                         setTimeout(checkConditionAndExecute(), 100);
                     } else {
-
+                        checks += 1;
                         setTimeout(checkConditionAndExecute(), 2000);
                     }
                     // Adjust the delay as needed
@@ -304,8 +304,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             };
 
             // Start checking the condition
-            checks += 1;
-            checkConditionAndExecute();
+
+            //checkConditionAndExecute();
         });
 
 
