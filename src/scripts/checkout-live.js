@@ -1,109 +1,66 @@
-var clientSecret; // <---------------- this why not working (clientSecret const && set to false, should be set to none)
+var clientSecret;
 var intentID;
 var url = "https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe";
+
 var country;
-
-var shippingMethod = 'budget';
-
+var elements;
 
 
+var shippingMethod = 'budget'; // Default Shipping Method
 
-
-
-var ipaddr;
-
-
-
-
-// Get productPrice from cookie
+// Get shipping prices if already inclised in cookie
 var shippingPrices = getCookie("shippingPrices");
-
-// If productPrice cookie is not set, default it to 24.99
 if (shippingPrices === null) {
     shippingPrices;
 }
 
-// Now, productPrice contains the desired value
-console.log("shipping Prices:", shippingPrices);
-
-
-
-
-var elements;
-
-
+// =============================================================================/n
+// Main Logic
+// =============================================================================
 document.addEventListener("DOMContentLoaded", async () => {
+    // Important Variabels =====================================================
 
-    var budgetOption = document.getElementById("budget");
-    var standardOption = document.getElementById("standard");
-    var expressOption = document.getElementById("express");
+    var env = 'test';
+    var envK1 = 'pk_'
+    var envK2 = '_51NWg86IA9Fl1A3IG';
+    var envK3 = 'TsyLEeLB83hHQu0kIH8OFZipQP1BAklKyzEOnzNmrjDHyt7eRKYgeZcBwI45Bzxn60Z6icUg009NOrOYZq';
+    var envK4 = 'SFDEFKCXrgnPzKrByAV4rpAkmzEctARO9oSgnHHIzjLYtw5k5ShVqQjvhwQ3Ypbr2Ztl9c6W008TAobYhd';
 
-    var budgetPrice = document.getElementById("budget-price");
-    var standardPrice = document.getElementById("standard-price");
-    var expressPrice = document.getElementById("express-price");
+    // General Variiables ======================================================
+    let emailAddress = "";
+
+
 
     // =============================================================================
     // Initialization Section
     // =============================================================================
-    async function fetchUserIP() {
-        try {
-            const response = await fetch("https://api.bigdatacloud.net/data/client-ip");
-            const data = await response.json();
-            ipaddr = data.ipString;
-            console.log(ipaddr);
-            return data.ipString;
-        } catch (error) {
-            console.error(error);
-            return null; // Return null if the IP fetch fails
-        }
+    if (env === 'test') {
+        console.log("=============================================\nTest Environment - Payments won't be charged.\n=============================================");
+        var stripe = Stripe(envK1 + env + envK2 + envK3);
+        console.log(envK1 + env + envK2 + envK3);
+    } else {
+        var stripe = Stripe(envK1 + env + envK2 + envK4);
     }
-    await fetchUserIP();
 
-    const stripe = Stripe(
-        "pk_test_51NWg86IA9Fl1A3IGTsyLEeLB83hHQu0kIH8OFZipQP1BAklKyzEOnzNmrjDHyt7eRKYgeZcBwI45Bzxn60Z6icUg009NOrOYZq"
-    );
-    const items = [{ id: "xl-tshirt" }];
-
-
-
-    // Initialize Stripe elements and UI components
-
-
-    // Check the payment status
-
-
-    // Event listener for form submission
-    document
-        .querySelector("#payment-form");
-
-
-    let emailAddress = "";
 
     // =============================================================================
     // Create Payment Intent
     // =============================================================================
-
-
-
-    console.log(cart);
-
     var payload = {
         requestType: "paymentIntent",
         customerDetails: {
-            ipAddress: await fetchUserIP(),// Assuming the email is the same for all items in the cart
+            ipAddress: await fetchUserIP(),
         },
         cart: cart.map(cartItem => {
             const productItem = {
                 productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
-                quantity: 1, // If you want to keep track of quantity, you need to modify the cart data accordingly
+                quantity: 1,
             };
 
-            // Add phoneOption to productItem if not null or empty
             if (cartItem.phone) {
                 productItem.phoneOption = cartItem.phone;
             }
 
-            // Add emailOption to productItem if not null or empty
             if (cartItem.email) {
                 productItem.emailOption = cartItem.email;
             }
@@ -112,8 +69,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }),
     };
 
-    console.log(JSON.stringify(payload, null, 2));
-    // Perform the POST request
     const fetchData = fetch(url, {
         method: "POST",
         headers: {
@@ -123,42 +78,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
             var parsedData = JSON.parse(data.body);
             clientSecret = parsedData.clientSecret;
             intentID = parsedData.intentID;
-            console.log(parsedData);
 
-            shippingPrices = data.shippingQuotes;
-            console.log(shippingPrices);
-
-
-
-
-
-            if (!('budget' in shippingPrices)) {
-                budgetOption.style.display = 'none';
-
-            } else {
-                budgetOption.style.display = 'flex';
+            if (shippingPrices === undefined) {
+                console.log(shippingPrices);
+                shippingPrices = data.shippingQuotes;
+                console.log("Setting: " + shippingPrices);
+            } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
+                console.log(shippingPrices);
+                shippingPrices = data.shippingQuotes;
+                console.log("changing: " + shippingPrices);
             }
 
-            if ('standard' in shippingPrices) {
-                standardOption.style.display = 'flex';
-                standardPrice.textContent = "$" + shippingPrices.standard;
-                console.log('payment triggered it');
 
-            } else {
-                standardOption.style.display = 'none';
-
-            }
-
-            if ('express' in shippingPrices) {
-                expressOption.style.display = 'flex';
-                expressPrice.textContent = "$" + shippingPrices.express;
-            } else {
-                expressOption.style.display = 'none';
-            }
+            visableShippingOptions();
 
 
             // Handle the response data here
@@ -168,13 +103,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
     fetchData.then(() => {
-        // This code will run once the fetch request is completed
-        console.log("Code to run once fetch is completed.");
-        console.log(clientSecret);
-        // Add your additional code here.
-
-
-
         initialize();
     });
 
@@ -187,9 +115,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ============================================================================
 
     async function initialize() {
-
-
-
         var paymentValue;
 
         document.addEventListener("submit", handleSubmit);
@@ -578,41 +503,33 @@ document.addEventListener("DOMContentLoaded", async () => {
                 })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log(data.body);
                         elements.fetchUpdates();
-                        productPrice = data.body.productPrice;
+                        if (productPrice === undefined) {
+                            productPrice = data.body.productPrice;
+                        } else if ((data.body.productPrice !== productPrice) && data.body.productPrice) {
+                            productPrice = data.body.productPrice;
+                        }
                         updateStickerPrice(productPrice);
-                        //var parsedData = JSON.parse(data.body);
-                        shippingPrices = data.shippingQuotes;
 
-                        if (!('budget' in shippingPrices)) {
-                            budgetOption.style.display = 'none';
-                        } else {
-                            budgetOption.style.display = 'flex';
-                        }
-
-                        if ('standard' in shippingPrices) {
-                            standardOption.style.display = 'flex';
-                            standardPrice.textContent = "$" + shippingPrices.standard;
-
-                        } else {
-                            standardOption.style.display = 'none';
-
-                        }
-
-                        if ('express' in shippingPrices) {
-                            expressOption.style.display = 'flex';
-                            expressPrice.textContent = "$" + shippingPrices.express;
-                        } else {
-                            expressOption.style.display = 'none';
+                        if (shippingPrices === undefined) {
+                            console.log(shippingPrices);
+                            shippingPrices = data.shippingQuotes;
+                            console.log("setting: " + shippingPrices);
+                        } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
+                            console.log(shippingPrices);
+                            shippingPrices = data.shippingQuotes;
+                            console.log("changing: " + shippingPrices);
                         }
 
 
+                        visableShippingOptions();
 
 
 
-                        standardOption = document.getElementById("standard-price");
-                        expressOption = document.getElementById("express-price");
+
+
+                        //standardOption = document.getElementById("standard-price");
+                        //expressOption = document.getElementById("express-price");
 
 
                         // Handle the response data here
@@ -1490,7 +1407,60 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 
+// =============================================================================
+// Helper Functions
+// =============================================================================
 function convertToStripePrice(normalAmount) {
     const stripeAmount = Math.round(normalAmount * 100);
     return stripeAmount;
+}
+
+
+async function fetchUserIP() {
+    if (!ipaddr) {
+        try {
+            const response = await fetch("https://api.bigdatacloud.net/data/client-ip");
+            const data = await response.json();
+            ipaddr = data.ipString;
+            return data.ipString;
+        } catch (error) {
+            return null;
+        }
+    } else {
+        return ipaddr;
+    }
+
+}
+
+function visableShippingOptions() {
+    var budgetOption = document.getElementById("budget");
+    var standardOption = document.getElementById("standard");
+    var expressOption = document.getElementById("express");
+    var standardPrice = document.getElementById("standard-price");
+    var expressPrice = document.getElementById("express-price");
+
+    if (!('budget' in shippingPrices)) {
+        budgetOption.style.display = 'none';
+
+    } else {
+        budgetOption.style.display = 'flex';
+    }
+
+    if ('standard' in shippingPrices) {
+        standardOption.style.display = 'flex';
+        standardPrice.textContent = "$" + shippingPrices.standard;
+        console.log('payment triggered it');
+
+    } else {
+        standardOption.style.display = 'none';
+
+    }
+
+    if ('express' in shippingPrices) {
+        expressOption.style.display = 'flex';
+        expressPrice.textContent = "$" + shippingPrices.express;
+    } else {
+        expressOption.style.display = 'none';
+    }
+
 }

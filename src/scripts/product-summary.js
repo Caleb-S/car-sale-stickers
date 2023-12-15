@@ -1,27 +1,32 @@
+var ipaddr;
 var cart = [];
 // Function to get cookie value by name
 function getCookie(name) {
     const cookies = document.cookie.split('; ');
     for (const cookie of cookies) {
-      const [cookieName, cookieValue] = cookie.split('=');
-      if (cookieName === name) {
-        return decodeURIComponent(cookieValue);
-      }
+        const [cookieName, cookieValue] = cookie.split('=');
+        if (cookieName === name) {
+            return decodeURIComponent(cookieValue);
+        }
     }
     return null;
-  }
-  
-  // Get productPrice from cookie
-  var productPrice = getCookie("productPrice");
-  
-  // If productPrice cookie is not set, default it to 24.99
-  if (productPrice === null) {
-    productPrice = 24.99;
-  }
-  
-  // Now, productPrice contains the desired value
-  console.log("Product Price:", productPrice);
-  
+}
+
+// Get productPrice from cookie
+var productPrice = getCookie("productPrice");
+
+// If productPrice cookie is not set, default it to 24.99
+if (productPrice === null) {
+    productPrice = 0.00;
+}
+
+// Now, productPrice contains the desired value
+console.log("Product Price:", productPrice);
+
+
+
+
+
 
 
 
@@ -965,7 +970,7 @@ function adjustSpaceFontSize() {
     }
 }
 
-function updateIntent() {
+async function updateIntent() {
     var expressDiv = document.getElementById('express-checkout-element');
     var loadingBar = document.querySelector('.loading-bar');
     var expressTitle = document.getElementById('express-title');
@@ -998,7 +1003,7 @@ function updateIntent() {
         customerDetails: {
             intentID: intentID,
             shippingMethod: shippingMethod,
-            ipAddress: ipaddr,
+            ipAddress: await fetchUserIP(),
 
         },
         cart: cart.map(cartItem => {
@@ -1039,8 +1044,22 @@ function updateIntent() {
 
                 });
 
-            productPrice = data.body.productPrice;
-            shippingPrices = data.shippingQuotes;
+            if (productPrice === undefined) {
+                productPrice = data.body.productPrice;
+            } else if ((data.body.productPrice !== productPrice) && data.body.productPrice) {
+                productPrice = data.body.productPrice;
+            }
+
+            if (shippingPrices === undefined) {
+                console.log(shippingPrices);
+                shippingPrices = data.shippingQuotes;
+                console.log("setting: " + shippingPrices);
+            } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
+                console.log(shippingPrices);
+                shippingPrices = data.shippingQuotes;
+                console.log("changing: " + shippingPrices);
+            }
+            /*
 
             if (!('budget' in shippingPrices)) {
                 budgetOption.style.display = 'none';
@@ -1063,7 +1082,7 @@ function updateIntent() {
             } else {
                 expressOption.style.display = 'none';
             }
-
+*/
 
 
 
@@ -1109,9 +1128,6 @@ function handleCardClick(clickedCard) {
 }
 
 function updateStickerPrice(price) {
-
-
-
     const builderContainers = document.querySelectorAll('.builder-container');
     var subTotalText = document.querySelector(".subTotalSum1");
     var mobileSubTotal = document.querySelector(".payment-subtotal");
