@@ -997,7 +997,7 @@ async function updateIntent() {
         expressDiv.style.display = 'none';
         if (window.getComputedStyle(expressTitle).display !== 'none') {
 
-            loadingBar.style.display = 'flex';
+            //  loadingBar.style.display = 'flex';
         } else {
             loadingBar.style.display = 'none';
         }
@@ -1138,8 +1138,8 @@ async function updateIntent() {
                 } else {
                     fetchingData = false;
                     if (window.getComputedStyle(expressTitle).display !== 'none') {
-                        loadingBar.style.display = 'none';
-                        expressDiv.style.display = 'block';
+                        //  loadingBar.style.display = 'none';
+                        //   expressDiv.style.display = 'block';
                     }
 
                 }
