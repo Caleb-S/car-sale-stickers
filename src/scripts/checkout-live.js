@@ -197,6 +197,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         expressCheckoutElement.on('click', (event) => {
             console.log('clicked express element 101');
+            var expressDiv = document.getElementById('express-checkout-element');
+            var loadingBar = document.querySelector('.loading-bar');
 
 
             /*
