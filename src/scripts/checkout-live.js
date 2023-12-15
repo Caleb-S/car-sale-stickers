@@ -240,10 +240,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             // Add more shipping rates as needed
                         ],
                         lineItems: [
-                            {
-                                name: 'For Sale Sticker - sass.caleb@icloud.com',
-                                amount: 2590,
-                            },
+
                             {
                                 name: 'For Sale Sticker - sass.caleb@icloud.com + 02108585296',
                                 amount: 2590,
