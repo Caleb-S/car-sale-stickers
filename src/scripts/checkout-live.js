@@ -205,6 +205,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             expressDiv.style.display = 'none';
             loadingBar.style.display = 'flex';
+            var checks = 0;
 
             // Function to check the condition and execute code
             const checkConditionAndExecute = (event) => {
@@ -290,7 +291,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                     });
                 } else {
                     // If the condition is still false, check again after a delay
-                    setTimeout(checkConditionAndExecute(event), 5000); // Adjust the delay as needed
+                    if (checks <= 10) {
+                        checks += 1;
+                        setTimeout(checkConditionAndExecute(event), 100);
+                    } else {
+                        checks += 1;
+                        setTimeout(checkConditionAndExecute(event), 2000);
+                    }
+                    // Adjust the delay as needed
+
                 }
             };
 
