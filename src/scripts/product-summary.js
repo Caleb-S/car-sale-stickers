@@ -994,12 +994,12 @@ async function updateIntent() {
         console.log("running | pending: " + pendingRequest);
         fetchingData = true;
         pendingRequest = false;
-        expressDiv.style.display = 'none';
+        //expressDiv.style.display = 'none';
         if (window.getComputedStyle(expressTitle).display !== 'none') {
 
             //  loadingBar.style.display = 'flex';
         } else {
-            loadingBar.style.display = 'none';
+            //  loadingBar.style.display = 'none';
         }
 
 
