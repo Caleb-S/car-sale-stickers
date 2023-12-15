@@ -207,69 +207,45 @@ document.addEventListener("DOMContentLoaded", async () => {
             loadingBar.style.display = 'flex';
             var checks = 0;
 
-            const options = {
-                emailRequired: true,
-                phoneNumberRequired: true,
-                shippingAddressRequired: true,
-                shippingRates: [
-                    {
-                        id: 'budget',
-                        amount: convertToStripePrice(shippingPrices.budget),
-                        displayName: 'Free | No Tracking',
 
-                    },
-                    {
-                        id: 'standard',
-                        amount: convertToStripePrice(shippingPrices.standard),
-                        displayName: 'Standard | Tracking',
-
-                    },
-                    {
-                        id: 'express',
-                        amount: convertToStripePrice(shippingPrices.express),
-                        displayName: 'Express | Tracking',
-
-                    },
-                    // Add more shipping rates as needed
-                ],
-
-            };
-            event.resolve(options);
             // Function to check the condition and execute code
             const checkConditionAndExecute = (event) => {
                 console.log('test');
                 if (!fetchingData && !pendingRequest) {
                     /* hide express checkout, show loading bar */
 
+                    const options = {
+                        emailRequired: true,
+                        phoneNumberRequired: true,
+                        shippingAddressRequired: true,
+                        shippingRates: [
+                            {
+                                id: 'budget',
+                                amount: convertToStripePrice(shippingPrices.budget),
+                                displayName: 'Free | No Tracking',
+
+                            },
+                            {
+                                id: 'standard',
+                                amount: convertToStripePrice(shippingPrices.standard),
+                                displayName: 'Standard | Tracking',
+
+                            },
+                            {
+                                id: 'express',
+                                amount: convertToStripePrice(shippingPrices.express),
+                                displayName: 'Express | Tracking',
+
+                            },
+                            // Add more shipping rates as needed
+                        ],
+
+                    };
+                    event.resolve(options);
+
 
                     elements.fetchUpdates().then(() => {
-                        const options = {
-                            emailRequired: true,
-                            phoneNumberRequired: true,
-                            shippingAddressRequired: true,
-                            shippingRates: [
-                                {
-                                    id: 'budget',
-                                    amount: convertToStripePrice(shippingPrices.budget),
-                                    displayName: 'Free | No Tracking',
 
-                                },
-                                {
-                                    id: 'standard',
-                                    amount: convertToStripePrice(shippingPrices.standard),
-                                    displayName: 'Standard | Tracking',
-
-                                },
-                                {
-                                    id: 'express',
-                                    amount: convertToStripePrice(shippingPrices.express),
-                                    displayName: 'Express | Tracking',
-
-                                },
-                                // Add more shipping rates as needed
-                            ],
-
-                        };
 
                         var payload = {
                             requestType: 'saveCart',
@@ -309,10 +285,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                         });
 
                         // Now that the condition is true, resolve the event with options
-                        //event.resolve(options);
 
-                        expressCheckoutElement.update(options);
-                        elements.fetchUpdates();
+
+                        //expressCheckoutElement.update(options);
+                        // elements.fetchUpdates();
 
                         console.log('resolved');
                         /*
