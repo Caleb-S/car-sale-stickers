@@ -203,13 +203,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             var expressDiv = document.getElementById('express-checkout-element');
             var loadingBar = document.querySelector('.loading-bar');
 
+            expressDiv.style.display = 'none';
+            loadingBar.style.display = 'flex';
+
             // Function to check the condition and execute code
             const checkConditionAndExecute = () => {
                 console.log('test');
                 if (!fetchingData && !pendingRequest) {
                     /* hide express checkout, show loading bar */
-                    expressDiv.style.display = 'none';
-                    loadingBar.style.display = 'flex';
+
 
                     elements.fetchUpdates().then(() => {
                         const options = {
