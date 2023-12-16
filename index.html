@@ -107,7 +107,7 @@
             <!-- Sticker Preview -->
             <div class="sticker-border">
 
-              <div class="sticker-for-sale">FOR<span style="font-size: 20px;"> </span>SALE</div>
+              <div class="sticker-for-sale" id="for-sale-txt1">FOR<span style="font-size: 20px;"> </span>SALE</div>
               <!-- <text class="sticker-num" id="sticker-num">555-555-5555</text> -->
               <!-- <text class="sticker-email" id="sticker-mail"
                     >Emmanuel.rodriguez@icloud.com</text
@@ -1267,20 +1267,31 @@ function setVisitedCookie(cname, cvalue, exdays) {
     }
 
     // Check if the 'visited' cookie exists
-    var visitedCookie = getVisitedCookie("visited");
+  
 
-    if (visitedCookie === "") {
-      // If the 'visited' cookie doesn't exist, set it and perform actions for first-time visitors
-      setVisitedCookie("visited", "true", 365); // Set the cookie to expire in 365 days
+    var forSaleTxts = document.querySelectorAll('.sticker-for-sale');
+    forSaleTxts.forEach(function (forSaleTxt) {
+        forSaleTxt.addEventListener("click", () => {
+        var visitedCookie = getVisitedCookie("visited");
+          if (visitedCookie === "") {
+          // If the 'visited' cookie doesn't exist, set it and perform actions for first-time visitors
+          setVisitedCookie("visited", "true", 365); // Set the cookie to expire in 365 days
 
-      // Actions for first-time visitors
-     // alert("Welcome! It's your first time visiting this site.");
-     displayHelpPopup();
-     
-    } else {
-      // Actions for returning visitors
-      //alert("Welcome back!");
-    }
+          // Actions for first-time visitors
+        // alert("Welcome! It's your first time visiting this site.");
+        displayHelpPopup();
+        
+        } else {
+          // Actions for returning visitors
+          //alert("Welcome back!");
+        }
+      });
+    });
+
+    
+  
+
+   
 
     function displayHelpPopup() {
       var popupContainer = document.getElementById("popup-container");
