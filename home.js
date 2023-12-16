@@ -343,28 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Script 4
     // =============================================================================
     script4();
-    function showHelp() {
-        displayHelpPopup();
-    }
 
-
-    function closePopup() {
-
-        document.getElementById("popup-content").classList.add("close-animation");
-
-        setTimeout(function () {
-
-            var popupContainer = document.getElementById("popup-container");
-            //var popupContent = document.getElementById("popup-content");
-
-
-            document.getElementById("popup-content").classList.remove("close-animation");
-
-
-            popupContainer.style.display = "none";
-
-        }, 400);
-    }
     function script4() {
 
 
@@ -880,3 +859,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 });
+
+function showHelp() {
+    displayHelpPopup();
+}
+
+
+function closePopup() {
+
+    document.getElementById("popup-content").classList.add("close-animation");
+
+    setTimeout(function () {
+
+        var popupContainer = document.getElementById("popup-container");
+        //var popupContent = document.getElementById("popup-content");
+
+
+        document.getElementById("popup-content").classList.remove("close-animation");
+
+
+        popupContainer.style.display = "none";
+
+    }, 400);
+}
