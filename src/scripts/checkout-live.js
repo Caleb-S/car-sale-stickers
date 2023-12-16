@@ -1,6 +1,6 @@
 var clientSecret;
 var intentID;
-var url = "https://0q0j7hxr83.execute-api.ap-southeast-2.amazonaws.com/test-stage-v1/stripe";
+var url = "https://api.carsalestickers.com/stripe";
 
 var country;
 var elements;
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                             {
                                 name: 'For Sale Sticker - sass.caleb@icloud.com + 02108585296',
-                                amount: 2590,
+                                amount: convertToStripePrice(productPrice),
 
                             },
                         ],
