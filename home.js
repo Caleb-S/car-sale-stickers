@@ -790,13 +790,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // script 8
     // =============================================================================
     script8();
+    // Initialize variable for tracking time in seconds
+    let totalTime = 0;
+    let isPageVisible = true; // Track page visibility
     function script8() {
 
 
 
-        // Initialize variable for tracking time in seconds
-        let totalTime = 0;
-        let isPageVisible = true; // Track page visibility
+
 
         // Function to update the time on the page
         function updateTimeOnPage() {
