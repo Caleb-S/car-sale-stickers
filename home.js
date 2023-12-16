@@ -346,32 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function script4() {
 
 
-        // Function to set a cookie
-        function setVisitedCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            var expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        }
 
-        // Function to get the value of a cookie by name
-        function getVisitedCookie(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) === ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) === 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
-        // Check if the 'visited' cookie exists
 
 
         var forSaleTxts = document.querySelectorAll('.sticker-for-sale');
@@ -395,139 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-
-
-        function displayHelpPopup() {
-            var popupContainer = document.getElementById("popup-container");
-            var popupContent = document.getElementById("popup-content");
-            popupContainer.style.display = "flex";
-            var firstChild = popupContent.firstChild;
-            /*
-                  // Create and append the iframe
-                  var iframe = document.createElement("iframe");
-                  iframe.src = "terms-of-service.html";
-                  iframe.id = "iframe-container";
-                  iframe.setAttribute("frameborder", "0");
-                  iframe.setAttribute("width", "100%");
-                  iframe.setAttribute("height", "100%");
-            
-            
-            
-                  popupContent.insertBefore(iframe, firstChild);
-                  */
-
-
-        }
-
-
-        function showHelp() {
-            displayHelpPopup();
-        }
-
-
-        function closePopup() {
-
-            document.getElementById("popup-content").classList.add("close-animation");
-
-            setTimeout(function () {
-
-                var popupContainer = document.getElementById("popup-container");
-                //var popupContent = document.getElementById("popup-content");
-
-
-                document.getElementById("popup-content").classList.remove("close-animation");
-
-
-                popupContainer.style.display = "none";
-
-            }, 400);
-        }
-
-        // Function to check if an element is in the viewport with a tolerance
-        function isElementInViewport(el, tolerance = 0) {
-            var rect = el.getBoundingClientRect();
-            return (
-                rect.top - tolerance <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.left - tolerance <= (window.innerWidth || document.documentElement.clientWidth) &&
-                rect.bottom + tolerance >= 0 &&
-                rect.right + tolerance >= 0
-            );
-        }
-        function isScrollWithinDistances(distFromTop, distFromBottom) {
-            var totalHeight = document.documentElement.scrollHeight;
-            var windowHeight = window.innerHeight || document.documentElement.clientHeight;
-            var scrollPosition = window.scrollY || window.pageYOffset;
-
-            var fromTop = (scrollPosition / totalHeight) * 100; // Percentage from the top
-            var fromBottom = ((totalHeight - scrollPosition - windowHeight) / totalHeight) * 100; // Percentage from the bottom
-
-            return fromTop <= distFromTop || fromBottom <= distFromBottom;
-        }
-
-
-
-        // Function to handle the visibility of the button
-        function handleButtonVisibility() {
-            var stickerBuilders = document.querySelectorAll('.sticker-builder');
-            var helpButton = document.getElementById('helpButton');
-
-            // Check if any sticker-builder is in view with increased tolerance (e.g., 20 pixels)
-            var isAnyStickerBuilderInView = Array.from(stickerBuilders).some(el => isElementInViewport(el, 20));
-
-            var isAnyStickerBuilderInView = Array.from(stickerBuilders).some(el => isScrollWithinDistances(10, 10));
-
-            console.log(isAnyStickerBuilderInView);
-            if (isAnyStickerBuilderInView && isAnyStickerBuilderInView) {
-                // Show or hide the button based on the result
-
-                helpButton.style.display = isAnyStickerBuilderInView ? 'block' : 'none';
-            } else {
-                helpButton.style.display = "none";
-            }
-
-            adjustButtonPosition();
-        }
-
-
-
-
         var scrollTimer;
-        function adjustButtonPosition() {
-            var helpButton = document.getElementById('helpButton');
-            helpButton.style.bottom = '20px';
-            clearTimeout(scrollTimer);
-
-
-
-            const distanceFromBottom = document.body.scrollHeight - window.scrollY - window.innerHeight;
-
-            var footer = document.querySelector('footer');
-
-
-            var footerHeight = footer.offsetHeight;
-
-
-            if (distanceFromBottom <= footerHeight) {
-
-
-                helpButton.style.bottom = `${footerHeight - distanceFromBottom + 20}px`; // 20px is the original bottom value
-            } else {
-                helpButton.style.bottom = '20px';
-            }
-
-            scrollTimer = setTimeout(() => {
-                // This code will run after the user stops scrolling for a certain duration
-                adjustButtonPosition();
-            }, 0.05); // Adjust the duration as needed
-
-
-
-
-
-        }
-
-
 
         // Attach the adjustButtonPosition function to the window scroll event
 
@@ -543,6 +386,167 @@ document.addEventListener("DOMContentLoaded", () => {
         // Initial check when the page loads
         handleButtonVisibility();
     }
+
+    // Function to set a cookie
+    function setVisitedCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    // Function to get the value of a cookie by name
+    function getVisitedCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    // Check if the 'visited' cookie exists
+
+
+
+
+
+    function displayHelpPopup() {
+        var popupContainer = document.getElementById("popup-container");
+        var popupContent = document.getElementById("popup-content");
+        popupContainer.style.display = "flex";
+        var firstChild = popupContent.firstChild;
+        /*
+              // Create and append the iframe
+              var iframe = document.createElement("iframe");
+              iframe.src = "terms-of-service.html";
+              iframe.id = "iframe-container";
+              iframe.setAttribute("frameborder", "0");
+              iframe.setAttribute("width", "100%");
+              iframe.setAttribute("height", "100%");
+        
+        
+        
+              popupContent.insertBefore(iframe, firstChild);
+              */
+
+
+    }
+
+
+    function showHelp() {
+        displayHelpPopup();
+    }
+
+
+    function closePopup() {
+
+        document.getElementById("popup-content").classList.add("close-animation");
+
+        setTimeout(function () {
+
+            var popupContainer = document.getElementById("popup-container");
+            //var popupContent = document.getElementById("popup-content");
+
+
+            document.getElementById("popup-content").classList.remove("close-animation");
+
+
+            popupContainer.style.display = "none";
+
+        }, 400);
+    }
+
+    // Function to check if an element is in the viewport with a tolerance
+    function isElementInViewport(el, tolerance = 0) {
+        var rect = el.getBoundingClientRect();
+        return (
+            rect.top - tolerance <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.left - tolerance <= (window.innerWidth || document.documentElement.clientWidth) &&
+            rect.bottom + tolerance >= 0 &&
+            rect.right + tolerance >= 0
+        );
+    }
+    function isScrollWithinDistances(distFromTop, distFromBottom) {
+        var totalHeight = document.documentElement.scrollHeight;
+        var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        var scrollPosition = window.scrollY || window.pageYOffset;
+
+        var fromTop = (scrollPosition / totalHeight) * 100; // Percentage from the top
+        var fromBottom = ((totalHeight - scrollPosition - windowHeight) / totalHeight) * 100; // Percentage from the bottom
+
+        return fromTop <= distFromTop || fromBottom <= distFromBottom;
+    }
+
+
+
+    // Function to handle the visibility of the button
+    function handleButtonVisibility() {
+        var stickerBuilders = document.querySelectorAll('.sticker-builder');
+        var helpButton = document.getElementById('helpButton');
+
+        // Check if any sticker-builder is in view with increased tolerance (e.g., 20 pixels)
+        var isAnyStickerBuilderInView = Array.from(stickerBuilders).some(el => isElementInViewport(el, 20));
+
+        var isAnyStickerBuilderInView = Array.from(stickerBuilders).some(el => isScrollWithinDistances(10, 10));
+
+        console.log(isAnyStickerBuilderInView);
+        if (isAnyStickerBuilderInView && isAnyStickerBuilderInView) {
+            // Show or hide the button based on the result
+
+            helpButton.style.display = isAnyStickerBuilderInView ? 'block' : 'none';
+        } else {
+            helpButton.style.display = "none";
+        }
+
+        adjustButtonPosition();
+    }
+
+
+
+
+
+    function adjustButtonPosition() {
+        var helpButton = document.getElementById('helpButton');
+        helpButton.style.bottom = '20px';
+        clearTimeout(scrollTimer);
+
+
+
+        const distanceFromBottom = document.body.scrollHeight - window.scrollY - window.innerHeight;
+
+        var footer = document.querySelector('footer');
+
+
+        var footerHeight = footer.offsetHeight;
+
+
+        if (distanceFromBottom <= footerHeight) {
+
+
+            helpButton.style.bottom = `${footerHeight - distanceFromBottom + 20}px`; // 20px is the original bottom value
+        } else {
+            helpButton.style.bottom = '20px';
+        }
+
+        scrollTimer = setTimeout(() => {
+            // This code will run after the user stops scrolling for a certain duration
+            adjustButtonPosition();
+        }, 0.05); // Adjust the duration as needed
+
+
+
+
+
+    }
+
 
     // =============================================================================
     // script 5
