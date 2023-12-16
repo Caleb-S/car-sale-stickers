@@ -399,27 +399,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-        function displayHelpPopup() {
-            var popupContainer = document.getElementById("popup-container");
-            var popupContent = document.getElementById("popup-content");
-            popupContainer.style.display = "flex";
-            var firstChild = popupContent.firstChild;
-            /*
-                  // Create and append the iframe
-                  var iframe = document.createElement("iframe");
-                  iframe.src = "terms-of-service.html";
-                  iframe.id = "iframe-container";
-                  iframe.setAttribute("frameborder", "0");
-                  iframe.setAttribute("width", "100%");
-                  iframe.setAttribute("height", "100%");
-            
-            
-            
-                  popupContent.insertBefore(iframe, firstChild);
-                  */
 
-
-        }
 
 
 
@@ -881,4 +861,26 @@ function closePopup() {
         popupContainer.style.display = "none";
 
     }, 400);
+}
+
+function displayHelpPopup() {
+    var popupContainer = document.getElementById("popup-container");
+    var popupContent = document.getElementById("popup-content");
+    popupContainer.style.display = "flex";
+    var firstChild = popupContent.firstChild;
+    /*
+          // Create and append the iframe
+          var iframe = document.createElement("iframe");
+          iframe.src = "terms-of-service.html";
+          iframe.id = "iframe-container";
+          iframe.setAttribute("frameborder", "0");
+          iframe.setAttribute("width", "100%");
+          iframe.setAttribute("height", "100%");
+    
+    
+    
+          popupContent.insertBefore(iframe, firstChild);
+          */
+
+
 }
