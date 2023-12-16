@@ -20,7 +20,7 @@ if (shippingPrices === null) {
 document.addEventListener("DOMContentLoaded", async () => {
     // Important Variabels =====================================================
 
-    const env = 'test';
+    const env = 'live';
     var envK1 = 'pk_'
     var envK2 = '_51NWg86IA9Fl1A3IG';
     var envK3 = 'TsyLEeLB83hHQu0kIH8OFZipQP1BAklKyzEOnzNmrjDHyt7eRKYgeZcBwI45Bzxn60Z6icUg009NOrOYZq';
@@ -238,15 +238,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                             },
                             // Add more shipping rates as needed
-                        ],
-                        lineItems: [
-
-                            {
-                                name: 'For Sale Sticker - sass.caleb@icloud.com + 02108585296',
-                                amount: convertToStripePrice(productPrice),
-
-                            },
-                        ],
+                        ]
 
                     };
                     event.resolve(options);
