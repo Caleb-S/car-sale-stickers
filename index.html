@@ -67,6 +67,24 @@
 <script type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie_light.js" loading="lazy" async></script>
 -->
 
+<style>
+  @keyframes popupAnimation {
+    from {
+      transform: translate(0, 0) skew(0deg);
+      opacity: 1;
+    }
+    to {
+      transform: translate(calc(100% - 20px), calc(100% - 20px)) skew(50deg);
+      opacity: 0;
+    }
+  }
+
+  .close-animation {
+    animation: popupAnimation 0.5s ease-in-out;
+  }
+</style>
+
+
 </head>
 
 <body>
@@ -574,9 +592,9 @@ script.onload = function() {
             <div class="option-wrapper">
               <!-- <button class="mobile-Num-btn"></button> -->
               <div class="add-btn mobile-btn cta-add-btn" id="mobile-btn2"  aria-label="Add mobile number to sticker" tabindex="0">
-                <img src="src/assets/add-btn.svg" alt="Add Mobile Button image" />
+                <img src="src/assets/add-btn.svg" alt="Add Mobile Button image" >
               </div>
-              <text class="sticker-option-text mobile-txt" style="cursor: pointer">Mobile Number</text>
+              <div class="sticker-option-text mobile-txt" style="cursor: pointer">Mobile Number</div>
             </div>
             <div class="option-wrapper">
               <!-- <button class="email-btn"></button> -->
@@ -1195,23 +1213,7 @@ reviewSection.addEventListener("wheel", (e) => {
   <script defer src="src/scripts/sticker-builder.js"></script>
   <!-- Lottie File ========================================================-->
  
-  <style>
-    @keyframes popupAnimation {
-      from {
-        transform: translate(0, 0) skew(0deg);
-        opacity: 1;
-      }
-      to {
-        transform: translate(calc(100% - 20px), calc(100% - 20px)) skew(50deg);
-        opacity: 0;
-      }
-    }
-  
-    .close-animation {
-      animation: popupAnimation 0.5s ease-in-out;
-    }
-  </style>
-  
+
   
   
   
@@ -1463,7 +1465,7 @@ var scrollTimer;
  
 
 " onclick="showHelp()">
-  <img src="src/assets/help-icon.svg" width="20px" height="20px" style="  transform: translate(10%, 10%);">
+  <img src="src/assets/help-icon.svg" width="20" height="20" alt="Help Icon" style="  transform: translate(10%, 10%);">
 </button>
 
 
