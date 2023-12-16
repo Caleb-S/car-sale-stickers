@@ -189,20 +189,20 @@ async function getPrice() {
 
 
 
-            if (productPrice === undefined) {
-                document.cookie = "productPrice=" + encodeURIComponent(productPrice) + "; path=/";
-            } else if ((data.body.productPrice !== productPrice) && data.body.productPrice) {
-                document.cookie = "productPrice=" + encodeURIComponent(productPrice) + "; path=/";
+            if (getCookie("productPrice") === undefined) {
+                document.cookie = "productPrice=" + encodeURIComponent(data.body.productPrice) + "; path=/";
+            } else if ((data.body.productPrice !== getCookie("productPrice")) && data.body.productPrice) {
+                document.cookie = "productPrice=" + encodeURIComponent(data.body.productPrice) + "; path=/";
             }
 
-            if (shippingPrices === undefined) {
-                console.log(shippingPrices);
-                document.cookie = "shippingQuotes=" + encodeURIComponent(shippingPrices) + "; path=/";
-                console.log("setting: " + shippingPrices);
-            } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
-                console.log(shippingPrices);
-                document.cookie = "shippingQuotes=" + encodeURIComponent(shippingPrices) + "; path=/";
-                console.log("changing: " + shippingPrices);
+            if (getCookie("shippingPrices") === undefined) {
+
+                document.cookie = "shippingQuotes=" + encodeURIComponent(data.shippingQuotes) + "; path=/";
+
+            } else if ((data.shippingQuotes !== getCookie("shippingPrices")) && data.shippingQuotes) {
+
+                document.cookie = "shippingQuotes=" + encodeURIComponent(data.shippingQuotes) + "; path=/";
+
             }
 
             // Set productPrice cookie
