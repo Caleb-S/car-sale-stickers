@@ -20,7 +20,7 @@ if (shippingPrices === null) {
 document.addEventListener("DOMContentLoaded", async () => {
     // Important Variabels =====================================================
 
-    var env = 'test';
+    const env = 'test';
     var envK1 = 'pk_'
     var envK2 = '_51NWg86IA9Fl1A3IG';
     var envK3 = 'TsyLEeLB83hHQu0kIH8OFZipQP1BAklKyzEOnzNmrjDHyt7eRKYgeZcBwI45Bzxn60Z6icUg009NOrOYZq';
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("=============================================\nTest Environment - Payments won't be charged.\n=============================================");
         var stripe = Stripe(envK1 + env + envK2 + envK3);
         console.log(envK1 + env + envK2 + envK3);
-    } else {
+    } else if (env === 'live') {
         var stripe = Stripe(envK1 + env + envK2 + envK4);
     }
 

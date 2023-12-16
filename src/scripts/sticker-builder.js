@@ -156,13 +156,13 @@ document.addEventListener("DOMContentLoaded", () => {
 function getCookie(name) {
     const cookies = document.cookie.split('; ');
     for (const cookie of cookies) {
-      const [cookieName, cookieValue] = cookie.split('=');
-      if (cookieName === name) {
-        return decodeURIComponent(cookieValue);
-      }
+        const [cookieName, cookieValue] = cookie.split('=');
+        if (cookieName === name) {
+            return decodeURIComponent(cookieValue);
+        }
     }
     return null;
-  }
+}
 
 
 async function getPrice() {
@@ -189,14 +189,27 @@ async function getPrice() {
 
 
 
-            productPrice = data.body.productPrice;
-            shippingPrices = data.shippingQuotes;
+            if (productPrice === undefined) {
+                document.cookie = "productPrice=" + encodeURIComponent(productPrice) + "; path=/";
+            } else if ((data.body.productPrice !== productPrice) && data.body.productPrice) {
+                document.cookie = "productPrice=" + encodeURIComponent(productPrice) + "; path=/";
+            }
+
+            if (shippingPrices === undefined) {
+                console.log(shippingPrices);
+                document.cookie = "shippingQuotes=" + encodeURIComponent(shippingPrices) + "; path=/";
+                console.log("setting: " + shippingPrices);
+            } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
+                console.log(shippingPrices);
+                document.cookie = "shippingQuotes=" + encodeURIComponent(shippingPrices) + "; path=/";
+                console.log("changing: " + shippingPrices);
+            }
 
             // Set productPrice cookie
-            document.cookie = "productPrice=" + encodeURIComponent(productPrice) + "; path=/";
+
 
             // Set shippingQuotes cookie
-            document.cookie = "shippingQuotes=" + encodeURIComponent(shippingPrices) + "; path=/";
+
 
         })
         .catch((error) => {

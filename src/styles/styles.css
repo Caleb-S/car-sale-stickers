@@ -244,9 +244,12 @@
 }
 
 /* Define a CSS style for Stripe iframes with !important */
+
+/*
 iframe {
-  width: auto !important; /* Make the width dynamic and fill the container */
+  width: auto !important;
 }
+*/
 
 .toPayment-btn {
   align-items: center;
