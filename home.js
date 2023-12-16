@@ -343,48 +343,49 @@ document.addEventListener("DOMContentLoaded", () => {
     // Script 4
     // =============================================================================
     script4();
+
+
+    var forSaleTxts = document.querySelectorAll('.sticker-for-sale');
+    forSaleTxts.forEach(function (forSaleTxt) {
+        forSaleTxt.addEventListener("click", () => {
+            var visitedCookie = getVisitedCookie("visited");
+            if (visitedCookie === "") {
+                // If the 'visited' cookie doesn't exist, set it and perform actions for first-time visitors
+                setVisitedCookie("visited", "true", 1); // Set the cookie to expire in 365 days
+
+                // Actions for first-time visitors
+                // alert("Welcome! It's your first time visiting this site.");
+                displayHelpPopup();
+
+            } else {
+                // Actions for returning visitors
+                //alert("Welcome back!");
+            }
+        });
+    });
+
+
+
+    var scrollTimer;
+
+    // Attach the adjustButtonPosition function to the window scroll event
+
+
+    window.addEventListener('scroll', handleButtonVisibility);
+    window.addEventListener('touch', handleButtonVisibility);
+
+
+    // Attach the handleButtonVisibility function to scroll and resize events
+    window.addEventListener('scroll', handleButtonVisibility);
+    window.addEventListener('resize', handleButtonVisibility);
+
+    // Initial check when the page loads
+    handleButtonVisibility();
     function script4() {
 
 
 
 
-
-        var forSaleTxts = document.querySelectorAll('.sticker-for-sale');
-        forSaleTxts.forEach(function (forSaleTxt) {
-            forSaleTxt.addEventListener("click", () => {
-                var visitedCookie = getVisitedCookie("visited");
-                if (visitedCookie === "") {
-                    // If the 'visited' cookie doesn't exist, set it and perform actions for first-time visitors
-                    setVisitedCookie("visited", "true", 1); // Set the cookie to expire in 365 days
-
-                    // Actions for first-time visitors
-                    // alert("Welcome! It's your first time visiting this site.");
-                    displayHelpPopup();
-
-                } else {
-                    // Actions for returning visitors
-                    //alert("Welcome back!");
-                }
-            });
-        });
-
-
-
-        var scrollTimer;
-
-        // Attach the adjustButtonPosition function to the window scroll event
-
-
-        window.addEventListener('scroll', handleButtonVisibility);
-        window.addEventListener('touch', handleButtonVisibility);
-
-
-        // Attach the handleButtonVisibility function to scroll and resize events
-        window.addEventListener('scroll', handleButtonVisibility);
-        window.addEventListener('resize', handleButtonVisibility);
-
-        // Initial check when the page loads
-        handleButtonVisibility();
     }
 
     // Function to set a cookie
