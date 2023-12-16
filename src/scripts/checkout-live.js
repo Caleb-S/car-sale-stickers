@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                             },
                             // Add more shipping rates as needed
-                        ]
+                        ],
 
                     };
                     event.resolve(options);
