@@ -8,6 +8,8 @@ var url = "https://api.carsalestickers.com/stripe";
 
 getPrice();
 
+var env = 'live';
+
 
 document.addEventListener("DOMContentLoaded", () => {
     // Select all elements with the class 'sticker-builder'
@@ -225,7 +227,7 @@ async function getPriceOld() {
 
 async function getPrice() {
 
-    const apiUrl = 'https://api.carsalestickers.com/product?country=us&stage=prod';
+    const apiUrl = 'https://api.carsalestickers.com/product?country=us&stage=' + env;
 
     fetch(apiUrl)
         .then(response => {
