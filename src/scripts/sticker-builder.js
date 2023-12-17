@@ -165,7 +165,7 @@ function getCookie(name) {
 }
 
 
-async function getPrice() {
+async function getPriceOld() {
 
 
 
@@ -219,6 +219,48 @@ async function getPrice() {
     updateData.then(() => {
 
     });
+
+
+}
+
+async function getPrice() {
+
+    const apiUrl = 'https://api.carsalestickers.com/product?country=us&stage=prod';
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle the data
+            console.log(data);
+
+
+
+            if (getCookie("productPrice") === undefined) {
+                document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
+            } else if ((data.price !== getCookie("productPrice")) && data.price) {
+                document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
+            }
+
+            // You can access specific values like this:
+            const stripePrice = data.stripePrice;
+            const price = data.price;
+            const sticker = data.sticker;
+            const stage = data.stage;
+
+            // Perform further actions with the data as needed
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+    // -------------------------------------------------------------------    
+
+
+
 
 
 }
