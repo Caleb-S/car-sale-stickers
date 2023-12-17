@@ -252,6 +252,8 @@ async function getPrice() {
             const sticker = data.sticker;
             const stage = data.stage;
 
+            console.log(price);
+
             // Perform further actions with the data as needed
         })
         .catch(error => {
