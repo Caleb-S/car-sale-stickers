@@ -277,7 +277,8 @@ async function fetchUserCountry() {
         const response = await fetch("https://api.bigdatacloud.net/data/country-info");
         const data = await response.json();
         //ipaddr = data.ipString;
-        console.log('country: ' + data);
+        console.log('country: ');
+        console.log(data);
         return data.code;
     } catch (error) {
         console.error(error);
