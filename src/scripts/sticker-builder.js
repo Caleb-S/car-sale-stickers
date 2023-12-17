@@ -229,15 +229,22 @@ async function getPrice() {
 
     var countryCode = await fetchUserCountry();
 
-    const apiUrl = 'https://api.carsalestickers.com/product?country=' + countryCode + '&stage=' + env;
+    const apiUrl = 'https://api.carsalestickers.com/product?country=' + countryCode.toLowerCase() + '&stage=' + env;
+    console.log(apiUrl);
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.statusText}`);
-            }
-            return response.json();
-        })
+
+
+    fetch(apiUrl, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        return response.json();
+    })
         .then(data => {
             // Handle the data
             console.log(data);
