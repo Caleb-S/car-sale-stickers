@@ -274,7 +274,7 @@ async function getPrice() {
 
 async function fetchUserCountry() {
     try {
-        const response = await fetch("https://api-bdc.net/data/country-info");
+        const response = await fetch("https://api.bigdatacloud.net/data/country-info");
         const data = await response.json();
         //ipaddr = data.ipString;
         console.log('country: ' + data.code);
