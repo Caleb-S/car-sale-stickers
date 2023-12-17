@@ -277,7 +277,7 @@ async function fetchUserCountry() {
         const response = await fetch("https://api-bdc.net/data/country-info");
         const data = await response.json();
         //ipaddr = data.ipString;
-        console.log('country: ' + code);
+        console.log('country: ' + data.code);
         return data.code;
     } catch (error) {
         console.error(error);
