@@ -279,7 +279,7 @@ async function fetchUserCountry() {
         //ipaddr = data.ipString;
         console.log('country: ');
         console.log(data.countryCode);
-        return data.countryCode;
+        return "" + data.countryCode;
     } catch (error) {
         console.error(error);
         return null; // Return null if the IP fetch fails
