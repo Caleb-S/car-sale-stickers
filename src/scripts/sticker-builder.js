@@ -274,12 +274,12 @@ async function getPrice() {
 
 async function fetchUserCountry() {
     try {
-        const response = await fetch("https://api.bigdatacloud.net/data/country-info");
+        const response = await fetch("https://freeipapi.com/api/json");
         const data = await response.json();
         //ipaddr = data.ipString;
         console.log('country: ');
-        console.log(data);
-        return data.code;
+        console.log(data.countryCode);
+        return data.countryCode;
     } catch (error) {
         console.error(error);
         return null; // Return null if the IP fetch fails
