@@ -227,7 +227,9 @@ async function getPriceOld() {
 
 async function getPrice() {
 
-    const apiUrl = 'https://api.carsalestickers.com/product?country=us&stage=' + env;
+    var countryCode = await fetchUserCountry();
+
+    const apiUrl = 'https://api.carsalestickers.com/product?country=' + countryCode + '&stage=' + env;
 
     fetch(apiUrl)
         .then(response => {
@@ -267,6 +269,20 @@ async function getPrice() {
 
 
 
+}
+
+
+async function fetchUserCountry() {
+    try {
+        const response = await fetch("https://api-bdc.net/data/country-info");
+        const data = await response.json();
+        //ipaddr = data.ipString;
+        console.log(code);
+        return data.code;
+    } catch (error) {
+        console.error(error);
+        return null; // Return null if the IP fetch fails
+    }
 }
 
 async function fetchUserIP() {
