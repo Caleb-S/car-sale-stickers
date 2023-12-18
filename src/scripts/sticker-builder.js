@@ -11,6 +11,7 @@ getPrice();
 var env = 'live';
 
 
+
 document.addEventListener("DOMContentLoaded", () => {
     // Select all elements with the class 'sticker-builder'
     const stickerBuilders = document.querySelectorAll('.sticker-builder');
@@ -261,7 +262,14 @@ async function getPrice() {
             const stripePrice = data.stripePrice;
             const price = data.price;
             const sticker = data.sticker;
-            const stage = data.stage;
+            const stage = data.stage; 4
+
+            var headerSection = document.querySelector('.header-section');
+
+            if (sticker === 'opaque') {
+                headerSection.style.backgroundImage = 'url(/src/assets/cover-photo-opaque.webp)';
+
+            }
 
             console.log(price);
 

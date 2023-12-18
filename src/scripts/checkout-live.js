@@ -1,4 +1,5 @@
 var clientSecret;
+const env = 'live';
 var intentID;
 var url = "https://api.carsalestickers.com/stripe";
 
@@ -14,13 +15,15 @@ if (shippingPrices === null) {
     shippingPrices;
 }
 
+
+
 // =============================================================================/n
 // Main Logic
 // =============================================================================
 document.addEventListener("DOMContentLoaded", async () => {
     // Important Variabels =====================================================
 
-    const env = 'live';
+
     var envK1 = 'pk_'
     var envK2 = '_51NWg86IA9Fl1A3IG';
     var envK3 = 'TsyLEeLB83hHQu0kIH8OFZipQP1BAklKyzEOnzNmrjDHyt7eRKYgeZcBwI45Bzxn60Z6icUg009NOrOYZq';
@@ -1519,3 +1522,5 @@ function visableShippingOptions() {
     }
 
 }
+
+

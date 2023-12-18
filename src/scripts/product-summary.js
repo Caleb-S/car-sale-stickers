@@ -36,6 +36,7 @@ var fetchingData = false;
 // This event handler runs when the DOM content is fully loaded.
 // =============================================================================
 document.addEventListener("DOMContentLoaded", () => {
+    getPrice();
     const params = new URLSearchParams(window.location.search);
     const quantity = parseInt(params.get("quantity"));
     var numShow = params.get("sticker-num");
@@ -793,6 +794,72 @@ document.addEventListener("DOMContentLoaded", () => {
     
           */
 
+
+
+    async function getPrice() {
+
+        var countryCode = await fetchUserCountry();
+
+        const apiUrl = 'https://api.carsalestickers.com/product?country=' + countryCode.toLowerCase() + '&stage=' + env;
+        console.log(apiUrl);
+
+
+
+        fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            return response.json();
+        })
+            .then(data => {
+                // Handle the data
+                console.log(data);
+
+
+
+                if (getCookie("productPrice") === undefined || productPrice === undefined) {
+                    document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
+                    productPrice = data.price;
+                } else if ((data.price !== getCookie("productPrice") || data.price !== productPrice) && data.price) {
+                    document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
+                    productPrice = data.price;
+                }
+
+                updateCart();
+
+                // You can access specific values like this:
+                const stripePrice = data.stripePrice;
+                const price = data.price;
+                const sticker = data.sticker;
+                const stage = data.stage; 4
+
+                var headerSection = document.querySelector('.header-section');
+
+                if (sticker === 'opaque') {
+                    headerSection.style.backgroundImage = 'url(/src/assets/cover-photo-opaque.webp)';
+
+                }
+
+                console.log(price);
+
+                // Perform further actions with the data as needed
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+        // -------------------------------------------------------------------    
+
+
+
+
+
+    }
+
 });
 
 // =============================================================================
@@ -1283,4 +1350,20 @@ function updateStickerPrice(price) {
 
 
 
+}
+
+
+
+async function fetchUserCountry() {
+    try {
+        const response = await fetch("https://freeipapi.com/api/json");
+        const data = await response.json();
+        //ipaddr = data.ipString;
+        console.log('country: ');
+        console.log(data.countryCode);
+        return "" + data.countryCode;
+    } catch (error) {
+        console.error(error);
+        return null; // Return null if the IP fetch fails
+    }
 }
