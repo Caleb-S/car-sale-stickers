@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         cart: cart.map(cartItem => {
             const productItem = {
                 productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
-                quantity: 1,
+                quantity: cartItem.quantity,
             };
 
             if (cartItem.phone) {
@@ -267,7 +267,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             cart: cart.map((cartItem) => {
                                 const productItem = {
                                     productID: cartItem.item === 'For Sale Sticker' ? 'forSaleSticker' : cartItem.item,
-                                    quantity: 1,
+                                    quantity: cartItem.quantity,
                                 };
 
                                 // Add phoneOption to productItem if not null or empty
@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 cart: cart.map(cartItem => {
                     const productItem = {
                         productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
-                        quantity: 1, // If you want to keep track of quantity, you need to modify the cart data accordingly
+                        quantity: cartItem.quantity, // If you want to keep track of quantity, you need to modify the cart data accordingly
                     };
 
                     // Add phoneOption to productItem if not null or empty
