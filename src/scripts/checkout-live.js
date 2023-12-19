@@ -1301,6 +1301,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                         return productItem;
                     }),
+                    stickerType: stickerType,
                 };
 
 

@@ -27,6 +27,8 @@ console.log("Product Price:", productPrice);
 var pendingRequest = false;
 var fetchingData = false;
 
+var stickerType;
+
 
 
 
@@ -840,10 +842,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 var headerSection = document.querySelector('.header-section');
 
-                if (sticker === 'opaque') {
-                    headerSection.style.backgroundImage = 'url(/src/assets/cover-photo-opaque.webp)';
-
-                }
+                stickerType = sticker;
+                
 
                 console.log(price);
 
