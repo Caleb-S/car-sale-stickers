@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         console.log('timelogs:');
                         console.log(clickTime);
                         console.log(Date.now() - clickTime);
-                        event.resolve(options);
+                        //event.resolve(options);
                     };
 
 
