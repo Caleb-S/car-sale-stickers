@@ -439,7 +439,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (fetchingData) {
                 expressDiv.style.display = 'none';
-                loadingBar.style.display = 'none';
+                loadingBar.style.display = 'flex';
 
             }
 
