@@ -1066,12 +1066,12 @@ async function updateIntent() {
         console.log("running | pending: " + pendingRequest);
         fetchingData = true;
         pendingRequest = false;
-        //expressDiv.style.display = 'none';
+        expressDiv.style.display = 'none';
         if (window.getComputedStyle(expressTitle).display !== 'none') {
 
-            //  loadingBar.style.display = 'flex';
+            loadingBar.style.display = 'flex';
         } else {
-            //  loadingBar.style.display = 'none';
+            loadingBar.style.display = 'none';
         }
 
 
@@ -1317,7 +1317,7 @@ function updateStickerPrice(price) {
         value: cartValue,
         order_quantity: itemQuantity,
         currency: 'USD'
-        });
+    });
 
 
     // Clear the existing list
