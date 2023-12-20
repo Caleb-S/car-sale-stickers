@@ -435,15 +435,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
         var stripeLoader = document.getElementById('stripe-loader');
+        expressCheckoutElement.on("ready", (event) => {
 
-
-        linkAuthenticationElement.on("ready", (event) => {
-            stripeLoader.style.display = 'none';
             if (fetchingData) {
                 expressDiv.style.display = 'none';
                 loadingBar.style.display = 'none';
 
             }
+
+
+        });
+
+
+        linkAuthenticationElement.on("ready", (event) => {
+            stripeLoader.style.display = 'none';
+
             var contactTitle = document.getElementById('contact-title');
             contactTitle.style.display = 'block';
 
@@ -453,11 +459,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         addressElement.on("ready", (event) => {
             stripeLoader.style.display = 'none';
-            if (fetchingData) {
-                expressDiv.style.display = 'none';
-                loadingBar.style.display = 'none';
 
-            }
             var shippingTitle = document.getElementById('shipping-title');
             shippingTitle.style.display = 'block';
 
