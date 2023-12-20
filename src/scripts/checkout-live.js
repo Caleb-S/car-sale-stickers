@@ -255,10 +255,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     };
 
-                    if (Date.now() - clickTime < 1000) {
+                    if ((Date.now() - clickTime) < 1000) {
                         console.log('timelogs:');
                         console.log(clickTime);
-                        console.lof(Date.now() - clickTime);
+                        console.log(Date.now() - clickTime);
                         event.resolve(options);
                     };
 
