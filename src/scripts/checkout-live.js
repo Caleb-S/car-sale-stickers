@@ -196,7 +196,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Event handler for address element change
         var displayError = document.getElementById("card-errors");
+        linkAuthenticationElement.on('click', (event) => {
 
+        });
 
 
 
