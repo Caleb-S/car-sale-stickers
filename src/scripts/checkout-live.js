@@ -202,6 +202,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
         expressCheckoutElement.on('click', (event) => {
+            var clickTime = Date.now();
             console.log('clicked express element 101');
             var expressDiv = document.getElementById('express-checkout-element');
             var loadingBar = document.querySelector('.loading-bar');
@@ -212,6 +213,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
             // Function to check the condition and execute code
+
             const checkConditionAndExecute = (event) => {
                 console.log('test');
                 if (!fetchingData && !pendingRequest) {
@@ -252,7 +254,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                         ],
 
                     };
-                    event.resolve(options);
+
+                    if (Date.now() - clickTime < 1000) {
+                        event.resolve(options);
+                    };
 
 
                     elements.fetchUpdates().then(() => {
