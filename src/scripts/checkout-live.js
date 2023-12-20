@@ -424,6 +424,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
+        var loadingBar = document.querySelector('.loading-bar');
+        var expressDiv = document.getElementById('express-checkout-element');
+
+
+        if (fetchingData) {
+            expressDiv.style.display = 'none';
+            loadingBar.style.display = 'none';
+
+        }
 
 
 
