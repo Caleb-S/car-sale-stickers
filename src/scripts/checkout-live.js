@@ -428,11 +428,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         var expressDiv = document.getElementById('express-checkout-element');
 
 
-        if (fetchingData) {
-            expressDiv.style.display = 'none';
-            loadingBar.style.display = 'none';
 
-        }
 
 
 
@@ -443,6 +439,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         linkAuthenticationElement.on("ready", (event) => {
             stripeLoader.style.display = 'none';
+            if (fetchingData) {
+                expressDiv.style.display = 'none';
+                loadingBar.style.display = 'none';
+
+            }
             var contactTitle = document.getElementById('contact-title');
             contactTitle.style.display = 'block';
 
@@ -452,6 +453,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         addressElement.on("ready", (event) => {
             stripeLoader.style.display = 'none';
+            if (fetchingData) {
+                expressDiv.style.display = 'none';
+                loadingBar.style.display = 'none';
+
+            }
             var shippingTitle = document.getElementById('shipping-title');
             shippingTitle.style.display = 'block';
 
