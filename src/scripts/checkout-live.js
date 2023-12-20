@@ -196,9 +196,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Event handler for address element change
         var displayError = document.getElementById("card-errors");
-        linkAuthenticationElement.on('click', (event) => {
-
-        });
 
 
 
@@ -258,10 +255,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                     };
 
                     if ((Date.now() - clickTime) < 1000) {
-                        console.log('timelogs:');
-                        console.log(clickTime);
+                        console.log('triggered at:');
+
                         console.log(Date.now() - clickTime);
-                        //event.resolve(options);
+                        event.resolve(options);
                     };
 
 
