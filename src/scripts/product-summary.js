@@ -14,10 +14,12 @@ function getCookie(name) {
 
 // Get productPrice from cookie
 var productPrice = getCookie("productPrice");
-
+var cartValue;
 // If productPrice cookie is not set, default it to 24.99
 if (productPrice === null) {
     productPrice = 0.00;
+} else {
+    cartValue = productPrice;
 }
 
 // Now, productPrice contains the desired value
@@ -28,6 +30,9 @@ var pendingRequest = false;
 var fetchingData = false;
 
 var stickerType;
+
+var itemQuantity = 1;
+
 
 
 
@@ -843,7 +848,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 var headerSection = document.querySelector('.header-section');
 
                 stickerType = sticker;
-                
+
 
                 console.log(price);
 
@@ -1260,6 +1265,7 @@ function updateStickerPrice(price) {
 
     var subTotal = 0;
     var orderTotal = 0;
+    itemQuantity = 0;
     builderContainers.forEach((container) => {
         // Check if .sticker-border-sum exists in this container
         const priceText = container.querySelector('.price-num');
@@ -1268,6 +1274,7 @@ function updateStickerPrice(price) {
         if ((quantity * price)) {
             priceText.textContent = "$" + (quantity * price).toFixed(2);
             subTotal += (quantity * price);
+            itemQuantity += quantity;
         }
 
     });
@@ -1299,9 +1306,18 @@ function updateStickerPrice(price) {
     mobileSubTotal.textContent = subTotalText.textContent;
     orderTotal += subTotal;
     orderTotalText.textContent = "$" + orderTotal.toFixed(2) + " USD";
+    cartValue = subTotal.toFixed(2);
+
     mobileTotalText.textContent = orderTotalText.textContent;
 
     var paymentList = document.querySelector('.payment-list');
+
+    pintrk('track', 'addtocart', {
+        event_id: 'eventAddToCart',
+        value: cartValue,
+        order_quantity: itemQuantity,
+        currency: 'USD'
+        });
 
 
     // Clear the existing list

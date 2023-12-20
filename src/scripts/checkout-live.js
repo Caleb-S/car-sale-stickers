@@ -1106,6 +1106,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         expressCheckoutElement.on('confirm', async (event) => {
+            pintrk('track', 'checkout', {
+                event_id: 'eventPayment002',
+                value: cartValue,
+                order_quantity: itemQuantity,
+                currency: 'USD'
+            });
 
             /* Payment Loading Screen */
             var loadingBD = document.querySelector(".payment-backdrop");
@@ -1327,6 +1333,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     });
 
                 updateData.then(() => {
+                    /* pinterest */
+
                     // This code will run once the fetch request is completed
                     console.log('payment went through');
                     // Add your additional code here.
@@ -1374,6 +1382,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
         switch (paymentIntent.status) {
             case "succeeded":
+                pintrk('track', 'checkout', {
+                    event_id: 'eventPayment001',
+                    value: cartValue,
+                    order_quantity: itemQuantity,
+                    currency: 'USD'
+                });
+
                 showMessage("Payment succeeded!");
                 window.location.href = "/checkout/success/index.html?status=true";
                 break;
