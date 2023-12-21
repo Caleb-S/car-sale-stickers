@@ -589,7 +589,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     //video.currentTime = 0;
                 });
 
-                video.play();
+                var playPromise = video.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        // Autoplay started successfully
+                    }).catch(error => {
+                        // Autoplay was prevented, handle the error
+                        console.error("Autoplay not allowed:", error);
+                    });
+                }
                 isVideoPlaying = true;
 
                 videoStarted = true;
