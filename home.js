@@ -599,6 +599,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     }).catch(error => {
                         // Autoplay was prevented, handle the error
                         console.error("Autoplay not allowed:", error);
+                        video.setAttribute("controls", "true");
                     });
                 }
                 isVideoPlaying = true;
