@@ -109,6 +109,12 @@
   </noscript>
   <!-- end Pinterest Tag -->
 
+  <script>   const video = document.getElementById("myVideo");
+    if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
+      // Set mediaPlaybackRequiresUserAction to false
+      video.mediaPlaybackRequiresUserAction = false;
+    }</script>
+
 </head>
 
 <body>

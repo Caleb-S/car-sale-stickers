@@ -581,12 +581,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 //const elapsed = (currentTime - initialTimestamp) / 1000; // Subtract 5 seconds to start earlier
 
                 var elapsed = timeCounter;
-                /*
-                                if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
-                                    // Set mediaPlaybackRequiresUserAction to false
-                                    video.mediaPlaybackRequiresUserAction = false;
-                                }
-                */
+             
+                
                 video.load();
 
                 video.addEventListener("loadeddata", function () {
@@ -603,8 +599,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     }).catch(error => {
                         // Autoplay was prevented, handle the error
                         console.error("Autoplay not allowed:", error);
-                        video.mediaPlaybackRequiresUserAction = false;
-                        video.play();
                     });
                 }
                 isVideoPlaying = true;
