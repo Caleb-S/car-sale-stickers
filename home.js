@@ -581,6 +581,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 //const elapsed = (currentTime - initialTimestamp) / 1000; // Subtract 5 seconds to start earlier
 
                 var elapsed = timeCounter;
+
+                if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession) {
+                    // Set mediaPlaybackRequiresUserAction to false
+                    video.mediaPlaybackRequiresUserAction = false;
+                }
+
                 video.load();
 
                 video.addEventListener("loadeddata", function () {
