@@ -603,8 +603,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         video.addEventListener("play", function () {
                             console.log("User clicked play button");
-                            video.currentTime = elapsed < 0 ? 0 : elapsed;
-                            video.setAttribute("controls", "false");
+                            checkVideoTime();
+                            video.removeAttribute("controls");
 
                         });
                     });
