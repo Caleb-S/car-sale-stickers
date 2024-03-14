@@ -1,0 +1,78 @@
+User-agent: _
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/themes/
+Disallow: /wp-login.php
+Disallow: /wp-register.php
+Disallow: /trackback/
+Disallow: /xmlrpc.php
+Disallow: /cgi-bin/
+Disallow: /cdn-cgi/
+Disallow: /feed/
+Disallow: /comments/
+Disallow: /tag/
+Disallow: /category/
+Disallow: /author/
+Disallow: /login/
+Disallow: /register/
+Disallow: /print/
+Disallow: /archive/
+Disallow: /?s=
+Disallow: /_?
+Disallow: /_.php$
+Disallow: /_.js$
+Disallow: /*.css$
+Disallow: /_.jpg$
+Disallow: /_.jpeg$
+Disallow: /*.gif$
+Disallow: /_.png$
+Disallow: /_.pdf$
+Disallow: /*.doc$
+Disallow: /_.xls$
+Disallow: /_.ppt$
+Disallow: /checkout/
+
+
+# Allow Googlebot-Image to crawl all images
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Allow Google AdSense bot to access content
+
+User-agent: Mediapartners-Google
+Allow: /
+
+# Block common AI crawlers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /  
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot  
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: OmgiliBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+# Crawl-delay (adjust as needed)
+
+Crawl-delay: 10
+
+# Sitemap location
+
+Sitemap: https://carsalestickers.com/sitemap.xml

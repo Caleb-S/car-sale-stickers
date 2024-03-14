@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+<!-- ========================================================================-->
+<!-- Home Page -->
+<url>
+  <loc>https://carsalestickers.com/</loc> 
+  <changefreq>monthly</changefreq>
+  <priority>1.00</priority>
+</url>
+
+<!-- Checkout 
+<url>
+  <loc>https://carsalestickers.com/checkout/</loc> 
+  <changefreq>yearly</changefreq>
+  <priority>0.50</priority>
+</url>
+-->
+
+<!-- ========================================================================-->
+
+<!-- Terms -->
+<url>
+  <loc>https://carsalestickers.com/policies/terms/</loc> 
+  <changefreq>yearly</changefreq>
+  <priority>0.20</priority>
+</url>
+
+<!-- Privacy -->
+<url>
+  <loc>https://carsalestickers.com/policies/privacy/</loc> 
+  <changefreq>yearly</changefreq>
+  <priority>0.20</priority>
+</url>
+
+<!-- Refunds -->
+<url>
+  <loc>https://carsalestickers.com/policies/refunds/</loc> 
+  <changefreq>yearly</changefreq>
+  <priority>0.20</priority>
+</url>
+
+<!-- Contact -->
+<url>
+  <loc>https://carsalestickers.com/contact/</loc> 
+  <changefreq>yearly</changefreq>
+  <priority>0.20</priority>
+</url>
+
+<!-- ========================================================================-->
+
+<!-- Blog -->
+<url>
+  <loc>https://carsalestickers.com/blog/</loc> 
+  <changefreq>weekly</changefreq>
+  <priority>0.80</priority>
+</url>
+
+<!-- About -->
+<url>
+  <loc>https://carsalestickers.com/blog/about/</loc> 
+  <changefreq>monthly</changefreq>
+  <priority>0.70</priority>
+</url>
+
+<!-- Blog Posts -->
+<url>
+  <loc>https://carsalestickers.com/blog/car-detailing/detailing4dummies/</loc> 
+   <lastmod>2023-12-22</lastmod>
+  <changefreq>yearly</changefreq>
+  <priority>0.50</priority>
+</url>
+
+</urlset>
