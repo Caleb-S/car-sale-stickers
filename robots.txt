@@ -32,7 +32,7 @@ Disallow: /*.doc$
 Disallow: /_.xls$
 Disallow: /_.ppt$
 Disallow: /checkout/
-
+Disallow: /contact/
 
 # Allow Googlebot-Image to crawl all images
 
@@ -45,11 +45,12 @@ User-agent: Mediapartners-Google
 Allow: /
 
 # Block common AI crawlers
+
 User-agent: GPTBot
 Disallow: /
 
 User-agent: ChatGPT-User
-Disallow: /  
+Disallow: /
 
 User-agent: Google-Extended
 Disallow: /
