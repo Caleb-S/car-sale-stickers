@@ -67,12 +67,35 @@
   <priority>0.70</priority>
 </url>
 
+<!-- Blog Categories -->
+<url>
+  <loc>https://carsalestickers.com/blog/category/car-detailing/</loc> 
+  <lastmod>2024-03-17</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.70</priority>
+</url>
+
+<url>
+  <loc>https://carsalestickers.com/blog/category/for-sale-stickers/</loc> 
+  <lastmod>2024-03-17</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.70</priority>
+</url>
+
 <!-- Blog Posts -->
 <url>
   <loc>https://carsalestickers.com/blog/car-detailing/detailing4dummies/</loc> 
-   <lastmod>2023-12-22</lastmod>
+  <lastmod>2023-12-22</lastmod>
   <changefreq>yearly</changefreq>
   <priority>0.50</priority>
 </url>
+
+<url>
+  <loc>https://carsalestickers.com/blog/for-sale-stickers/three-ways-for-sale-stickers-help-sell-your-car-for-more/241/</loc> 
+  <lastmod>2024-03-17</lastmod>
+  <changefreq>yearly</changefreq>
+  <priority>0.50</priority>
+</url>
+
 
 </urlset>
