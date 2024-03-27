@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Car Sale Stickers | Products</title>
+    <meta name="description" content="View our products, we sell for sale stickers that will help you market your car offline">
+    <meta name="keywords"
+        content="products, car stickers, for sale signs, for sale stickers, car for sale signs, car for sale stickers">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,400&display=swap" rel="stylesheet">
+
+    <script src="../../src/scripts/url-formater.js"></script>
+
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/", 
+          "@type": "BreadcrumbList", 
+          "itemListElement": [{
+            "@type": "ListItem", 
+            "position": 1, 
+            "name": "Home",
+            "item": "https://carsalestickers.com/"  
+          },{
+            "@type": "ListItem", 
+            "position": 2, 
+            "name": "Products",
+            "item": "https://carsalestickers.com/products"  
+          }]
+        }
+        </script>
+
+    <style>
+        .work-sans {
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        #menu-toggle:checked+#menu {
+            display: block;
+        }
+
+        .hover\:grow {
+            transition: all 0.3s;
+            transform: scale(1);
+        }
+
+        .hover\:grow:hover {
+            transform: scale(1.02);
+        }
+
+        .carousel-open:checked+.carousel-item {
+            position: static;
+            opacity: 100;
+        }
+
+        .carousel-item {
+            -webkit-transition: opacity 0.6s ease-out;
+            transition: opacity 0.6s ease-out;
+        }
+
+        #carousel-1:checked~.control-1,
+        #carousel-2:checked~.control-2,
+        #carousel-3:checked~.control-3 {
+            display: block;
+        }
+
+        .carousel-indicators {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            bottom: 2%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
+        }
+
+        #carousel-1:checked~.control-1~.carousel-indicators li:nth-child(1) .carousel-bullet,
+        #carousel-2:checked~.control-2~.carousel-indicators li:nth-child(2) .carousel-bullet,
+        #carousel-3:checked~.control-3~.carousel-indicators li:nth-child(3) .carousel-bullet {
+            color: #000;
+            /*Set to match the Tailwind colour you want the active one to be */
+        }
+    </style>
+
+</head>
+
+<body class="text-base leading-normal tracking-normal text-white bg-black font-[arial]">
+
+    <nav class="py-3 bg-[#64ef8b] min-h-[6vh]" id="nav-bar">
+        <div class="container px-[60px]">
+            <div class="pt-1 font-semibold text-black sm:text-base md:text-xl">
+                <a class="font-bold cursor-pointer" href="https://carsalestickers.com">
+                    CarSaleStickers.com
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alternatively if you want to just have a single hero 
+
+    <section class="flex w-full pt-12 mx-auto bg-right bg-cover bg-nordic-gray-light md:pt-0 md:items-center"
+        style="max-width:1600px; height: 32rem; background-image: url('https://images.unsplash.com/photo-1422190441165-ec2956dc9ecc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80');">
+
+        <div class="container mx-auto">
+
+            <div class="flex flex-col items-start justify-center w-full px-6 tracking-wide lg:w-1/2">
+                <h1 class="my-4 text-2xl text-black">Stripy Zig Zag Jigsaw Pillow and Duvet Set</h1>
+                <a class="inline-block text-xl leading-relaxed no-underline border-b border-gray-600 hover:text-black hover:border-black"
+                    href="#">products</a>
+
+            </div>
+
+        </div>
+
+    </section>
+-->
+
+
+    <section class="py-8 bg-black min-h-[74vh] px-7">
+        <div class="py-6 min-h-[88vh]">
+            <!-- Breadcrumbs -->
+            <div class=" max-w-7xl sm:px-6 lg:px-8">
+                <div class="flex items-center space-x-2 text-sm text-gray-300">
+                    <a href="/" class=" hover:text-white hover:font-semibold">Home</a>
+                    <span>
+                        <svg class="w-5 h-5 leading-none text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </span>
+
+                    <span class="text-[#64ef8b] font-semibold">Products</span>
+                </div>
+            </div>
+
+            <div class="container flex flex-wrap items-center pt-4 pb-12 mx-auto">
+
+
+
+                <nav id="store" class="top-0 z-30 w-full py-1">
+
+
+                    <div class="container flex flex-wrap items-center justify-between w-full py-3 mx-auto mt-0">
+
+                        <div
+                            class="text-xl font-bold tracking-wide text-white no-underline uppercase cursor-default hover:no-underline ">
+                            Products
+                        </div>
+
+                        <div class="flex items-center" id="store-nav-content">
+
+                            <a class="hidden inline-block pl-3 no-underline hover:text-white" href="#">
+                                <svg class="fill-current hover:text-gray-200" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24">
+                                    <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z" />
+                                </svg>
+                            </a>
+
+
+
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Product -->
+                <div class="flex flex-col w-full p-6 border-[0.1px] border-white md:w-1/3 xl:w-1/4 hover:grow-[0.01] hover:shadow-lg hover:border-[#64ef8b] hover:text-[#64ef8b] cursor-pointer"
+                    onclick="redirectToProductPage()">
+
+                    <img src="src/assets/how-to.gif2.gif">
+                    <div class="flex items-center justify-between pt-3 font-semibold ">
+                        <p class="">Car For Sale Window Sticker</p>
+
+                    </div>
+                    <p class="pt-1 text-white">$24.99 - 27.99</p>
+
+                </div>
+
+
+            </div>
+
+    </section>
+
+    <script>
+        function redirectToProductPage() {
+            window.location.href = "/products/for-sale-sticker/";
+        }
+    </script>
+
+
+    <footer id="footer" class="p-[20px] md:pl-[60px] text-black bg-[#64ef8b]  md:text-left min-h-[17vh]">
+        <div class="flex flex-col-reverse md:items-start md:justify-between">
+            <div class="md:order-2 md:mt-0 md:mb-[20px]">
+                <p class="text-lg font-bold text-center  md:text-[20px]" style="font-family: 'Roboto', sans-serif;">
+                    <a href="https://www.carsalestickers.com" class="text-black " tabindex="-1">CarSaleStickers.com</a>
+                    &copy; 2023
+                </p>
+            </div>
+            <div class="flex flex-col text-left md:flex-col md:items-start md:order-1 md:text-[15px]"
+                style="font-family: 'Raleway', sans-serif;">
+
+                <!-- Terms Of Service -->
+                <a href="/policies/terms/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+                    aria-label="Read our Terms of Service">Terms of
+                    Service</a>
+
+                <!-- Privacy Policy -->
+                <a href="/policies/privacy/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+                    aria-label="View our Privacy Policy">Privacy
+                    Policy</a>
+
+                <!-- Returns & Refund -->
+                <a href="/policies/refunds/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+                    aria-label="Learn about Returns and Refund Policy">Returns and Refund</a>
+
+                <!-- Contact Page -->
+                <a href="/contact/index.html" class="mb-2 text-black md:ml-0 md:mb-0 md:mr-4"
+                    aria-label="Visit our Contact Page">Contact Page</a>
+
+                <!-- Blog -->
+                <a href="https://carsalestickers.com/blog" class="text-black md:ml-0"
+                    aria-label="Explore our Blog">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>
