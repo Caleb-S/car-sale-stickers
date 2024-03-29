@@ -14,8 +14,8 @@
       <g:price>26.99 USD</g:price>
       <g:availability>in stock</g:availability>
       <g:condition>new</g:condition>
-      <g:product_type>Automotive > Car Accessories</g:product_type>
-      <g:google_product_category>Automotive > Vehicle Parts & Accessories > Exterior Accessories</g:google_product_category>
+      <g:product_type>Automotive &gt; Car Accessories</g:product_type>
+      <g:google_product_category>Automotive &gt; Vehicle Parts &amp; Accessories &gt; Exterior Accessories</g:google_product_category>
     </item>
     
     <!-- Add more product items as needed -->
