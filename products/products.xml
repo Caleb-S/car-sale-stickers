@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+  <channel>
+    <title>Car Sale Stickers</title>
+    <link>https://carsalestickers.com</link>
+    <description>Welcome to Car Sale Stickers! Founded on the belief in the enduring power of physical signage, our platform offers high-quality for sale stickers with a streamlined customization and payment process. Join us in modernizing for sale stickers for the digital age.</description>
+    
+    <item>
+      <title>Car Sale Stickers</title>
+      <link>https://carsalestickers.com/products/for-sale-sticker</link>
+      <description>Use our sticker builder to create your create your own Car For Sale Sticker. Use the car sale sticker to effectively communicate to onlookers that your car is for sale.</description>
+      <g:image_link>https://carsalestickers.com/src/assets/product-car-for-sale-sticker.jpg</g:image_link>
+      <g:brand>Car Sale Stickers</g:brand>
+      <g:price>26.99 USD</g:price>
+      <g:availability>in stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:product_type>Automotive > Car Accessories</g:product_type>
+      <g:google_product_category>Automotive > Vehicle Parts & Accessories > Exterior Accessories</g:google_product_category>
+    </item>
+    
+    <!-- Add more product items as needed -->
+    
+  </channel>
+</rss>
