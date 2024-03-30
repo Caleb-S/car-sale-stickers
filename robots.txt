@@ -7,8 +7,8 @@ Disallow: /wp-login.php
 Disallow: /wp-register.php
 Disallow: /trackback/
 Disallow: /xmlrpc.php
-Disallow: /cgi-bin/
-Disallow: /cdn-cgi/
+# Disallow: /cgi-bin/
+# Disallow: /cdn-cgi/
 Disallow: /feed/
 Disallow: /comments/
 Disallow: /tag/
@@ -21,15 +21,15 @@ Disallow: /archive/
 Disallow: /?s=
 Disallow: /_?
 Disallow: /_.php$
-Disallow: /_.js$
-Disallow: /*.css$
-Disallow: /_.jpg$
-Disallow: /_.jpeg$
-Disallow: /*.gif$
-Disallow: /_.png$
+# Disallow: /_.js$
+# Disallow: /*.css$
+# Disallow: /_.jpg$
+# Disallow: /_.jpeg$
+# Disallow: /*.gif$
+# Disallow: /_.png$
 Disallow: /_.pdf$
 Disallow: /*.doc$
-Disallow: /_.xls$
+# Disallow: /_.xls$
 Disallow: /_.ppt$
 Disallow: /checkout/
 Disallow: /contact/
@@ -69,10 +69,6 @@ Disallow: /
 
 User-agent: cohere-ai
 Disallow: /
-
-# Crawl-delay (adjust as needed)
-
-Crawl-delay: 10
 
 # Sitemap location
 
