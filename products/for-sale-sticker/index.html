@@ -46,53 +46,58 @@
 <body class="antialiased text-base leading-normal tracking-normal text-white bg-black font-[arial]">
 
     <script>
+        getPrice();
+        async function getPrice() {
 
-        // Function to set a cookie
-        function setVisitedCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            var expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            var countryCode = await fetchUserCountry();
+
+            const apiUrl = 'https://api.carsalestickers.com/product?country=' + countryCode.toLowerCase() + '&stage=' + env;
+            console.log(apiUrl);
+
+
+
+            fetch(apiUrl, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                return response.json();
+            })
+                .then(data => {
+                    // Handle the data
+                    console.log(data);
+
+
+
+                    if (getCookie("productPrice") === undefined) {
+                        document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
+                    } else if ((data.price !== getCookie("productPrice")) && data.price) {
+                        document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
+                    }
+
+                    // You can access specific values like this:
+                    const stripePrice = data.stripePrice;
+                    const price = data.price;
+                    const sticker = data.sticker;
+                    const stage = data.stage; 4
+
+                    var headerSection = document.querySelector('.header-section');
+
+
+
+                    console.log(price);
+
+                    // Perform further actions with the data as needed
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                });
+            // -------------------------------------------------------------------    
         }
-
-        // Function to get the value of a cookie by name
-        function getVisitedCookie(cname) {
-            var name = cname + "=";
-            var decodedCookie = decodeURIComponent(document.cookie);
-            var ca = decodedCookie.split(';');
-            for (var i = 0; i < ca.length; i++) {
-                var c = ca[i];
-                while (c.charAt(0) === ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) === 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
-        // Check if the 'visited' cookie exists
-
-
-        var forSaleTxts = document.querySelectorAll('.sticker-for-sale');
-        forSaleTxts.forEach(function (forSaleTxt) {
-            forSaleTxt.addEventListener("click", () => {
-                var visitedCookie = getVisitedCookie("visited");
-                if (visitedCookie === "") {
-                    // If the 'visited' cookie doesn't exist, set it and perform actions for first-time visitors
-                    setVisitedCookie("visited", "true", 1); // Set the cookie to expire in 365 days
-
-                    // Actions for first-time visitors
-                    // alert("Welcome! It's your first time visiting this site.");
-                    displayHelpPopup();
-
-                } else {
-                    // Actions for returning visitors
-                    //alert("Welcome back!");
-                }
-            });
-        });
     </script>
     <!--
 
