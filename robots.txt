@@ -8,7 +8,7 @@ Disallow: /wp-register.php
 Disallow: /trackback/
 Disallow: /xmlrpc.php
 # Disallow: /cgi-bin/
-# Disallow: /cdn-cgi/
+Disallow: /cdn-cgi/
 Disallow: /feed/
 Disallow: /comments/
 Disallow: /tag/
@@ -33,16 +33,22 @@ Disallow: /*.doc$
 Disallow: /_.ppt$
 Disallow: /checkout/
 Disallow: /contact/
+Disallow: /cdn-cgi/zaraz/s.js
+
 
 # Allow Googlebot-Image to crawl all images
 
 User-agent: Googlebot-Image
 Allow: /
+Disallow: /cdn-cgi/zaraz/s.js
+
 
 # Allow Google AdSense bot to access content
 
 User-agent: Mediapartners-Google
 Allow: /
+Disallow: /cdn-cgi/zaraz/s.js
+
 
 # Block common AI crawlers
 
@@ -53,7 +59,9 @@ User-agent: ChatGPT-User
 Disallow: /
 
 User-agent: Google-Extended
-Disallow: /
+Allow: /
+Disallow: /cdn-cgi/zaraz/s.js
+
 
 User-agent: CCBot  
 Disallow: /
