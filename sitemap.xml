@@ -8,20 +8,20 @@
 <!-- ========================================================================-->
 <!-- Home Page -->
 <url>
-  <loc>https://carsalestickers.com/</loc> 
+  <loc>https://carsalestickers.com</loc> 
   <changefreq>monthly</changefreq>
   <priority>1.00</priority>
 </url>
 
 <url>
-  <loc>https://carsalestickers.com/products</loc> 
+  <loc>https://carsalestickers.com/products/</loc> 
   <changefreq>monthly</changefreq>
   <lastmod>2024-03-30</lastmod>
   <priority>1.00</priority>
 </url>
 
 <url>
-  <loc>https://carsalestickers.com/products/for-sale-stickers</loc> 
+  <loc>https://carsalestickers.com/products/for-sale-stickers/</loc> 
   <changefreq>monthly</changefreq>
   <lastmod>2024-03-30</lastmod>
   <priority>1.00</priority>
@@ -73,28 +73,28 @@
 
 <!-- Blog -->
 <url>
-  <loc>https://carsalestickers.com/blog/</loc> 
+  <loc>https://carsalestickers.com/blog</loc> 
   <changefreq>weekly</changefreq>
   <priority>0.80</priority>
 </url>
 
 <!-- About -->
 <url>
-  <loc>https://carsalestickers.com/blog/about/</loc> 
+  <loc>https://carsalestickers.com/blog/about</loc> 
   <changefreq>monthly</changefreq>
   <priority>0.70</priority>
 </url>
 
 <!-- Blog Categories -->
 <url>
-  <loc>https://carsalestickers.com/blog/category/car-detailing/</loc> 
+  <loc>https://carsalestickers.com/blog/category/car-detailing</loc> 
   <lastmod>2024-03-17</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.70</priority>
 </url>
 
 <url>
-  <loc>https://carsalestickers.com/blog/category/for-sale-stickers/</loc> 
+  <loc>https://carsalestickers.com/blog/category/for-sale-stickers</loc> 
   <lastmod>2024-03-17</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.70</priority>
@@ -102,21 +102,21 @@
 
 <!-- Blog Posts -->
 <url>
-  <loc>https://carsalestickers.com/blog/car-detailing/detailing4dummies/</loc> 
+  <loc>https://carsalestickers.com/blog/car-detailing/detailing4dummies</loc> 
   <lastmod>2023-12-22</lastmod>
   <changefreq>yearly</changefreq>
   <priority>0.50</priority>
 </url>
 
 <url>
-  <loc>https://carsalestickers.com/blog/for-sale-stickers/how-for-sale-stickers-help-sell-your-car-for-more/241/</loc> 
+  <loc>https://carsalestickers.com/blog/for-sale-stickers/how-for-sale-stickers-help-sell-your-car-for-more</loc> 
   <lastmod>2024-03-17</lastmod>
   <changefreq>yearly</changefreq>
   <priority>0.50</priority>
 </url>
 
 <url>
-  <loc>https://carsalestickers.com/blog/legal/car-sale-stickers-roadmap-to-diversity-and-inclusion/</loc> 
+  <loc>https://carsalestickers.com/blog/general/car-sale-stickers-roadmap-to-diversity-and-inclusion</loc> 
   <lastmod>2024-03-29</lastmod>
   <changefreq>yearly</changefreq>
   <priority>0.50</priority>
