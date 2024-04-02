@@ -840,8 +840,10 @@ iframe {
     align-items: center;
     background: #64ef8b;
     display: flex;
+    justify-content: space-between;
     height: 6vh;
     padding-left: 20px;
+    padding-right: 20px;
     min-height: 40px;
   }
 
@@ -1198,6 +1200,7 @@ iframe {
   .product-header {
     font-size: 20px;
     margin-bottom: 30px;
+    text-align: center;
   }
 
   .product-section {
@@ -1736,6 +1739,7 @@ iframe {
 
   .nav {
     padding-left: 60px;
+    padding-right: 60px;
   }
 
   /* ===============
