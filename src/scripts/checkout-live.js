@@ -808,7 +808,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 let newNavTitle = navTitle.cloneNode(true);
                 navTitle.parentNode.replaceChild(newNavTitle, navTitle);
             }
-            let navTitle = document.querySelector('.nav-title');
+//            let navTitle = document.querySelector('.nav-title');
             navTitle.onclick = null;
 
 
