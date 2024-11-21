@@ -2,7 +2,7 @@ const ENV = 'live';
 const URL = "https://api.carsalestickers.com/stripe";
 
 let clientSecret;
-let intentID;
+var intentID;
 
 let country;
 let elements;
@@ -885,7 +885,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-                navTitle = document.querySelector('.nav-title');
+                //navTitle = document.querySelector('.nav-title');
                 navTitle.onclick = null;
 
 
