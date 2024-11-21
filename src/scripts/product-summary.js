@@ -1,6 +1,7 @@
 var ipaddr;
 var cart = [];
 var env = 'test';
+var shippingMethod;
 // Function to get cookie value by name
 function getCookie(name) {
     const cookies = document.cookie.split('; ');
