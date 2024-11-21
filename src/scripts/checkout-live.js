@@ -1,7 +1,8 @@
 const ENV = 'live';
 const URL = "https://api.carsalestickers.com/stripe";
+var url = "https://api.carsalestickers.com/stripe";
 
-let clientSecret;
+var clientSecret;
 var intentID;
 
 let country;
