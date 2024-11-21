@@ -1,7 +1,15 @@
-var ipaddr;
-var cart = [];
-var env = 'live';
-var shippingMethod;
+var ipaddr; // GLOBAL
+var cart = []; // GLOBAL
+var env = 'live'; // GLOBAL
+var shippingMethod; // GLOBAL
+
+
+var logger = false;
+if (env === 'test') {
+    logger = true;
+}
+
+
 // Function to get cookie value by name
 function getCookie(name) {
     const cookies = document.cookie.split('; ');
@@ -15,8 +23,9 @@ function getCookie(name) {
 }
 
 // Get productPrice from cookie
-var productPrice = getCookie("productPrice");
-var cartValue;
+var productPrice = getCookie("productPrice"); // GLOBAL
+var cartValue; // GLOBAL
+
 // If productPrice cookie is not set, default it to 24.99
 if (productPrice === null) {
     productPrice = 0.00;
@@ -25,134 +34,35 @@ if (productPrice === null) {
 }
 
 // Now, productPrice contains the desired value
-console.log("Product Price:", productPrice);
+logger && console.log("Product Price:", productPrice);
 
+var pendingRequest = false; // GLOBAL
+var fetchingData = false; // GLOBAL
+var stickerType; // GLOBAL
+// var itemQuantity = 1; // GLOBAL
 
-var pendingRequest = false;
-var fetchingData = false;
-
-var stickerType;
-
-var itemQuantity = 1;
-
-
-
-
-
-
+getPrice();
 
 // =============================================================================
 // This event handler runs when the DOM content is fully loaded.
 // =============================================================================
 document.addEventListener("DOMContentLoaded", () => {
-    getPrice();
-    const params = new URLSearchParams(window.location.search);
-    const quantity = parseInt(params.get("quantity"));
-    var numShow = params.get("sticker-num");
-    var mailShow = params.get("sticker-mail");
-    const numTextParam = params.get("num-text");
-    const mailTextParam = params.get("mail-text");
+    initOrderSummary();
 
-    // Call the function to clear the current URL's query parameters
-    clearCurrentUrlParams();
-    // Add Sticker.
-    if (quantity === 1) {
-        const actionSection = document.querySelector(".action-section");
-        const newOptionWrapper = createOptionWrapperElement();
-        actionSection.parentNode.insertBefore(newOptionWrapper, actionSection);
-    } else {
-        numShow = 'hide';
-        mailShow = 'hide';
-        const actionSection = document.querySelector(".action-section");
-        const newOptionWrapper = createOptionWrapperElement();
-        actionSection.parentNode.insertBefore(newOptionWrapper, actionSection);
-    }
-    const builderContainer = document.querySelector(".builder-container");
-    if (builderContainer) {
-        const parent = builderContainer.parentNode;
-        const builderContainersInParent = parent.querySelectorAll('.builder-container');
-        const divider = builderContainersInParent[0].querySelector(".divider");
-        divider.style.display = 'none';
-    }
-    // change text and adjust visability of text.
-    var forSaleTxt = builderContainer.querySelector('.sticker-for-sale-sum')
-    if (numShow === "show") {
-        const mobileText = builderContainer.querySelector('#sticker-num');
-        const mobileButton = builderContainer.querySelector('#mobile-btn');
-        const mobileImage = mobileButton.querySelector('img');
-        mobileText.style.display = 'block';
-        mobileText.value = numTextParam;
-        handleFocusOut.call(mobileText);
-        mobileImage.setAttribute("src", "/src/assets/del-btn.svg");
-        resizeInput(forSaleTxt, mobileText, 'phone');
-        mobileText.style.maxWidth = Math.max(mobileText.length) + "ch";
-    }
-    if (mailShow === "show") {
-        const mailText = builderContainer.querySelector('#sticker-mail');
-        const mailButton = builderContainer.querySelector('#email-btn');
-        const mailImage = mailButton.querySelector('img');
-        mailText.style.display = 'block';
-        mailText.value = mailTextParam;
-        console.log('running first');
-        resizeInput(forSaleTxt, mailText, 'email');
-        handleFocusOut.call(mailText);
-        mailImage.setAttribute("src", "/src/assets/del-btn.svg");
-    }
-    const toPaymentButton = document.querySelector(".toPayment-btn");
-    toPaymentButton.addEventListener("click", handleToPaymentButtonClick);
-    var mobileView;
-    var lastView;
-    console.log("Updating cart");
+
     updateCart();
-    //updateIntent();
+    let checkInterval = setInterval(checkAndUpdateIntent, 1000);
 
-
-    function updateCart() {
-
-        cart = [];
-        // Query all .builder-container elements
-        const builderContainers = document.querySelectorAll('.builder-container');
-
-        builderContainers.forEach((container) => {
-            // Check if .sticker-border-sum exists in this container
-            const stickerBorderSum = container.querySelector('.sticker-border-sum');
-
-            if (stickerBorderSum) {
-                const numInput = stickerBorderSum.querySelector('.num-input');
-                const mailInput = stickerBorderSum.querySelector('.mail-input');
-                const stickerQuantity = container.querySelector('.quantity-num');
-
-
-                // Check if .num-input and .mail-input have display none
-                const numDisplay = getComputedStyle(numInput).getPropertyValue('display');
-                const mailDisplay = getComputedStyle(mailInput).getPropertyValue('display');
-
-
-                const item = "For Sale Sticker";
-                const phone = numDisplay !== 'none' ? numInput.value : null;
-                const email = mailDisplay !== 'none' ? mailInput.value : null;
-                const quantity = parseInt(stickerQuantity.textContent);
-                // console.log('quantitiy: ', quantity);
-
-                // Add the item to the cart
-                if (quantity > 0) {
-                    cart.push({ item, phone, email, quantity });
-                }
-
-
-            }
-        });
-
-
-        updateStickerPrice(productPrice);
-        updateIntent();
-
-
-        console.log(cart);
-    }
-
-
-
+    window.addEventListener('resize', handleScreenWidthChange);
+    document.querySelector(".action-section").addEventListener("click", function (event) {
+        if (event.target.classList.contains("toPayment-btn")) {
+            // Shipping & Payment Btn (Mobile Only)
+            handleToPaymentButtonClick(event);
+        } else if (event.target.classList.contains("variant-btn")) {
+            // Add Sticker Btn
+            handleVariantButtonClick(event);
+        }
+    });
 
     function checkAndUpdateIntent() {
         if (typeof intentID !== 'undefined' && intentID !== null) {
@@ -161,66 +71,194 @@ document.addEventListener("DOMContentLoaded", () => {
             clearInterval(checkInterval); // Clear the interval once updated
         }
     }
-    checkAndUpdateIntent();
-    checkInterval = setInterval(checkAndUpdateIntent, 1000);
+
+});
+
+
+
+function initOrderSummary() {
+    let cartDetails = getParams();
+    let actionSection = document.querySelector(".action-section");
+    actionSection.parentNode.insertBefore(createOptionWrapperElement(), actionSection);
+
+    let builderContainer = document.querySelector(".builder-container");
+    let forSaleTxt = builderContainer.querySelector('.sticker-for-sale-sum');
+
+    cartDetails.numShow && showMobileNumber();
+    cartDetails.mailShow && showEmail();
+
+
+    function showMobileNumber() {
+        let mobileText = builderContainer.querySelector('#sticker-num');
+        let mobileButton = builderContainer.querySelector('#mobile-btn');
+        let mobileImage = mobileButton.querySelector('img');
+
+        mobileText.style.display = 'block';
+        mobileText.value = cartDetails.numTextParam;
+        resizeInput(forSaleTxt, mobileText, 'phone');
+        handleFocusOut.call(mobileText);
+
+        mobileImage.setAttribute("src", "/src/assets/del-btn.svg");
+    }
+
+    function showEmail() {
+        let mailText = builderContainer.querySelector('#sticker-mail');
+        let mailButton = builderContainer.querySelector('#email-btn');
+        let mailImage = mailButton.querySelector('img');
+
+        mailText.style.display = 'block';
+        mailText.value = cartDetails.mailTextParam;
+        resizeInput(forSaleTxt, mailText, 'email');
+        handleFocusOut.call(mailText);
+
+        mailImage.setAttribute("src", "/src/assets/del-btn.svg");
+    }
+
+    function getParams() {
+        let params = new URLSearchParams(window.location.search);
+
+        let quantity = parseInt(params.get("quantity"));
+        let numShow = params.get("sticker-num");
+        let mailShow = params.get("sticker-mail");
+        let numTextParam = params.get("num-text") ? params.get("num-text") : null;
+        let mailTextParam = params.get("mail-text") ? params.get("mail-text") : null;
+
+        if (quantity !== 1) {
+            numShow = "hide";
+            mailShow = "hide";
+        }
+
+        return {
+            quantity: parseInt(quantity),
+            numShow: (numShow === "show"),
+            mailShow: (mailShow === "show"),
+            numTextParam: numTextParam,
+            mailTextParam: mailTextParam
+        };
+    }
+
+    (function clearCurrentUrlParams() {
+        let currentUrl = window.location.href;
+        if (currentUrl.indexOf('?') !== -1) {
+            let parts = currentUrl.split('?');
+            let baseUrl = parts[0];
+            let newUrl = baseUrl;
+            window.history.replaceState({}, document.title, newUrl.replace(/\/index\.html$/, ''));
+        }
+    })();
+
+    (function hideDivider() {
+        let parent = builderContainer.parentNode;
+        let builderContainersInParent = parent.querySelectorAll('.builder-container');
+        let divider = builderContainersInParent[0].querySelector(".divider");
+        divider.style.display = 'none';
+    })();
+}
+
+
+
+
+function updateCart() {
+
+    cart = [];
+    // Query all .builder-container elements
+    const builderContainers = document.querySelectorAll('.builder-container');
+
+    builderContainers.forEach((container) => {
+        // Check if .sticker-border-sum exists in this container
+        const stickerBorderSum = container.querySelector('.sticker-border-sum');
+
+        if (stickerBorderSum) {
+            const numInput = stickerBorderSum.querySelector('.num-input');
+            const mailInput = stickerBorderSum.querySelector('.mail-input');
+            const stickerQuantity = container.querySelector('.quantity-num');
+
+
+            // Check if .num-input and .mail-input have display none
+            const numDisplay = getComputedStyle(numInput).getPropertyValue('display');
+            const mailDisplay = getComputedStyle(mailInput).getPropertyValue('display');
+
+
+            const item = "For Sale Sticker";
+            const phone = numDisplay !== 'none' ? numInput.value : null;
+            const email = mailDisplay !== 'none' ? mailInput.value : null;
+            const quantity = parseInt(stickerQuantity.textContent);
+            // console.log('quantitiy: ', quantity);
+
+            // Add the item to the cart
+            if (quantity > 0) {
+                cart.push({ item, phone, email, quantity });
+            }
+
+
+        }
+    });
+
+
+    updateStickerPrice();
+    updateIntent();
+
+
+    console.log(cart);
+}
 
 
 
 
 
-    // =============================================================================
-    // It switches between product and payment views during screen width change.
-    // =============================================================================
-    function handleScreenWidthChange() {
-        const screenWidth = document.documentElement.clientWidth;
-        var paymentSection = document.querySelector('.payment-section');
-        var paymentPage = document.querySelector('.payment');
-        var productSummary = document.querySelector('.product-summary');
-        var nav = document.querySelector('.nav');
-        var navTitle = document.querySelector('.nav-title');
-        var sumDeco = document.querySelector('.summary-deco');
-        var productDisplayValue = window.getComputedStyle(productSummary).getPropertyValue('display');
-        var paymentDisplayValue = window.getComputedStyle(paymentSection).getPropertyValue('display');
-        var paymentElement = document.getElementById("payment-element");
-        var shippingElement = document.getElementById("shipping-express");
+// =============================================================================
+// It switches between product and payment views during screen width change.
+// =============================================================================
+function handleScreenWidthChange() {
+    const screenWidth = document.documentElement.clientWidth;
+    var paymentSection = document.querySelector('.payment-section');
+    var paymentPage = document.querySelector('.payment');
+    var productSummary = document.querySelector('.product-summary');
+    var nav = document.querySelector('.nav');
+    var navTitle = document.querySelector('.nav-title');
+    var sumDeco = document.querySelector('.summary-deco');
+    var productDisplayValue = window.getComputedStyle(productSummary).getPropertyValue('display');
+    var paymentDisplayValue = window.getComputedStyle(paymentSection).getPropertyValue('display');
+    var paymentElement = document.getElementById("payment-element");
+    var shippingElement = document.getElementById("shipping-express");
 
-        var paymentValue = window.getComputedStyle(paymentElement).getPropertyValue('display');
-        var shippingValue = window.getComputedStyle(shippingElement).getPropertyValue('display');
-        var checkoutStage;
-
-
-        var mobileSum = document.getElementById("mobile-order-summary");
+    var paymentValue = window.getComputedStyle(paymentElement).getPropertyValue('display');
+    var shippingValue = window.getComputedStyle(shippingElement).getPropertyValue('display');
+    var checkoutStage;
 
 
+    var mobileSum = document.getElementById("mobile-order-summary");
 
 
-        console.log('mobile view | ' + "mobileview: " + mobileView + ' | ' + lastView + ' | payment: ' + paymentDisplayValue + ' | product: ' + productDisplayValue);
-        if (!(screenWidth >= 0 && screenWidth <= 639)) {
-            console.log('desktop view | ' + "mobileview: " + mobileView + ' | ' + lastView + ' | payment: ' + paymentDisplayValue + ' | product: ' + productDisplayValue);
-            mobileView = false;
-            sumDeco.style.display = 'block';
 
-            productSummary.style.display = 'flex';
-            paymentSection.style.display = 'flex';
-            paymentSection.style.paddingLeft = '30px';
-            //paymentSection.style.justifyContent = 'center';
-            paymentPage.style.justifyContent = 'flex-end';
-            paymentSection.style.justifyContent = 'flex-start';
-            //paymentPage.style.justifyContent = 'flex-end';
-            paymentPage.style.overflowY = 'hidden';
-            //paymentPage.style.webkitOverflowScrolling = 'auto';
 
-            mobileSum.style.display = 'none';
+    console.log('mobile view | ' + "mobileview: " + mobileView + ' | ' + lastView + ' | payment: ' + paymentDisplayValue + ' | product: ' + productDisplayValue);
+    if (!(screenWidth >= 0 && screenWidth <= 639)) {
+        console.log('desktop view | ' + "mobileview: " + mobileView + ' | ' + lastView + ' | payment: ' + paymentDisplayValue + ' | product: ' + productDisplayValue);
+        mobileView = false;
+        sumDeco.style.display = 'block';
 
-            if (lastView != 'payment') {
-                navTitle.innerHTML = 'CarSaleStickers.com';
-                navTitle.onclick = function () {
-                    window.location.href = 'index.html';
-                };
-            } else {
-                navTitle.onclick = null;
+        productSummary.style.display = 'flex';
+        paymentSection.style.display = 'flex';
+        paymentSection.style.paddingLeft = '30px';
+        //paymentSection.style.justifyContent = 'center';
+        paymentPage.style.justifyContent = 'flex-end';
+        paymentSection.style.justifyContent = 'flex-start';
+        //paymentPage.style.justifyContent = 'flex-end';
+        paymentPage.style.overflowY = 'hidden';
+        //paymentPage.style.webkitOverflowScrolling = 'auto';
 
-                navTitle.innerHTML = `
+        mobileSum.style.display = 'none';
+
+        if (lastView != 'payment') {
+            navTitle.innerHTML = 'CarSaleStickers.com';
+            navTitle.onclick = function () {
+                window.location.href = 'index.html';
+            };
+        } else {
+            navTitle.onclick = null;
+
+            navTitle.innerHTML = `
                 <span>
                     <svg class="InlineSVG LinkButton-arrow" focusable="false" width="21" height="14" viewBox="0 0 21 14" fill="none" style="transform: scaleX(-1);">
                         <!-- Arrow head -->
@@ -236,45 +274,45 @@ document.addEventListener("DOMContentLoaded", () => {
                     </svg>
                 </span> Return To Shipping
             `;
-            }
+        }
 
-            nav.style.position = 'static';
-        } else if ((!mobileView || mobileView === undefined) && lastView === 'product') {
-            console.log('mobile view | ' + "mobileview: " + mobileView + ' | ' + lastView + ' | payment: ' + paymentDisplayValue + ' | product: ' + productDisplayValue);
-            mobileView = true;
-            navTitle.innerHTML = 'CarSaleStickers.com';
-            navTitle.onclick = function () {
-                window.location.href = 'index.html';
-            };
-            productSummary.style.display = 'flex';
-            paymentSection.style.display = 'none';
-            paymentSection.style.paddingLeft = '0px';
-            paymentSection.style.justifyContent = 'center';
-            paymentPage.style.justifyContent = 'center';
-            paymentPage.style.overflowY = 'auto';
-            //paymentPage.style.webkitOverflowScrolling = 'touch';
-            navTitle.onclick = null;
-        } else if ((!mobileView || mobileView === undefined) && (lastView === 'payment' || lastView === 'shipping')) {
-            console.log('mobile view | ' + "mobileview: " + mobileView + ' | ' + lastView + ' | payment: ' + paymentDisplayValue + ' | product: ' + productDisplayValue);
-            mobileView = true;
-            productSummary.style.display = 'none';
-            paymentSection.style.display = 'flex';
-            paymentSection.style.paddingLeft = '0px';
-            paymentSection.style.justifyContent = 'center';
-            paymentPage.style.justifyContent = 'center';
-            paymentPage.style.overflowY = 'auto';
-            // paymentPage.style.webkitOverflowScrolling = 'touch';
+        nav.style.position = 'static';
+    } else if ((!mobileView || mobileView === undefined) && lastView === 'product') {
+        console.log('mobile view | ' + "mobileview: " + mobileView + ' | ' + lastView + ' | payment: ' + paymentDisplayValue + ' | product: ' + productDisplayValue);
+        mobileView = true;
+        navTitle.innerHTML = 'CarSaleStickers.com';
+        navTitle.onclick = function () {
+            window.location.href = 'index.html';
+        };
+        productSummary.style.display = 'flex';
+        paymentSection.style.display = 'none';
+        paymentSection.style.paddingLeft = '0px';
+        paymentSection.style.justifyContent = 'center';
+        paymentPage.style.justifyContent = 'center';
+        paymentPage.style.overflowY = 'auto';
+        //paymentPage.style.webkitOverflowScrolling = 'touch';
+        navTitle.onclick = null;
+    } else if ((!mobileView || mobileView === undefined) && (lastView === 'payment' || lastView === 'shipping')) {
+        console.log('mobile view | ' + "mobileview: " + mobileView + ' | ' + lastView + ' | payment: ' + paymentDisplayValue + ' | product: ' + productDisplayValue);
+        mobileView = true;
+        productSummary.style.display = 'none';
+        paymentSection.style.display = 'flex';
+        paymentSection.style.paddingLeft = '0px';
+        paymentSection.style.justifyContent = 'center';
+        paymentPage.style.justifyContent = 'center';
+        paymentPage.style.overflowY = 'auto';
+        // paymentPage.style.webkitOverflowScrolling = 'touch';
 
-            if (document.getElementById('submit-payment').style.display !== 'none') {
-                mobileSum.style.display = 'block';
-            } else {
-                mobileSum.style.display = 'none';
-            }
+        if (document.getElementById('submit-payment').style.display !== 'none') {
+            mobileSum.style.display = 'block';
+        } else {
+            mobileSum.style.display = 'none';
+        }
 
 
-            navTitle.onclick = null;
-            if (lastView === 'payment') {
-                navTitle.innerHTML = `
+        navTitle.onclick = null;
+        if (lastView === 'payment') {
+            navTitle.innerHTML = `
                 <span>
                     <svg class="InlineSVG LinkButton-arrow" focusable="false" width="21" height="14" viewBox="0 0 21 14" fill="none" style="transform: scaleX(-1);">
                         <!-- Arrow head -->
@@ -290,8 +328,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     </svg>
                 </span> Return To Shipping
             `;
-            } else if (lastView === 'shipping') {
-                navTitle.innerHTML = `
+        } else if (lastView === 'shipping') {
+            navTitle.innerHTML = `
                 <span>
                     <svg class="InlineSVG LinkButton-arrow" focusable="false" width="21" height="14" viewBox="0 0 21 14" fill="none" style="transform: scaleX(-1);">
                         <!-- Arrow head -->
@@ -307,105 +345,98 @@ document.addEventListener("DOMContentLoaded", () => {
                     </svg>
                 </span> Return To Cart
             `;
-            }
-
-        }
-
-        if (screenWidth >= 0 && screenWidth <= 639) {
-            if (productDisplayValue !== 'none') {
-
-                lastView = 'product';
-            } else if (paymentDisplayValue !== 'none' && paymentValue !== 'none') {
-
-                lastView = 'payment';
-            } else if (paymentDisplayValue !== 'none' && shippingValue !== 'none') {
-                lastView = 'shipping';
-            }
-        } else {
-            if (paymentValue !== 'none') {
-                lastView = 'payment';
-            } else if (lastView != 'shipping') {
-                lastView = 'product';
-            }
         }
 
     }
 
+    if (screenWidth >= 0 && screenWidth <= 639) {
+        if (productDisplayValue !== 'none') {
+
+            lastView = 'product';
+        } else if (paymentDisplayValue !== 'none' && paymentValue !== 'none') {
+
+            lastView = 'payment';
+        } else if (paymentDisplayValue !== 'none' && shippingValue !== 'none') {
+            lastView = 'shipping';
+        }
+    } else {
+        if (paymentValue !== 'none') {
+            lastView = 'payment';
+        } else if (lastView != 'shipping') {
+            lastView = 'product';
+        }
+    }
+
+}
+
+// =============================================================================
+// Handle the click event for the "To Payment" button
+// =============================================================================
+function handleToPaymentButtonClick(event) {
+    var paymentSection = document.querySelector('.payment-section');
+    var paymentPage = document.querySelector('.payment');
+    var productSummary = document.querySelector('.product-summary');
+    var nav = document.querySelector('.nav');
+    var navTitle = document.querySelector('.nav-title');
+    productSummary.style.display = 'none';
+    paymentSection.style.display = 'flex';
+    paymentSection.style.paddingLeft = '0px';
+    paymentSection.style.justifyContent = 'center';
+    paymentPage.style.justifyContent = 'center';
+    paymentPage.style.overflowY = 'auto';
+    //paymentPage.style.webkitOverflowScrolling = 'touch';
+    navTitle.onclick = null;
+    //lastView = 'shipping';
+
+    // Get all the click event listeners attached to the element
+
+    // Loop through and remove all click event listeners
+    const paymentHeader = document.getElementById("payment-header");
+    var elementToRemove = document.getElementById("shipping-express");
+    elementToRemove.style.display = 'block';
+    var paymentRemove = document.getElementById("payment-element");
+    paymentRemove.style.display = 'none';
+    paymentHeader.style.display = 'none';
+
+    var submitBtn = document.getElementById("submit-payment");
+    submitBtn.style.display = 'none';
+
+
+
+    if (navTitle) {
+        // Remove existing event listeners
+        var newNavTitle = navTitle.cloneNode(true);
+        navTitle.parentNode.replaceChild(newNavTitle, navTitle);
+
+
+    }
 
     var navTitle = document.querySelector('.nav-title');
+    navTitle.onclick = null;
+    navTitle.addEventListener('click', navClickHandler);
 
-
-    // Attach the event listener to the window's resize event
-    window.addEventListener('resize', handleScreenWidthChange);
-
-    // =============================================================================
-    // Handle the click event for the "To Payment" button
-    // =============================================================================
-    function handleToPaymentButtonClick(event) {
+    function navClickHandler(event) {
+        console.log('old event listner');
         var paymentSection = document.querySelector('.payment-section');
         var paymentPage = document.querySelector('.payment');
         var productSummary = document.querySelector('.product-summary');
+
         var nav = document.querySelector('.nav');
         var navTitle = document.querySelector('.nav-title');
-        productSummary.style.display = 'none';
-        paymentSection.style.display = 'flex';
-        paymentSection.style.paddingLeft = '0px';
-        paymentSection.style.justifyContent = 'center';
-        paymentPage.style.justifyContent = 'center';
-        paymentPage.style.overflowY = 'auto';
-        //paymentPage.style.webkitOverflowScrolling = 'touch';
-        navTitle.onclick = null;
-        //lastView = 'shipping';
-
-        // Get all the click event listeners attached to the element
-
-        // Loop through and remove all click event listeners
-        const paymentHeader = document.getElementById("payment-header");
-        var elementToRemove = document.getElementById("shipping-express");
-        elementToRemove.style.display = 'block';
-        var paymentRemove = document.getElementById("payment-element");
-        paymentRemove.style.display = 'none';
-        paymentHeader.style.display = 'none';
-
-        var submitBtn = document.getElementById("submit-payment");
-        submitBtn.style.display = 'none';
-
-
-
-        if (navTitle) {
-            // Remove existing event listeners
-            var newNavTitle = navTitle.cloneNode(true);
-            navTitle.parentNode.replaceChild(newNavTitle, navTitle);
-
-
-        }
-
-        var navTitle = document.querySelector('.nav-title');
-        navTitle.onclick = null;
-        navTitle.addEventListener('click', navClickHandler);
-
-        function navClickHandler(event) {
-            console.log('old event listner');
-            var paymentSection = document.querySelector('.payment-section');
-            var paymentPage = document.querySelector('.payment');
-            var productSummary = document.querySelector('.product-summary');
-
-            var nav = document.querySelector('.nav');
-            var navTitle = document.querySelector('.nav-title');
-            productSummary.style.display = 'flex';
-            paymentSection.style.display = 'none';
-            //paymentPage.style.justifyContent = 'flex-end';
-            paymentPage.style.overflowY = 'hidden';
-            //paymentPage.style.webkitOverflowScrolling = 'auto';
-            navTitle.innerHTML = 'CarSaleStickers.com';
-            navTitle.onclick = function () {
-                window.location.href = 'index.html';
-            };
-            nav.style.position = 'static';
-        }
-        var screenWidth = document.documentElement.clientWidth;
-        if (screenWidth >= 0 && screenWidth <= 639) {
-            navTitle.innerHTML = `
+        productSummary.style.display = 'flex';
+        paymentSection.style.display = 'none';
+        //paymentPage.style.justifyContent = 'flex-end';
+        paymentPage.style.overflowY = 'hidden';
+        //paymentPage.style.webkitOverflowScrolling = 'auto';
+        navTitle.innerHTML = 'CarSaleStickers.com';
+        navTitle.onclick = function () {
+            window.location.href = 'index.html';
+        };
+        nav.style.position = 'static';
+    }
+    var screenWidth = document.documentElement.clientWidth;
+    if (screenWidth >= 0 && screenWidth <= 639) {
+        navTitle.innerHTML = `
             <span>
                 <svg class="InlineSVG LinkButton-arrow" focusable="false" width="21" height="14" viewBox="0 0 21 14" fill="none" style="transform: scaleX(-1);">
                     <!-- Arrow head -->
@@ -421,286 +452,277 @@ document.addEventListener("DOMContentLoaded", () => {
                 </svg>
             </span> Return To Cart
         `;
-        }
     }
-    const variantButton = document.querySelector(".variant-btn");
-    variantButton.addEventListener("click", handleVariantButtonClick);
+}
 
-    // =============================================================================
-    // Handles click events for adding new variants/options to the sticker.
-    // =============================================================================
-    function handleVariantButtonClick(event) {
-        const newOptionWrapper = createOptionWrapperElement();
-        const actionSection = document.querySelector(".action-section");
-        //event.currentTarget.parentNode.insertBefore(newOptionWrapper, event.currentTarget);
-        actionSection.parentNode.insertBefore(newOptionWrapper, actionSection);
-        /* Move scroll to new variant */
-        setTimeout(function (newOptionWrapper) {
-            newOptionWrapper.scrollIntoView({ behavior: "smooth" });
-        }, 200, newOptionWrapper);
-        /* logic for removing divider on first sticker */
-        const builderContainer = document.querySelector(".builder-container");
-        if (builderContainer) {
-            const parent = builderContainer.parentNode;
-            const builderContainersInParent = parent.querySelectorAll('.builder-container');
-            const divider = builderContainersInParent[0].querySelector(".divider");
-            divider.style.display = 'none';
-        }
+// =============================================================================
+// Handles click events for adding new variants/options to the sticker.
+// =============================================================================
+function handleVariantButtonClick(event) {
+    let newOptionWrapper = createOptionWrapperElement();
+    let actionSection = document.querySelector(".action-section");
 
+    actionSection.parentNode.insertBefore(newOptionWrapper, actionSection);
+    // Move scroll to new variant 
+    setTimeout(function (newOptionWrapper) {
+        newOptionWrapper.scrollIntoView({ behavior: "smooth" });
+    }, 200, newOptionWrapper);
+
+    let builderContainer = document.querySelector(".builder-container");
+    if (builderContainer) {
+        let parent = builderContainer.parentNode;
+        let builderContainersInParent = parent.querySelectorAll('.builder-container');
+        let divider = builderContainersInParent[0].querySelector(".divider");
+
+        // Hide divider for first sticker
+        divider.style.display = 'none';
+    }
+
+    if (logger) {
         console.log("Updating cart");
-        updateCart();
-
-
     }
+    updateCart();
+}
 
-    // =============================================================================
-    // Removes URL parameters from the current page's URL.
-    // =============================================================================
-    function clearCurrentUrlParams() {
-        // Get the current URL from the browser's location object
-        const currentUrl = window.location.href;
-        // Check if the current URL contains query parameters
-        if (currentUrl.indexOf('?') !== -1) {
-            // Split the URL into two parts, before and after the '?'
-            const parts = currentUrl.split('?');
-            // Get the base URL (before the '?')
-            const baseUrl = parts[0];
-            // Create a new URL with only the base URL
-            const newUrl = baseUrl;
-            // Replace the current URL with the cleaned URL
-            window.history.replaceState({}, document.title, newUrl.replace(/\/index\.html$/, ''));
+
+
+// =============================================================================
+// Creates a new option wrapper element in the document.
+// =============================================================================
+function createOptionWrapperElement() {
+    const builderContainer = document.createElement("div");
+    builderContainer.classList.add("builder-container");
+    const divider = document.createElement("div");
+    divider.classList.add("divider");
+    divider.classList.add("divider-custom");
+    builderContainer.appendChild(divider);
+
+    const stickerBorder = document.createElement('div');
+    stickerBorder.classList.add('sticker-border-sum');
+    builderContainer.appendChild(stickerBorder);
+    const forSaleTxt = document.createElement('text');
+    forSaleTxt.classList.add('sticker-for-sale-sum');
+
+    forSaleTxt.innerHTML = 'FOR<span style="font-size: 20px;"> </span>SALE';
+    stickerBorder.appendChild(forSaleTxt);
+
+    const stickerNumber = document.createElement('input');
+    stickerNumber.classList.add('sticker-input');
+    stickerNumber.classList.add('num-input');
+    stickerNumber.setAttribute("id", "sticker-num");
+    stickerNumber.setAttribute("autocomplete", "off");
+    stickerNumber.setAttribute("type", "tel");
+    stickerNumber.setAttribute("maxlength", "21");
+    stickerNumber.addEventListener('input', function () {
+        // Remove any characters that are not valid in a phone number
+        stickerNumber.value = stickerNumber.value.replace(/[^0-9+()\s\-]/g, '');
+    });
+    stickerNumber.placeholder = '555-555-5555';
+    stickerNumber.addEventListener('input', () => resizeInput(forSaleTxt, stickerNumber, 'phone'));
+    stickerNumber.addEventListener('input', updateCart);
+    stickerNumber.addEventListener('focus', handleFocus);
+    stickerNumber.addEventListener('focus', () => resizeInput(forSaleTxt, stickerNumber, 'phone'));
+    stickerNumber.addEventListener('blur', handleBlur);
+    stickerNumber.addEventListener('blur', updateIntent);
+    stickerNumber.addEventListener('focus', updateIntent);
+    stickerNumber.addEventListener('focusin', handleFocusIn);
+
+    stickerNumber.addEventListener('focusout', handleFocusOut);
+    stickerBorder.appendChild(stickerNumber);
+
+    stickerNumber.style.maxWidth = Math.max(stickerNumber.placeholder.length) + "ch";
+    stickerNumber.style.display = 'none';
+
+    const stickerEmail = document.createElement('input');
+    stickerEmail.classList.add('sticker-input');
+    stickerEmail.classList.add('mail-input');
+    stickerEmail.setAttribute("id", "sticker-mail");
+    stickerEmail.setAttribute("autocomplete", "off");
+    stickerEmail.setAttribute("maxlength", "30");
+    stickerEmail.setAttribute("type", "email");
+    stickerEmail.placeholder = 'your.email@example.com';
+    stickerEmail.addEventListener('input', () => resizeInput(forSaleTxt, stickerEmail, 'email'));
+    stickerEmail.addEventListener('focus', handleFocus);
+    stickerEmail.addEventListener('input', updateCart);
+
+    stickerEmail.addEventListener('focus', () => resizeInput(forSaleTxt, stickerEmail, 'email'));
+    stickerEmail.addEventListener('blur', handleBlur);
+    stickerEmail.addEventListener('focusin', handleFocusIn);
+    stickerEmail.addEventListener('focusout', handleFocusOut);
+    stickerEmail.addEventListener('blur', updateIntent);
+    stickerEmail.addEventListener('focus', updateIntent);
+    stickerEmail.addEventListener('input', function () {
+        // Remove any characters that are not valid in an email address
+        stickerEmail.value = stickerEmail.value.replace(/[^a-zA-Z0-9@._-]/g, '');
+    });
+    resizeInput.call(stickerEmail);
+    stickerBorder.appendChild(stickerEmail);
+    stickerEmail.style.display = 'none';
+
+    const optionWrapper1 = document.createElement("div");
+    optionWrapper1.classList.add("option-wrapper");
+    builderContainer.appendChild(optionWrapper1);
+
+    const addBtnNum = document.createElement("div");
+    addBtnNum.classList.add("add-btn-sum");
+    addBtnNum.setAttribute("id", "mobile-btn");
+    const addBtnNumImg = document.createElement("img");
+    addBtnNumImg.setAttribute("src", "/src/assets/add-btn.svg");
+    addBtnNum.appendChild(addBtnNumImg);
+    optionWrapper1.appendChild(addBtnNum);
+    const NumOptionText = document.createElement("text");
+    NumOptionText.classList.add("sticker-option-text");
+    NumOptionText.textContent = "Mobile Number";
+    optionWrapper1.appendChild(NumOptionText);
+    addBtnNum.addEventListener('click', () => {
+        if (stickerNumber.style.display === 'none') {
+            stickerNumber.style.display = 'block';
+            addBtnNumImg.setAttribute("src", "/src/assets/del-btn.svg");
+            stickerNumber.focus();
+            updateCart();
+
+        } else {
+            stickerNumber.style.display = 'none';
+            addBtnNumImg.setAttribute("src", "/src/assets/add-btn.svg");
+            updateCart();
+
         }
-        // Optionally, you can also return the cleaned URL
-        // return newUrl;
+    });
+
+    NumOptionText.addEventListener('click', () => {
+        if (stickerNumber.style.display === 'none') {
+            stickerNumber.style.display = 'block';
+            addBtnNumImg.setAttribute("src", "/src/assets/del-btn.svg");
+            stickerNumber.focus();
+            updateCart();
+
+        } else {
+            stickerNumber.style.display = 'none';
+            addBtnNumImg.setAttribute("src", "/src/assets/add-btn.svg");
+            updateCart();
+
+        }
+    });
+
+    const optionWrapper2 = document.createElement("div");
+    optionWrapper2.classList.add("option-wrapper");
+    builderContainer.appendChild(optionWrapper2);
+    const addBtnMail = document.createElement("div");
+    addBtnMail.classList.add("add-btn-sum");
+    addBtnMail.setAttribute("id", "email-btn");
+    const addBtnMailImg = document.createElement("img");
+    addBtnMailImg.setAttribute("src", "/src/assets/add-btn.svg");
+    addBtnMail.appendChild(addBtnMailImg);
+    optionWrapper2.appendChild(addBtnMail);
+    const MailOptionText = document.createElement("text");
+    MailOptionText.classList.add("sticker-option-text");
+    MailOptionText.textContent = "Email";
+    optionWrapper2.appendChild(MailOptionText);
+    addBtnMail.addEventListener('click', () => {
+        if (stickerEmail.style.display === 'none') {
+            stickerEmail.style.display = 'block';
+            addBtnMailImg.setAttribute("src", "/src/assets/del-btn.svg");
+            stickerEmail.focus();
+            updateCart();
+
+        } else {
+            stickerEmail.style.display = 'none';
+            addBtnMailImg.setAttribute("src", "/src/assets/add-btn.svg");
+            updateCart();
+
+        }
+    });
+
+    MailOptionText.addEventListener('click', () => {
+        if (stickerEmail.style.display === 'none') {
+            stickerEmail.style.display = 'block';
+            addBtnMailImg.setAttribute("src", "/src/assets/del-btn.svg");
+            stickerEmail.focus();
+            updateCart();
+
+        } else {
+            stickerEmail.style.display = 'none';
+            addBtnMailImg.setAttribute("src", "/src/assets/add-btn.svg");
+            updateCart();
+
+        }
+    });
+
+    const horizontalWrapper = document.createElement("div");
+    horizontalWrapper.classList.add("horizontal-wrapper");
+    builderContainer.appendChild(horizontalWrapper);
+    const verticalWrapper = document.createElement("div");
+    verticalWrapper.classList.add("vertical-wrapper");
+    horizontalWrapper.appendChild(verticalWrapper);
+    const quantityTitle = document.createElement("div");
+    quantityTitle.classList.add("quantity-title");
+    quantityTitle.textContent = "Quantity:";
+    verticalWrapper.appendChild(quantityTitle);
+    const optionWrapper3 = document.createElement("div");
+    optionWrapper3.classList.add("option-wrapper");
+    verticalWrapper.appendChild(optionWrapper3);
+    const removeBtnQuantity = document.createElement("div");
+    removeBtnQuantity.classList.add('remove-btn-sum-small');
+    removeBtnQuantity.setAttribute("id", "remove-item");
+    optionWrapper3.appendChild(removeBtnQuantity);
+    removeBtnQuantity.addEventListener("click", function (event) {
+        removeBtnClickQuantity(event, quantityText);
+    });
+    const removeBtnQuantityImg = document.createElement("img");
+    removeBtnQuantityImg.setAttribute("src", "/src/assets/del-btn.svg");
+    removeBtnQuantity.appendChild(removeBtnQuantityImg);
+    const quantityText = document.createElement("text");
+    quantityText.classList.add("quantity-num");
+    quantityText.textContent = "1";
+    optionWrapper3.appendChild(quantityText);
+    const addBtnQuantity = document.createElement("div");
+    addBtnQuantity.classList.add('add-btn-sum-small');
+    addBtnQuantity.setAttribute("id", "add-item");
+    optionWrapper3.appendChild(addBtnQuantity);
+    addBtnQuantity.addEventListener("click", function (event) {
+        addBtnClickQuantity(event, quantityText);
+    });
+    const addBtnQuantityImg = document.createElement("img");
+    addBtnQuantityImg.setAttribute("src", "/src/assets/add-btn.svg");
+    addBtnQuantity.appendChild(addBtnQuantityImg);
+    const verticalWrapper2 = document.createElement("div");
+    verticalWrapper2.classList.add("vertical-wrapper");
+    horizontalWrapper.appendChild(verticalWrapper2);
+    const priceText = document.createElement("text");
+    priceText.classList.add("price-num");
+    priceText.textContent = "$" + productPrice;
+    verticalWrapper2.appendChild(priceText);
+    return builderContainer;
+
+
+    // Handles the blur event for input fields, including placeholders and styles.
+    function handleBlur() {
+        if (this.value === '') {
+            this.value = this.placeholder;
+            this.style.color = 'rgb(136, 134, 134)';
+            this.style.backgroundColor = 'rgb(25, 25, 25)';
+            resizeInput.call(this);
+        }
     }
 
-    // =============================================================================
-    // Creates a new option wrapper element in the document.
-    // =============================================================================
-    function createOptionWrapperElement() {
-        const builderContainer = document.createElement("div");
-        builderContainer.classList.add("builder-container");
-        const divider = document.createElement("div");
-        divider.classList.add("divider");
-        divider.classList.add("divider-custom");
-        builderContainer.appendChild(divider);
-
-        const stickerBorder = document.createElement('div');
-        stickerBorder.classList.add('sticker-border-sum');
-        builderContainer.appendChild(stickerBorder);
-        const forSaleTxt = document.createElement('text');
-        forSaleTxt.classList.add('sticker-for-sale-sum');
-
-        forSaleTxt.innerHTML = 'FOR<span style="font-size: 20px;"> </span>SALE';
-        stickerBorder.appendChild(forSaleTxt);
-
-        const stickerNumber = document.createElement('input');
-        stickerNumber.classList.add('sticker-input');
-        stickerNumber.classList.add('num-input');
-        stickerNumber.setAttribute("id", "sticker-num");
-        stickerNumber.setAttribute("autocomplete", "off");
-        stickerNumber.setAttribute("type", "tel");
-        stickerNumber.setAttribute("maxlength", "21");
-        stickerNumber.addEventListener('input', function () {
-            // Remove any characters that are not valid in a phone number
-            stickerNumber.value = stickerNumber.value.replace(/[^0-9+()\s\-]/g, '');
-        });
-        stickerNumber.placeholder = '555-555-5555';
-        stickerNumber.addEventListener('input', () => resizeInput(forSaleTxt, stickerNumber, 'phone'));
-        stickerNumber.addEventListener('input', updateCart);
-        stickerNumber.addEventListener('focus', handleFocus);
-        stickerNumber.addEventListener('focus', () => resizeInput(forSaleTxt, stickerNumber, 'phone'));
-        stickerNumber.addEventListener('blur', handleBlur);
-        stickerNumber.addEventListener('blur', updateIntent);
-        stickerNumber.addEventListener('focus', updateIntent);
-        stickerNumber.addEventListener('focusin', handleFocusIn);
-
-        stickerNumber.addEventListener('focusout', handleFocusOut);
-        stickerBorder.appendChild(stickerNumber);
-
-        stickerNumber.style.maxWidth = Math.max(stickerNumber.placeholder.length) + "ch";
-        stickerNumber.style.display = 'none';
-
-        const stickerEmail = document.createElement('input');
-        stickerEmail.classList.add('sticker-input');
-        stickerEmail.classList.add('mail-input');
-        stickerEmail.setAttribute("id", "sticker-mail");
-        stickerEmail.setAttribute("autocomplete", "off");
-        stickerEmail.setAttribute("maxlength", "30");
-        stickerEmail.setAttribute("type", "email");
-        stickerEmail.placeholder = 'your.email@example.com';
-        stickerEmail.addEventListener('input', () => resizeInput(forSaleTxt, stickerEmail, 'email'));
-        stickerEmail.addEventListener('focus', handleFocus);
-        stickerEmail.addEventListener('input', updateCart);
-
-        stickerEmail.addEventListener('focus', () => resizeInput(forSaleTxt, stickerEmail, 'email'));
-        stickerEmail.addEventListener('blur', handleBlur);
-        stickerEmail.addEventListener('focusin', handleFocusIn);
-        stickerEmail.addEventListener('focusout', handleFocusOut);
-        stickerEmail.addEventListener('blur', updateIntent);
-        stickerEmail.addEventListener('focus', updateIntent);
-        stickerEmail.addEventListener('input', function () {
-            // Remove any characters that are not valid in an email address
-            stickerEmail.value = stickerEmail.value.replace(/[^a-zA-Z0-9@._-]/g, '');
-        });
-        resizeInput.call(stickerEmail);
-        stickerBorder.appendChild(stickerEmail);
-        stickerEmail.style.display = 'none';
-
-        const optionWrapper1 = document.createElement("div");
-        optionWrapper1.classList.add("option-wrapper");
-        builderContainer.appendChild(optionWrapper1);
-
-        const addBtnNum = document.createElement("div");
-        addBtnNum.classList.add("add-btn-sum");
-        addBtnNum.setAttribute("id", "mobile-btn");
-        const addBtnNumImg = document.createElement("img");
-        addBtnNumImg.setAttribute("src", "/src/assets/add-btn.svg");
-        addBtnNum.appendChild(addBtnNumImg);
-        optionWrapper1.appendChild(addBtnNum);
-        const NumOptionText = document.createElement("text");
-        NumOptionText.classList.add("sticker-option-text");
-        NumOptionText.textContent = "Mobile Number";
-        optionWrapper1.appendChild(NumOptionText);
-        addBtnNum.addEventListener('click', () => {
-            if (stickerNumber.style.display === 'none') {
-                stickerNumber.style.display = 'block';
-                addBtnNumImg.setAttribute("src", "/src/assets/del-btn.svg");
-                stickerNumber.focus();
-                updateCart();
-
-            } else {
-                stickerNumber.style.display = 'none';
-                addBtnNumImg.setAttribute("src", "/src/assets/add-btn.svg");
-                updateCart();
-
-            }
-        });
-
-        NumOptionText.addEventListener('click', () => {
-            if (stickerNumber.style.display === 'none') {
-                stickerNumber.style.display = 'block';
-                addBtnNumImg.setAttribute("src", "/src/assets/del-btn.svg");
-                stickerNumber.focus();
-                updateCart();
-
-            } else {
-                stickerNumber.style.display = 'none';
-                addBtnNumImg.setAttribute("src", "/src/assets/add-btn.svg");
-                updateCart();
-
-            }
-        });
-
-        const optionWrapper2 = document.createElement("div");
-        optionWrapper2.classList.add("option-wrapper");
-        builderContainer.appendChild(optionWrapper2);
-        const addBtnMail = document.createElement("div");
-        addBtnMail.classList.add("add-btn-sum");
-        addBtnMail.setAttribute("id", "email-btn");
-        const addBtnMailImg = document.createElement("img");
-        addBtnMailImg.setAttribute("src", "/src/assets/add-btn.svg");
-        addBtnMail.appendChild(addBtnMailImg);
-        optionWrapper2.appendChild(addBtnMail);
-        const MailOptionText = document.createElement("text");
-        MailOptionText.classList.add("sticker-option-text");
-        MailOptionText.textContent = "Email";
-        optionWrapper2.appendChild(MailOptionText);
-        addBtnMail.addEventListener('click', () => {
-            if (stickerEmail.style.display === 'none') {
-                stickerEmail.style.display = 'block';
-                addBtnMailImg.setAttribute("src", "/src/assets/del-btn.svg");
-                stickerEmail.focus();
-                updateCart();
-
-            } else {
-                stickerEmail.style.display = 'none';
-                addBtnMailImg.setAttribute("src", "/src/assets/add-btn.svg");
-                updateCart();
-
-            }
-        });
-
-        MailOptionText.addEventListener('click', () => {
-            if (stickerEmail.style.display === 'none') {
-                stickerEmail.style.display = 'block';
-                addBtnMailImg.setAttribute("src", "/src/assets/del-btn.svg");
-                stickerEmail.focus();
-                updateCart();
-
-            } else {
-                stickerEmail.style.display = 'none';
-                addBtnMailImg.setAttribute("src", "/src/assets/add-btn.svg");
-                updateCart();
-
-            }
-        });
-
-        const horizontalWrapper = document.createElement("div");
-        horizontalWrapper.classList.add("horizontal-wrapper");
-        builderContainer.appendChild(horizontalWrapper);
-        const verticalWrapper = document.createElement("div");
-        verticalWrapper.classList.add("vertical-wrapper");
-        horizontalWrapper.appendChild(verticalWrapper);
-        const quantityTitle = document.createElement("div");
-        quantityTitle.classList.add("quantity-title");
-        quantityTitle.textContent = "Quantity:";
-        verticalWrapper.appendChild(quantityTitle);
-        const optionWrapper3 = document.createElement("div");
-        optionWrapper3.classList.add("option-wrapper");
-        verticalWrapper.appendChild(optionWrapper3);
-        const removeBtnQuantity = document.createElement("div");
-        removeBtnQuantity.classList.add('remove-btn-sum-small');
-        removeBtnQuantity.setAttribute("id", "remove-item");
-        optionWrapper3.appendChild(removeBtnQuantity);
-        removeBtnQuantity.addEventListener("click", function (event) {
-            removeBtnClickQuantity(event, quantityText);
-        });
-        const removeBtnQuantityImg = document.createElement("img");
-        removeBtnQuantityImg.setAttribute("src", "/src/assets/del-btn.svg");
-        removeBtnQuantity.appendChild(removeBtnQuantityImg);
-        const quantityText = document.createElement("text");
-        quantityText.classList.add("quantity-num");
-        quantityText.textContent = "1";
-        optionWrapper3.appendChild(quantityText);
-        const addBtnQuantity = document.createElement("div");
-        addBtnQuantity.classList.add('add-btn-sum-small');
-        addBtnQuantity.setAttribute("id", "add-item");
-        optionWrapper3.appendChild(addBtnQuantity);
-        addBtnQuantity.addEventListener("click", function (event) {
-            addBtnClickQuantity(event, quantityText);
-        });
-        const addBtnQuantityImg = document.createElement("img");
-        addBtnQuantityImg.setAttribute("src", "/src/assets/add-btn.svg");
-        addBtnQuantity.appendChild(addBtnQuantityImg);
-        const verticalWrapper2 = document.createElement("div");
-        verticalWrapper2.classList.add("vertical-wrapper");
-        horizontalWrapper.appendChild(verticalWrapper2);
-        const priceText = document.createElement("text");
-        priceText.classList.add("price-num");
-        priceText.textContent = "$" + productPrice;
-        verticalWrapper2.appendChild(priceText);
-        return builderContainer;
+    // Handles the focusin event for input fields, adjusting styles.
+    function handleFocusIn() {
+        this.style.backgroundColor = 'rgb(25, 25, 25)';
+        console.log('input focused');
     }
 
-    // =============================================================================
-    // Handles click events for increasing quantity in the user interface.
-    // =============================================================================
-    function addBtnClickQuantity(event, quantityText) {
-        const quantityValue = parseInt(quantityText.textContent);
-        const newQuantityValue = quantityValue + 1;
-        quantityText.textContent = "" + newQuantityValue;
-        updateCart();
-
-        //updateStickerPrice(productPrice);
+    // Handles the focus event for input fields, including placeholders and styles.
+    function handleFocus() {
+        if (this.value === this.placeholder) {
+            this.value = '';
+            this.style.color = 'white';
+            this.style.backgroundColor = 'rgb(25, 25, 25)';
+            resizeInput.call(this);
+        }
     }
 
 
-
-
-    // =============================================================================
     // Handles click events for decreasing quantity in the user interface.
-    // =============================================================================
     function removeBtnClickQuantity(event, quantityText) {
         const quantityValue = parseInt(quantityText.textContent);
         const newQuantityValue = quantityValue - 1;
@@ -749,145 +771,90 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         updateCart();
+    }
 
-        //updateStickerPrice(productPrice);
+    // Handles click events for increasing quantity in the user interface.
+    function addBtnClickQuantity(event, quantityText) {
+        const quantityValue = parseInt(quantityText.textContent);
+        const newQuantityValue = quantityValue + 1;
+        quantityText.textContent = "" + newQuantityValue;
+        updateCart();
     }
 
 
-    /*
-        var dropdownBtn = document.getElementById('dropdown-btn');
-        var dropdownContent = document.querySelector('.dropdown-content');
-    
-        dropdownBtn.addEventListener('click', function () {
-            if (dropdownContent.style.display === 'none' || dropdownContent.style.display === '') {
-                dropdownContent.style.display = 'block';
-            } else {
-                dropdownContent.style.display = 'none';
+}
+
+
+
+
+
+async function getPrice() {
+
+    var countryCode = await fetchUserCountry();
+
+    const apiUrl = 'https://api.carsalestickers.com/product?country=' + countryCode.toLowerCase() + '&stage=' + env;
+    console.log(apiUrl);
+
+    fetch(apiUrl, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+        }
+        return response.json();
+    })
+        .then(data => {
+            // Handle the data
+            console.log(data);
+
+
+
+            if (getCookie("productPrice") === undefined || productPrice === undefined) {
+                document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
+                productPrice = data.price;
+            } else if ((data.price !== getCookie("productPrice") || data.price !== productPrice) && data.price) {
+                document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
+                productPrice = data.price;
             }
-        });
-    
-      
-    
-    
-        // Add event listeners to the dropdown options to update the button text
-        var options = document.querySelectorAll('.dropdown-content a');
-        options.forEach(function (option) {
-            option.addEventListener('click', function (event) {
-    
-    
-    
-    
-    
-    
-    
-                if (event.target.innerText === "Budget") {
-                    dropdownBtn.innerText = "Free";
-              
-                    shippingMethod = 'budget';
-    
-                } else if (event.target.innerText === "Standard") {
-                    dropdownBtn.innerText = "$13";
-                 
-                    shippingMethod = 'standard';
-    
-                } else if (event.target.innerText === "Express") {
-                    dropdownBtn.innerText = "$22";
-                
-                    shippingMethod = 'express';
-    
-                }
-    
-                dropdownContent.style.display = 'none';
-            });
-        });
-    
-          */
+
+            updateCart();
+
+            // You can access specific values like this:
+            const stripePrice = data.stripePrice;
+            const price = data.price;
+            const sticker = data.sticker;
+            const stage = data.stage; 4
+            var headerSection = document.querySelector('.header-section');
+            stickerType = sticker;
 
 
+            console.log(price);
 
-    async function getPrice() {
-
-        var countryCode = await fetchUserCountry();
-
-        const apiUrl = 'https://api.carsalestickers.com/product?country=' + countryCode.toLowerCase() + '&stage=' + env;
-        console.log(apiUrl);
-
-
-
-        fetch(apiUrl, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then(response => {
-            if (!response.ok) {
-                throw new Error(`Network response was not ok: ${response.statusText}`);
-            }
-            return response.json();
+            // Perform further actions with the data as needed
         })
-            .then(data => {
-                // Handle the data
-                console.log(data);
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+    // -------------------------------------------------------------------
 
-
-
-                if (getCookie("productPrice") === undefined || productPrice === undefined) {
-                    document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
-                    productPrice = data.price;
-                } else if ((data.price !== getCookie("productPrice") || data.price !== productPrice) && data.price) {
-                    document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
-                    productPrice = data.price;
-                }
-
-                updateCart();
-
-                // You can access specific values like this:
-                const stripePrice = data.stripePrice;
-                const price = data.price;
-                const sticker = data.sticker;
-                const stage = data.stage; 4
-
-                var headerSection = document.querySelector('.header-section');
-
-                stickerType = sticker;
-
-
-                console.log(price);
-
-                // Perform further actions with the data as needed
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-            });
-        // -------------------------------------------------------------------    
-
-
-
-
-
-    }
-
-});
-
-// =============================================================================
-// Handles the focus event for input fields, including placeholders and styles.
-// =============================================================================
-function handleFocus() {
-    if (this.value === this.placeholder) {
-        this.value = '';
-        this.style.color = 'white';
-        this.style.backgroundColor = 'rgb(25, 25, 25)';
-        resizeInput.call(this);
+    async function fetchUserCountry() {
+        try {
+            const response = await fetch("https://freeipapi.com/api/json");
+            const data = await response.json();
+            //ipaddr = data.ipString;
+            console.log('country: ');
+            console.log(data.countryCode);
+            return "" + data.countryCode;
+        } catch (error) {
+            console.error(error);
+            return null; // Return null if the IP fetch fails
+        }
     }
 }
 
-// =============================================================================
-// Handles the focusin event for input fields, adjusting styles.
-// =============================================================================
-function handleFocusIn() {
-    this.style.backgroundColor = 'rgb(25, 25, 25)';
-    console.log('input focused');
-}
 
 // =============================================================================
 // Handles the focusout event for input fields, adjusting styles.
@@ -898,44 +865,6 @@ function handleFocusOut() {
     }
     this.style.backgroundColor = 'transparent'; // Set it back to the default background color
     //this.style.maxWidth = Math.max(this.length) + "ch";
-}
-
-// =============================================================================
-// Handles the blur event for input fields, including placeholders and styles.
-// =============================================================================
-function handleBlur() {
-    if (this.value === '') {
-        this.value = this.placeholder;
-        this.style.color = 'rgb(136, 134, 134)';
-        this.style.backgroundColor = 'rgb(25, 25, 25)';
-        resizeInput.call(this);
-    }
-}
-
-// =============================================================================
-// Calculates the font size needed to match the width of a text element.
-// =============================================================================
-function calculateFontSizeToMatchWidth(referenceText, targetTextValue, referenceFontSize) {
-    // Access the value of the input box
-    var referenceWidth = getTextWidth(referenceText, referenceFontSize);
-    const ghostSpaceWidth = getTextWidth('a', referenceFontSize);
-    const spaceWidth = getTextWidth('a', 20);
-    console.log(`${referenceWidth} | ${spaceWidth} | ${ghostSpaceWidth}`);
-    referenceWidth = (referenceWidth - ghostSpaceWidth) + spaceWidth;
-    const targetWidth = getTextWidth(targetTextValue, referenceFontSize);
-    const desiredFontSize = ((referenceFontSize * referenceWidth) / targetWidth);
-    return desiredFontSize;
-}
-
-// =============================================================================
-// Measures the width of a given text string with a specific font size.
-// =============================================================================
-function getTextWidth(text, fontSize) {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    //context.font = `${fontSize}px Arial`;
-    context.font = `${fontSize}px  Montserrat, sans-serif`;
-    return context.measureText(text).width;
 }
 
 
@@ -1009,41 +938,35 @@ function resizeInput(forSaleTxt, userInput, inputField) {
             console.log('placeholder');
             userInput.style.width = (Math.max(userInput.placeholder.length)) + "ch";
         }
-        //adjustSpaceFontSize();
+
+    }
+
+    // Calculates the font size needed to match the width of a text element.
+    function calculateFontSizeToMatchWidth(referenceText, targetTextValue, referenceFontSize) {
+        // Access the value of the input box
+        var referenceWidth = getTextWidth(referenceText, referenceFontSize);
+        const ghostSpaceWidth = getTextWidth('a', referenceFontSize);
+        const spaceWidth = getTextWidth('a', 20);
+        console.log(`${referenceWidth} | ${spaceWidth} | ${ghostSpaceWidth}`);
+        referenceWidth = (referenceWidth - ghostSpaceWidth) + spaceWidth;
+        const targetWidth = getTextWidth(targetTextValue, referenceFontSize);
+        const desiredFontSize = ((referenceFontSize * referenceWidth) / targetWidth);
+
+        return desiredFontSize;
+
+
+        // Measures the width of a given text string with a specific font size.
+        function getTextWidth(text, fontSize) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            //context.font = `${fontSize}px Arial`;
+            context.font = `${fontSize}px  Montserrat, sans-serif`;
+            return context.measureText(text).width;
+        }
     }
 }
 
-// =============================================================================
-// Adjusts the font size of space characters within a text element.
-// =============================================================================
-function adjustSpaceFontSize() {
-    // Get the div with the class "sticker-border"
-    var stickerDiv = document.querySelector('.sticker-border-sum');
-    // Check if the div exists
-    if (stickerDiv) {
-        // Get the text content of the div
-        var text = stickerDiv.textContent;
-        // Create a new HTML element to hold the adjusted content
-        var adjustedContent = document.createElement('div');
-        for (var i = 0; i < text.length; i++) {
-            if (text[i] === ' ') {
-                // Create a <span> element for spaces with a font size of 15px
-                var spaceElement = document.createElement('span');
-                spaceElement.textContent = ' ';
-                spaceElement.style.fontSize = '15px';
-                adjustedContent.appendChild(spaceElement);
-            } else {
-                // Create a text node for non-space characters
-                var textNode = document.createTextNode(text[i]);
-                adjustedContent.appendChild(textNode);
-            }
-        }
-        // Clear the content of the original div
-        stickerDiv.innerHTML = '';
-        // Append the adjusted content to the original div
-        stickerDiv.appendChild(adjustedContent);
-    }
-}
+
 
 async function updateIntent() {
     var expressDiv = document.getElementById('express-checkout-element');
@@ -1167,7 +1090,7 @@ async function updateIntent() {
         updateData.then(() => {
             console.log('updated');
 
-            updateStickerPrice(productPrice);
+            updateStickerPrice();
             if (elements) {
                 elements.fetchUpdates()
                     .then(function (result) {
@@ -1219,13 +1142,6 @@ async function updateIntent() {
                 }
             }
 
-
-
-
-
-
-
-
             // Add your additional code here.
         });
     }
@@ -1233,24 +1149,9 @@ async function updateIntent() {
 }
 
 
-function handleCardClick(clickedCard) {
-    // Remove 'selected-card' class from all shipping cards
-    document.querySelectorAll('.shipping-card').forEach(card => {
-        card.classList.remove('shipping-selected-card');
-    });
-
-    // Add 'selected-card' class to the clicked shipping card
-    clickedCard.classList.add('shipping-selected-card');
-
-    shippingMethod = clickedCard.querySelector('.shipping-card-title').textContent.toLowerCase();
-
-    updateStickerPrice(productPrice);
-    updateIntent();
-
-}
-
-function updateStickerPrice(price) {
-    const builderContainers = document.querySelectorAll('.builder-container');
+function updateStickerPrice() {
+    let price = productPrice;
+    let builderContainers = document.querySelectorAll('.builder-container');
     var subTotalText = document.querySelector(".subTotalSum1");
     var mobileSubTotal = document.querySelector(".payment-subtotal");
     var orderTotalText = document.querySelector(".orderTotal");
@@ -1263,11 +1164,9 @@ function updateStickerPrice(price) {
     var shippingValueMobile = document.querySelector(".shipping-cost2");
 
 
-
-
     var subTotal = 0;
     var orderTotal = 0;
-    itemQuantity = 0;
+    let itemQuantity = 0;
     builderContainers.forEach((container) => {
         // Check if .sticker-border-sum exists in this container
         const priceText = container.querySelector('.price-num');
@@ -1364,24 +1263,8 @@ function updateStickerPrice(price) {
     });
 
 
-
-
-
-
 }
 
 
 
-async function fetchUserCountry() {
-    try {
-        const response = await fetch("https://freeipapi.com/api/json");
-        const data = await response.json();
-        //ipaddr = data.ipString;
-        console.log('country: ');
-        console.log(data.countryCode);
-        return "" + data.countryCode;
-    } catch (error) {
-        console.error(error);
-        return null; // Return null if the IP fetch fails
-    }
-}
+

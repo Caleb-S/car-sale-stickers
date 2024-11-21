@@ -11,7 +11,7 @@ let elements;
 var shippingMethod = 'budget'; // Default Shipping Method
 
 // Turn logger on / off
-let logger = false;
+var logger = false;
 if (ENV === 'test') {
     logger = true;
 }
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             let commentLine = "=============================================";
             console.log(`\n${commentLine}\nTest Environment - Payments won't be charged.\n${commentLine}`);
             console.log(ENVK1 + ENV + ENVK2 + ENVK3);
-        }   
+        }
     } else if (ENV === 'live') {
         stripe = Stripe(ENVK1 + ENV + ENVK2 + ENVK4);
     }
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             ipAddress: await fetchUserIP(),
         },
         cart: cart.map(cartItem => {
-             let productItem = {
+            let productItem = {
                 productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
                 quantity: cartItem.quantity,
                 ...(cartItem.phone && { phoneOption: cartItem.phone }),
@@ -83,26 +83,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         },
         body: JSON.stringify(payload),
     })
-    .then((response) => response.json())
-    .then((data) => {
-        let parsedData = JSON.parse(data.body);
-        clientSecret = parsedData.clientSecret;
-        intentID = parsedData.intentID;
+        .then((response) => response.json())
+        .then((data) => {
+            let parsedData = JSON.parse(data.body);
+            clientSecret = parsedData.clientSecret;
+            intentID = parsedData.intentID;
 
-        if (shippingPrices === undefined) {
-            shippingPrices = data.shippingQuotes;
-            logger ? console.log("Setting: " + shippingPrices) : null;
-        } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
-            shippingPrices = data.shippingQuotes;
-            logger ? console.log("changing: " + shippingPrices) : null;
-        }
+            if (shippingPrices === undefined) {
+                shippingPrices = data.shippingQuotes;
+                logger ? console.log("Setting: " + shippingPrices) : null;
+            } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
+                shippingPrices = data.shippingQuotes;
+                logger ? console.log("changing: " + shippingPrices) : null;
+            }
 
-        visableShippingOptions();
+            visableShippingOptions();
 
-    })
-    .catch((error) => {
-        logger ? console.error("Error:", error) : null;
-    });
+        })
+        .catch((error) => {
+            logger ? console.error("Error:", error) : null;
+        });
 
     fetchData.then(() => {
         initialize();
@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         if (logger) {
                             console.log('triggered at:');
                             console.log(Date.now() - clickTime);
-                        }   
+                        }
                     };
 
 
@@ -290,7 +290,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         setTimeout(() => checkConditionAndExecute(event), 100);
                     } else {
                         checks += 1;
-                        logger  ? console.log('Checking(2s): ' + checks) : null;
+                        logger ? console.log('Checking(2s): ' + checks) : null;
                         setTimeout(() => checkConditionAndExecute(event), 2000);
                     }
                 }
