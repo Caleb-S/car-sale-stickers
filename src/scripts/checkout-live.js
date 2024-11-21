@@ -1,129 +1,123 @@
-var clientSecret;
-const env = 'live';
-var intentID;
-var url = "https://api.carsalestickers.com/stripe";
+const ENV = 'test';
+const URL = "https://api.carsalestickers.com/stripe";
 
-var country;
-var elements;
+let clientSecret;
+let intentID;
 
+let country;
+let elements;
 
-var shippingMethod = 'budget'; // Default Shipping Method
+let shippingMethod = 'budget'; // Default Shipping Method
+
+// Turn logger on / off
+let logger = false;
+if (ENV === 'test') {
+    logger = true;
+}
 
 // Get shipping prices if already inclised in cookie
-var shippingPrices = getCookie("shippingPrices");
+let shippingPrices = getCookie("shippingPrices");
 if (shippingPrices === null) {
     shippingPrices;
 }
+logger ? console.log(shippingPrices) : null;
 
 
+console.log('21/11/2024 update');
 
 // =============================================================================/n
 // Main Logic
 // =============================================================================
 document.addEventListener("DOMContentLoaded", async () => {
     // Important Variabels =====================================================
-
-
-    var envK1 = 'pk_'
-    var envK2 = '_51NWg86IA9Fl1A3IG';
-    var envK3 = 'TsyLEeLB83hHQu0kIH8OFZipQP1BAklKyzEOnzNmrjDHyt7eRKYgeZcBwI45Bzxn60Z6icUg009NOrOYZq';
-    var envK4 = 'SFDEFKCXrgnPzKrByAV4rpAkmzEctARO9oSgnHHIzjLYtw5k5ShVqQjvhwQ3Ypbr2Ztl9c6W008TAobYhd';
+    const ENVK1 = 'pk_'
+    const ENVK2 = '_51NWg86IA9Fl1A3IG';
+    const ENVK3 = 'TsyLEeLB83hHQu0kIH8OFZipQP1BAklKyzEOnzNmrjDHyt7eRKYgeZcBwI45Bzxn60Z6icUg009NOrOYZq';
+    const ENVK4 = 'SFDEFKCXrgnPzKrByAV4rpAkmzEctARO9oSgnHHIzjLYtw5k5ShVqQjvhwQ3Ypbr2Ztl9c6W008TAobYhd';
 
     // General Variiables ======================================================
     let emailAddress = "";
 
-
-
     // =============================================================================
     // Initialization Section
     // =============================================================================
-    if (env === 'test') {
-        console.log("=============================================\nTest Environment - Payments won't be charged.\n=============================================");
-        var stripe = Stripe(envK1 + env + envK2 + envK3);
-        console.log(envK1 + env + envK2 + envK3);
-    } else if (env === 'live') {
-        var stripe = Stripe(envK1 + env + envK2 + envK4);
+    let stripe;
+    if (ENV === 'test') {
+        stripe = Stripe(ENVK1 + ENV + ENVK2 + ENVK3);
+
+        if (logger) {
+            let commentLine = "=============================================";
+            console.log(`\n${commentLine}\nTest Environment - Payments won't be charged.\n${commentLine}`);
+            console.log(ENVK1 + ENV + ENVK2 + ENVK3);
+        }   
+    } else if (ENV === 'live') {
+        stripe = Stripe(ENVK1 + ENV + ENVK2 + ENVK4);
     }
 
 
     // =============================================================================
     // Create Payment Intent
     // =============================================================================
-    var payload = {
+    let payload = {
         requestType: "paymentIntent",
         customerDetails: {
             ipAddress: await fetchUserIP(),
         },
         cart: cart.map(cartItem => {
-            const productItem = {
+             let productItem = {
                 productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
                 quantity: cartItem.quantity,
+                ...(cartItem.phone && { phoneOption: cartItem.phone }),
+                ...(cartItem.email && { emailOption: cartItem.email }),
             };
-
-            if (cartItem.phone) {
-                productItem.phoneOption = cartItem.phone;
-            }
-
-            if (cartItem.email) {
-                productItem.emailOption = cartItem.email;
-            }
 
             return productItem;
         }),
     };
 
-    const fetchData = fetch(url, {
+    let fetchData = fetch(URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
     })
-        .then((response) => response.json())
-        .then((data) => {
-            var parsedData = JSON.parse(data.body);
-            clientSecret = parsedData.clientSecret;
-            intentID = parsedData.intentID;
+    .then((response) => response.json())
+    .then((data) => {
+        let parsedData = JSON.parse(data.body);
+        clientSecret = parsedData.clientSecret;
+        intentID = parsedData.intentID;
 
-            if (shippingPrices === undefined) {
-                console.log(shippingPrices);
-                shippingPrices = data.shippingQuotes;
-                console.log("Setting: " + shippingPrices);
-            } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
-                console.log(shippingPrices);
-                shippingPrices = data.shippingQuotes;
-                console.log("changing: " + shippingPrices);
-            }
+        if (shippingPrices === undefined) {
+            shippingPrices = data.shippingQuotes;
+            logger ? console.log("Setting: " + shippingPrices) : null;
+        } else if ((data.shippingQuotes !== shippingPrices) && data.shippingQuotes) {
+            shippingPrices = data.shippingQuotes;
+            logger ? console.log("changing: " + shippingPrices) : null;
+        }
 
+        visableShippingOptions();
 
-            visableShippingOptions();
-
-
-            // Handle the response data here
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-        });
+    })
+    .catch((error) => {
+        logger ? console.error("Error:", error) : null;
+    });
 
     fetchData.then(() => {
         initialize();
     });
-
-
-
-
 
     // ============================================================================
     // Initialize Stripe Elements
     // ============================================================================
 
     async function initialize() {
-        var paymentValue;
+        let paymentValue;
 
         document.addEventListener("submit", handleSubmit);
 
         // Options for initializing Stripe elements
-        const options = {
+        let options = {
             clientSecret,
             loader: "auto",
             emailRequired: true,
@@ -136,30 +130,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         };
         elements = stripe.elements(options);
-        //var expressElement = stripe.elements(options);
 
         // Create and mount Express Checkout and Link Authentication elements
-        const linkAuthenticationElement = elements.create("linkAuthentication");
-        const expressCheckoutElement = elements.create("expressCheckout");
+        let linkAuthenticationElement = elements.create("linkAuthentication");
+        let expressCheckoutElement = elements.create("expressCheckout");
+        // Mount elements
         linkAuthenticationElement.mount("#link-authentication-element");
-
         expressCheckoutElement.mount("#express-checkout-element");
 
 
         // Create and mount payment element
-        const paymentElementOptions = {
+        let paymentElementOptions = {
             layout: "tabs",
-
         };
-        const paymentElement = elements.create("payment", paymentElementOptions);
-
-
-
-        var addressElement;
+        let paymentElement = elements.create("payment", paymentElementOptions);
+        let addressElement;
         // paymentElement.mount("#payment-element");
 
         // Determine the address element configuration based on screen width
-        const screenWidth = document.documentElement.clientWidth;
+        let screenWidth = document.documentElement.clientWidth;
         if (screenWidth >= 0 && screenWidth <= 639) {
             addressElement = elements.create("address", {
                 mode: "shipping",
@@ -186,39 +175,38 @@ document.addEventListener("DOMContentLoaded", async () => {
         addressElement.mount("#address-element");
 
 
-        var eventValue;
+        let eventValue;
 
 
-        var linkAuthChange = false;
-        var addressFilled = false;
-        var address = "";
-        var fieldFlags;
+        let linkAuthChange = false;
+        let addressFilled = false;
+        let address = "";
+        let fieldFlags;
 
         // Event handler for address element change
-        var displayError = document.getElementById("card-errors");
+        let displayError = document.getElementById("card-errors");
 
 
 
 
+        // Express Checkout Element
         expressCheckoutElement.on('click', (event) => {
-            var clickTime = Date.now();
-            console.log('clicked express element 101');
-            var expressDiv = document.getElementById('express-checkout-element');
-            var loadingBar = document.querySelector('.loading-bar');
+            logger ? console.log('clicked express element 101') : null;
+
+            let clickTime = Date.now();
+            let expressDiv = document.getElementById('express-checkout-element');
+            let loadingBar = document.querySelector('.loading-bar');
 
             expressDiv.style.display = 'none';
             loadingBar.style.display = 'flex';
-            var checks = 0;
 
 
             // Function to check the condition and execute code
-
-            const checkConditionAndExecute = (event) => {
-                console.log('test');
+            let checks = 0;
+            (function checkConditionAndExecute(event) {
                 if (!fetchingData && !pendingRequest) {
-                    /* hide express checkout, show loading bar */
-
-                    const options = {
+                    // hide express checkout, show loading bar 
+                    let options = {
                         emailRequired: true,
                         phoneNumberRequired: true,
                         shippingAddressRequired: true,
@@ -227,74 +215,60 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 id: 'budget',
                                 amount: convertToStripePrice(shippingPrices.budget),
                                 displayName: 'Free | No Tracking',
-
                             },
                             {
                                 id: 'standard',
                                 amount: convertToStripePrice(shippingPrices.standard),
                                 displayName: 'Standard | Tracking',
-
                             },
                             {
                                 id: 'express',
                                 amount: convertToStripePrice(shippingPrices.express),
                                 displayName: 'Express | Tracking',
-
                             },
-                            // Add more shipping rates as needed
                         ],
                         lineItems: [
-
                             {
                                 name: 'For Sale Sticker - sass.caleb@icloud.com + 02108585296',
                                 amount: convertToStripePrice(productPrice),
-
                             },
                         ],
 
                     };
 
                     if ((Date.now() - clickTime) < 1000) {
-                        console.log('triggered at:');
-
-                        console.log(Date.now() - clickTime);
                         event.resolve(options);
+
+                        if (logger) {
+                            console.log('triggered at:');
+                            console.log(Date.now() - clickTime);
+                        }   
                     };
 
 
                     elements.fetchUpdates().then(() => {
-
-
-                        var payload = {
+                        let payload = {
                             requestType: 'saveCart',
                             customerDetails: {
                                 intentID: intentID,
                                 shippingMethod: shippingMethod,
                             },
                             cart: cart.map((cartItem) => {
-                                const productItem = {
+                                let productItem = {
                                     productID: cartItem.item === 'For Sale Sticker' ? 'forSaleSticker' : cartItem.item,
                                     quantity: cartItem.quantity,
+                                    ...(cartItem.phone && { phoneOption: cartItem.phone }),
+                                    ...(cartItem.email && { emailOption: cartItem.email }),
                                 };
-
-                                // Add phoneOption to productItem if not null or empty
-                                if (cartItem.phone) {
-                                    productItem.phoneOption = cartItem.phone;
-                                }
-
-                                // Add emailOption to productItem if not null or empty
-                                if (cartItem.email) {
-                                    productItem.emailOption = cartItem.email;
-                                }
 
                                 return productItem;
                             }),
                         };
 
-                        console.log(JSON.stringify(payload, null, 2));
+                        logger ? console.log(JSON.stringify(payload, null, 2)) : null;
 
                         // Perform the POST request
-                        fetch(url, {
+                        fetch(URL, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -302,63 +276,43 @@ document.addEventListener("DOMContentLoaded", async () => {
                             body: JSON.stringify(payload),
                         });
 
-                        // Now that the condition is true, resolve the event with options
-
-
-                        //expressCheckoutElement.update(options);
-                        // elements.fetchUpdates();
-
-                        console.log('resolved');
-                        /*
-                                                if (checks > 10) {
-                                                    // Create a new click event
-                                                    const clickEvent = new Event('click');
-                        
-                                                    // Trigger the click event on the expressCheckoutElement
-                                                    expressCheckoutElement.dispatchEvent(clickEvent);
-                                                }
-                        */
                         // Display express checkout button again
-                        loadingBar.style.display = 'none';
                         expressDiv.style.display = 'block';
+                        loadingBar.style.display = 'none';
                     });
+
                 } else {
                     // If the condition is still false, check again after a delay
                     if (checks <= 10) {
                         checks += 1;
-                        console.log('checking: ' + checks);
+                        logger ? console.log('Checking(0.1s): ' + checks) : null;
                         setTimeout(() => checkConditionAndExecute(event), 100);
                     } else {
                         checks += 1;
-                        console.log('checking2 : ' + checks);
+                        logger  ? console.log('Checking(2s): ' + checks) : null;
                         setTimeout(() => checkConditionAndExecute(event), 2000);
                     }
-                    // Adjust the delay as needed
-
                 }
-            };
+            })(event);
 
-            // Start checking the condition
-
-            checkConditionAndExecute(event);
         });
 
 
 
         expressCheckoutElement.on('shippingratechange', function (event) {
-            var resolve = event.resolve;
-            var shippingRate = event.shippingRate.id;
+            let resolve = event.resolve;
+            let shippingRate = event.shippingRate.id;
             // handle shippingratechange event
             console.log("ShippingRate Anwser: " + shippingRate);
 
-            var payload = {
+            let payload = {
                 requestType: "saveCart",
                 customerDetails: {
                     intentID: intentID,
                     shippingMethod: shippingRate
                 },
                 cart: cart.map(cartItem => {
-                    const productItem = {
+                    let productItem = {
                         productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
                         quantity: cartItem.quantity, // If you want to keep track of quantity, you need to modify the cart data accordingly
                     };
@@ -379,7 +333,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             console.log(JSON.stringify(payload, null, 2));
             // Perform the POST request
-            fetch(url, {
+            fetch(URL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -398,9 +352,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
         expressCheckoutElement.on('ready', ({ availablePaymentMethods }) => {
-            var expressTitle = document.getElementById('express-title');
-            var expressDivider = document.getElementById('express-divider');
-            var expressDiv = document.getElementById('express-checkout-element');
+            let expressTitle = document.getElementById('express-title');
+            let expressDivider = document.getElementById('express-divider');
+            let expressDiv = document.getElementById('express-checkout-element');
 
             if (!availablePaymentMethods) {
                 // No buttons will show
@@ -424,17 +378,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-        var loadingBar = document.querySelector('.loading-bar');
-        var expressDiv = document.getElementById('express-checkout-element');
+        let loadingBar = document.querySelector('.loading-bar');
+        let expressDiv = document.getElementById('express-checkout-element');
 
 
 
-
-
-
-
-
-        var stripeLoader = document.getElementById('stripe-loader');
+        let stripeLoader = document.getElementById('stripe-loader');
         expressCheckoutElement.on("ready", (event) => {
 
             if (fetchingData) {
@@ -450,7 +399,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         linkAuthenticationElement.on("ready", (event) => {
             stripeLoader.style.display = 'none';
 
-            var contactTitle = document.getElementById('contact-title');
+            let contactTitle = document.getElementById('contact-title');
             contactTitle.style.display = 'block';
 
 
@@ -460,7 +409,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         addressElement.on("ready", (event) => {
             stripeLoader.style.display = 'none';
 
-            var shippingTitle = document.getElementById('shipping-title');
+            let shippingTitle = document.getElementById('shipping-title');
             shippingTitle.style.display = 'block';
 
 
@@ -475,13 +424,13 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (eventValue != undefined) {
 
 
-                const isNameFilled = fieldFilled(eventValue.name);
-                const isCityFilled = fieldFilled(eventValue.address.city);
-                const isCountryFilled = fieldFilled(eventValue.address.country);
-                const isLine1Filled = fieldFilled(eventValue.address.line1);
+                let isNameFilled = fieldFilled(eventValue.name);
+                let isCityFilled = fieldFilled(eventValue.address.city);
+                let isCountryFilled = fieldFilled(eventValue.address.country);
+                let isLine1Filled = fieldFilled(eventValue.address.line1);
 
-                const isPostalCodeFilled = fieldFilled(eventValue.address.postal_code);
-                const isStateFilled = fieldFilled(eventValue.address.state);
+                let isPostalCodeFilled = fieldFilled(eventValue.address.postal_code);
+                let isStateFilled = fieldFilled(eventValue.address.state);
 
                 fieldFlags = [
                     isNameFilled,
@@ -527,10 +476,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             address = event.value.address;
             updateMessage();
 
-
-
-
-
             eventValue = event.value;
             country = eventValue.address.country;
 
@@ -541,7 +486,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     displayError.textContent = 'Enter Your Email.';
                 } addressFilled = true;
 
-                var payload = {
+                let payload = {
                     requestType: "updateIntent",
                     customerDetails: {
                         intentID: intentID,
@@ -557,7 +502,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         }
                     },
                     cart: cart.map(cartItem => {
-                        const productItem = {
+                        let productItem = {
                             productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
                             quantity: cartItem.quantity, // If you want to keep track of quantity, you need to modify the cart data accordingly
                         };
@@ -576,7 +521,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     }),
                 };
 
-                var updateData = fetch(url, {
+                let updateData = fetch(URL, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -669,7 +614,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-                var payload = {
+                let payload = {
                     requestType: "updateIntent",
                     shippingMethod: shippingMethod,
                     customerDetails: {
@@ -677,7 +622,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         email: emailAddress,
                     },
                     cart: cart.map(cartItem => {
-                        const productItem = {
+                        let productItem = {
                             productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
                             quantity: cartItem.quantity, // If you want to keep track of quantity, you need to modify the cart data accordingly
                         };
@@ -696,7 +641,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     }),
                 };
 
-                var updateData = fetch(url, {
+                let updateData = fetch(URL, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -763,9 +708,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
         function checkChanges() {
-            const continueButton = document.getElementById("continue-button");
-            const shippingOptions = document.querySelector(".shipping-container");
-            const shippingTitle = document.getElementById("shipping-options-title");
+            let continueButton = document.getElementById("continue-button");
+            let shippingOptions = document.querySelector(".shipping-container");
+            let shippingTitle = document.getElementById("shipping-options-title");
 
 
             if (linkAuthChange && addressFilled) {
@@ -787,23 +732,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         // ==========================================================================
         // continue button
         // ==========================================================================
-        var paymentSection = document.querySelector('.payment-section');
-        var paymentPage = document.querySelector('.payment');
-        var paymentFilled = false;
-        var currentPage = 'shipping';
-        var mobileSummary = document.getElementById("mobile-order-summary");
+        let paymentSection = document.querySelector('.payment-section');
+        let paymentPage = document.querySelector('.payment');
+        let paymentFilled = false;
+        let currentPage = 'shipping';
+        let mobileSummary = document.getElementById("mobile-order-summary");
         document.getElementById("continue-button").addEventListener("click", () => {
-            const elementToRemove = document.getElementById("shipping-express");
-            const paymentRemove = document.getElementById("payment-element");
-            const displayHeader = document.getElementById("payment-header");
-            var paymentButton = document.getElementById("submit-payment");
-            var navTitle = document.querySelector('.nav-title');
+            let elementToRemove = document.getElementById("shipping-express");
+            let paymentRemove = document.getElementById("payment-element");
+            let displayHeader = document.getElementById("payment-header");
+            let paymentButton = document.getElementById("submit-payment");
+            let navTitle = document.querySelector('.nav-title');
 
-            const shippingOptions = document.querySelector(".shipping-container");
+            let shippingOptions = document.querySelector(".shipping-container");
             shippingOptions.style.display = "none"
-            const shippingTitle = document.getElementById("shipping-options-title");
+            let shippingTitle = document.getElementById("shipping-options-title");
             shippingTitle.style.display = "none";
-            var continueButton = document.getElementById("continue-button");
+            let continueButton = document.getElementById("continue-button");
             continueButton.style.display = "none";
 
 
@@ -821,7 +766,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (paymentFilled) {
 
                 paymentButton.style.display = "block";
-                var screenWidth = document.documentElement.clientWidth;
+                let screenWidth = document.documentElement.clientWidth;
 
                 // Check if the screen width is between 360px and 639px
                 if (screenWidth >= 0 && screenWidth <= 639) {
@@ -830,7 +775,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     setTimeout(function () {
 
                         paymentButton.style.opacity = 1;
-                        var paymentElement = document.querySelector('.payment');
+                        let paymentElement = document.querySelector('.payment');
                         // Scroll to the bottom of the .payment element
                         paymentElement.scrollTop = paymentElement.scrollHeight;
 
@@ -839,7 +784,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             } else {
                 paymentButton.style.display = "none";
                 mobileSummary.style.display = "none";
-                var messageContainer = document.querySelector("#payment-message");
+                let messageContainer = document.querySelector("#payment-message");
                 messageContainer.classList.add("hidden");
                 messageContainer.textContent = "";
 
@@ -847,27 +792,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             // Update Nav =========================================================
             navTitle.innerHTML = `
-        <span>
-            <svg class="InlineSVG LinkButton-arrow" focusable="false" width="21" height="14" viewBox="0 0 21 14" fill="none" style="transform: scaleX(-1);">
-                <!-- Arrow head -->
-                <path d="M14.5247 0.219442C14.2317 -0.0733252 13.7568 -0.0731212 13.4641 0.219898C13.1713 0.512917 13.1715 0.98779 13.4645 1.28056L18.5 6.5L19 7L18.5 7.75C18 8.5 13.4645 12.7194 13.4645 12.7194C13.1715 13.0122 13.1713 13.4871 13.4641 13.7801C13.7568 14.0731 14.2317 14.0733 14.5247 13.7806L20.7801 7.53056C20.9209 7.38989 21 7.19902 21 7C21 6.80098 20.9209 6.61011 20.7801 6.46944L14.5247 0.219442Z" fill="#1D3944"></path>
-                <path d="M14 4V1" stroke="#1D3944" stroke-width="1.5" stroke-linecap="round"></path>
-                <path d="M14 13V10" stroke="#1D3944" stroke-width="1.5" stroke-linecap="round"></path>
-                <!-- Top line -->
-                <path d="M14 4L6 4" stroke="#1D3944" stroke-width="1.5" stroke-linecap="round"></path>
-                <!-- middle line -->
-                <path d="M3 6.25C3 6.24996 3 6.58572 3 6.99993C3 7.41415 3 7.74996 3 7.75L3 6.25ZM14.0001 6.25115L3 6.25L3 7.75L13.9999 7.75115L14.0001 6.25115Z" fill="#1D3944"></path>
-                <!-- bottom line -->
-              <path d="M4 9.25 C12 9.25 12 9.5 12 10 V9.25ZM14 9.25H6 V10.75H14 V9.25Z" fill="#1D3944"></path>
-            </svg>
-        </span> Return To Shipping
-    `
+                <span>
+                    <svg class="InlineSVG LinkButton-arrow" focusable="false" width="21" height="14" viewBox="0 0 21 14" fill="none" style="transform: scaleX(-1);">
+                        <path d="M14.5247 0.219442C14.2317 -0.0733252 13.7568 -0.0731212 13.4641 0.219898C13.1713 0.512917 13.1715 0.98779 13.4645 1.28056L18.5 6.5L19 7L18.5 7.75C18 8.5 13.4645 12.7194 13.4645 12.7194C13.1715 13.0122 13.1713 13.4871 13.4641 13.7801C13.7568 14.0731 14.2317 14.0733 14.5247 13.7806L20.7801 7.53056C20.9209 7.38989 21 7.19902 21 7C21 6.80098 20.9209 6.61011 20.7801 6.46944L14.5247 0.219442Z" fill="#1D3944"></path>
+                        <path d="M14 4V1" stroke="#1D3944" stroke-width="1.5" stroke-linecap="round"></path>
+                        <path d="M14 13V10" stroke="#1D3944" stroke-width="1.5" stroke-linecap="round"></path>
+                        <path d="M14 4L6 4" stroke="#1D3944" stroke-width="1.5" stroke-linecap="round"></path>
+                        <path d="M3 6.25C3 6.24996 3 6.58572 3 6.99993C3 7.41415 3 7.74996 3 7.75L3 6.25ZM14.0001 6.25115L3 6.25L3 7.75L13.9999 7.75115L14.0001 6.25115Z" fill="#1D3944"></path>
+                        <path d="M4 9.25 C12 9.25 12 9.5 12 10 V9.25ZM14 9.25H6 V10.75H14 V9.25Z" fill="#1D3944"></path>
+                    </svg>
+                </span> Return To Shipping
+            `;
             /* Remove Event Listners On Nav Title */
             if (navTitle) {
-                var newNavTitle = navTitle.cloneNode(true);
+                let newNavTitle = navTitle.cloneNode(true);
                 navTitle.parentNode.replaceChild(newNavTitle, navTitle);
             }
-            var navTitle = document.querySelector('.nav-title');
+            let navTitle = document.querySelector('.nav-title');
             navTitle.onclick = null;
 
 
@@ -876,7 +817,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // =============================================================================
             navTitle.addEventListener('click', function () {
                 prevPage = 'payment';
-                var nav = document.querySelector('.nav');
+                let nav = document.querySelector('.nav');
 
                 elementToRemove.style.display = 'block';
                 shippingOptions.style.display = "flex"
@@ -888,9 +829,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 paymentRemove.style.display = 'none';
                 displayHeader.style.display = "none";
 
-                const paymentButton = document.getElementById("submit-payment");
+                let paymentButton = document.getElementById("submit-payment");
                 paymentButton.style.display = "none";
-                var messageContainer = document.querySelector("#payment-message");
+                let messageContainer = document.querySelector("#payment-message");
                 messageContainer.classList.add("hidden");
                 messageContainer.textContent = "";
 
@@ -903,7 +844,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
                 nav.style.position = 'static';
-                var screenWidth = document.documentElement.clientWidth;
+                let screenWidth = document.documentElement.clientWidth;
                 if (screenWidth >= 0 && screenWidth <= 639) {
                     navTitle.innerHTML = `
             <span>
@@ -925,7 +866,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
                     navTitle.innerHTML = 'CarSaleStickers.com';
-                    var newNavTitle = navTitle.cloneNode(true);
+                    let newNavTitle = navTitle.cloneNode(true);
                     navTitle.parentNode.replaceChild(newNavTitle, navTitle);
                     navTitle.onclick = function () {
                         window.location.href = 'https://carsalestickers.com';
@@ -935,7 +876,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 if (navTitle) {
                     // Remove existing event listeners
-                    var newNavTitle = navTitle.cloneNode(true);
+                    let newNavTitle = navTitle.cloneNode(true);
                     navTitle.parentNode.replaceChild(newNavTitle, navTitle);
 
                     // Add new event listener to the new element
@@ -957,9 +898,9 @@ document.addEventListener("DOMContentLoaded", async () => {
                 navTitle.addEventListener('click', function () {
 
 
-                    var productSummary = document.querySelector('.product-summary');
-                    var nav = document.querySelector('.nav');
-                    var navTitle = document.querySelector('.nav-title');
+                    let productSummary = document.querySelector('.product-summary');
+                    let nav = document.querySelector('.nav');
+                    let navTitle = document.querySelector('.nav-title');
 
                     productSummary.style.display = 'flex';
                     paymentSection.style.display = 'none';
@@ -985,41 +926,41 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         function updateHTML() {
-            var paymentList = document.querySelector('.payment-list');
-            var subtotal = 0; // Initialize subtotal
+            let paymentList = document.querySelector('.payment-list');
+            let subtotal = 0; // Initialize subtotal
 
             // Clear the existing list
             paymentList.innerHTML = '';
 
             // Iterate through the cart items and update the HTML
             cart.forEach(function (item) {
-                var listItem = document.createElement('li');
+                let listItem = document.createElement('li');
                 listItem.className = 'payment-item';
 
-                var detailsDiv = document.createElement('div');
+                let detailsDiv = document.createElement('div');
                 detailsDiv.className = 'payment-details';
 
-                var titleDiv = document.createElement('div');
+                let titleDiv = document.createElement('div');
                 titleDiv.className = 'payment-title';
                 titleDiv.textContent = item.item;
 
                 detailsDiv.appendChild(titleDiv);
 
                 if (item.phone !== null) {
-                    var phoneDiv = document.createElement('div');
+                    let phoneDiv = document.createElement('div');
                     phoneDiv.className = 'payment-info';
                     phoneDiv.textContent = item.phone;
                     detailsDiv.appendChild(phoneDiv);
                 }
 
                 if (item.email !== null) {
-                    var emailDiv = document.createElement('div');
+                    let emailDiv = document.createElement('div');
                     emailDiv.className = 'payment-info';
                     emailDiv.textContent = item.email;
                     detailsDiv.appendChild(emailDiv);
                 }
 
-                var priceDiv = document.createElement('div');
+                let priceDiv = document.createElement('div');
                 priceDiv.className = 'payment-price';
                 priceDiv.textContent = '$17.00'; // You may need to calculate the price based on the cart data
                 subtotal += 17; // Assuming $17 is the item price
@@ -1052,13 +993,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         // payment element evenlistener
         // =========================================================================
         paymentElement.on("change", (event) => {
-            var paymentButton = document.getElementById("submit-payment");
-            var mobileSummary = document.getElementById("mobile-order-summary");
+            let paymentButton = document.getElementById("submit-payment");
+            let mobileSummary = document.getElementById("mobile-order-summary");
 
-            var paymentSection = document.getElementById("payment-element");
-            var paymentSectionVisable = window.getComputedStyle(paymentSection).getPropertyValue('display');
+            let paymentSection = document.getElementById("payment-element");
+            let paymentSectionVisable = window.getComputedStyle(paymentSection).getPropertyValue('display');
 
-            var screenWidth = document.documentElement.clientWidth;
+            let screenWidth = document.documentElement.clientWidth;
             if (event.complete) {
                 if (paymentSectionVisable !== 'none') {
                     paymentButton.style.display = "block";
@@ -1074,7 +1015,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 paymentFilled = true;
                 // Get a reference to the input element that's currently in focus (the keyboard is open)
-                var inputElement = document.activeElement;
+                let inputElement = document.activeElement;
 
                 // Hide the keyboard by removing focus from the input element
                 inputElement.blur();
@@ -1100,7 +1041,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 setTimeout(function () {
                     mobileSummary.style.opacity = 1;
                     paymentButton.style.opacity = 1;
-                    var paymentElement = document.querySelector('.payment');
+                    let paymentElement = document.querySelector('.payment');
                     // Scroll to the bottom of the .payment element
                     paymentElement.scrollTop = paymentElement.scrollHeight;
 
@@ -1122,7 +1063,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }, 250);
 
                 paymentButton.style.display = "none";
-                var messageContainer = document.querySelector("#payment-message");
+                let messageContainer = document.querySelector("#payment-message");
                 messageContainer.classList.add("hidden");
                 messageContainer.textContent = "";
                 paymentFilled = false;
@@ -1138,24 +1079,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
 
             /* Payment Loading Screen */
-            var loadingBD = document.querySelector(".payment-backdrop");
+            let loadingBD = document.querySelector(".payment-backdrop");
             loadingBD.style.display = "flex";
 
-            const { error: submitError } = await elements.submit();
+            let { error: submitError } = await elements.submit();
             if (submitError) {
                 handleError(submitError);
                 return;
             }
 
-            // Create the PaymentIntent and obtain clientSecret
-            /*
-            const res = await fetch('/create-intent', {
-              method: 'POST',
-            });
-            */
-            //const {client_secret: clientSecret} = await res.json();
-
-            const { error } = await stripe.confirmPayment({
+            let { error } = await stripe.confirmPayment({
                 // `elements` instance used to create the Express Checkout Element
                 elements,
                 // `clientSecret` from the created PaymentIntent
@@ -1165,128 +1098,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                 },
             });
 
-            if (error) {
-                // This point is only reached if there's an immediate error when
-                // confirming the payment. Show the error to your customer (for example, payment details incomplete)
-                handleError(error);
-            } else {
-                // The payment UI automatically closes with a success animation.
-                // Your customer is redirected to your `return_url`.
+            if (logger) {
+                error ? handleError(error) : null;
             }
-
-
-
-            /* Payment Logic */
-
-            /*
-            try {
-                elements.submit();
-                const { paymentMethod, error } = await stripe.createPaymentMethod({
-                    elements,
-                    params: {
-                        billing_details: {
-                            name: 'Jenny Rosen',
-                        },
-                    },
-                });
- 
-                elements.getElement("payment")
- 
-                var payload = {
-                    requestType: "submitPayment",
-                    customerDetails: {
-                        intentID: intentID,
-                        paymentMethod: paymentMethod,
-                        shippingMethod: shippingMethod,
-                    },
-                    cart: cart.map(cartItem => {
-                        const productItem = {
-                            productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
-                            quantity: cartItem.quantity, 
-                        };
-                        if (cartItem.phone) {
-                            productItem.phoneOption = cartItem.phone;
-                        }
-                        if (cartItem.email) {
-                            productItem.emailOption = cartItem.email;
-                        }
-                        return productItem;
-                    }),
-                };
- 
-                var updateData = fetch(url, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(payload),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        console.log('processing payment');
-                        checkStatus(clientSecret);
-                        console.log(' payment result: ');
-                        console.log(data.body);
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
-                    });
- 
-                updateData.then(() => {
-                    // This code will run once the fetch request is completed
-                    console.log('payment went through');
-                    // Add your additional code here.
-                    checkStatus(clientSecret);
-                });
-            }
- 
-            catch (error) {
-                console.log(error);
-                checkStatus(clientSecret);
-            }
-            */
-
-            /* End Of Function */
-        });
-
 
 
         async function handleSubmit(event) {
             console.log('submit btn');
             console.log(paymentValue);
-            var loadingBD = document.querySelector(".payment-backdrop");
+            let loadingBD = document.querySelector(".payment-backdrop");
             loadingBD.style.display = "flex";
 
             event.preventDefault();
-            // setLoading(true);
-
-            /*
-            const { error } = await stripe.confirmPayment({
-                elements,
-                confirmParams: {
-                    return_url: "http://localhost:4242/checkout.html",
-                    receipt_email: emailAddress,
-                },
-            });
-    
-    
-            if (error.type === "card_error" || error.type === "validation_error") {
-                showMessage(error.message);
-            } else {
-                showMessage("An unexpected error occurred.");
-            }
-            // setLoading(false);
-            */
-
-
-
-
-
 
             try {
                 elements.submit();
 
-                const { paymentMethod, error } = await stripe.createPaymentMethod({
+                let { paymentMethod, error } = await stripe.createPaymentMethod({
                     elements,
                     params: {
                         billing_details: {
@@ -1298,14 +1126,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 elements.getElement("payment")
 
-
-
-                //var paymentMethod = elements.getElement("payment");
-
-
-
-
-                var payload = {
+                let payload = {
                     requestType: "submitPayment",
                     customerDetails: {
                         intentID: intentID,
@@ -1314,7 +1135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     },
                     cart: cart.map(cartItem => {
-                        const productItem = {
+                        let productItem = {
                             productID: cartItem.item === "For Sale Sticker" ? "forSaleSticker" : cartItem.item,
                             quantity: cartItem.quantity, // If you want to keep track of quantity, you need to modify the cart data accordingly
                         };
@@ -1334,11 +1155,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     stickerType: stickerType,
                 };
 
-
-
-
-
-                var updateData = fetch(url, {
+                let updateData = fetch(URL, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -1375,12 +1192,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             }
 
         }
-
-
-
-
-
-
     }
 
 
@@ -1392,7 +1203,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // =============================================================================
 
     async function checkStatus(clientSecret) {
-        var loadingBD = document.querySelector(".payment-backdrop");
+        let loadingBD = document.querySelector(".payment-backdrop");
         /*
         const clientSecret = new URLSearchParams(window.location.search).get(
             "payment_intent_client_secret"
@@ -1403,7 +1214,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.log("Nope", clientSecret);
             return;
         }
-        const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
+        let { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
         switch (paymentIntent.status) {
             case "succeeded":
                 pintrk('track', 'checkout', {
@@ -1438,17 +1249,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     // =============================================================================
 
     function showMessage(messageText) {
-        const messageContainer = document.querySelector("#payment-message");
+        let messageContainer = document.querySelector("#payment-message");
         messageContainer.classList.remove("hidden");
         messageContainer.textContent = messageText;
-        /*
-        setTimeout(function () {
-            messageContainer.classList.add("hidden");
-            messageContainer.textContent = "";
-        }, 4000);
-        */
-
-
     }
 
     // Fix the current function, setLoading currently not functional. 
@@ -1469,7 +1272,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Confirm Payment
     // ============================================================================
     // JavaScript to handle the responsive behavior
-    const mobileHiddenElements = document.querySelectorAll(".mobile-hidden");
+    let mobileHiddenElements = document.querySelectorAll(".mobile-hidden");
 
     // Store the original display value of each element
     mobileHiddenElements.forEach(function (element) {
@@ -1479,7 +1282,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     function setMobileHiddenDisplay() {
-        const screenWidth = document.documentElement.clientWidth;
+        let screenWidth = document.documentElement.clientWidth;
 
         // Check if the screen width is between 360px and 639px
         if (screenWidth >= 0 && screenWidth <= 639) {
@@ -1509,7 +1312,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Helper Functions
 // =============================================================================
 function convertToStripePrice(normalAmount) {
-    const stripeAmount = Math.round(normalAmount * 100);
+    let stripeAmount = Math.round(normalAmount * 100);
     return stripeAmount;
 }
 
@@ -1517,8 +1320,8 @@ function convertToStripePrice(normalAmount) {
 async function fetchUserIP() {
     if (!ipaddr) {
         try {
-            const response = await fetch("https://api.bigdatacloud.net/data/client-ip");
-            const data = await response.json();
+            let response = await fetch("https://api.bigdatacloud.net/data/client-ip");
+            let data = await response.json();
             ipaddr = data.ipString;
             return data.ipString;
         } catch (error) {
@@ -1531,11 +1334,11 @@ async function fetchUserIP() {
 }
 
 function visableShippingOptions() {
-    var budgetOption = document.getElementById("budget");
-    var standardOption = document.getElementById("standard");
-    var expressOption = document.getElementById("express");
-    var standardPrice = document.getElementById("standard-price");
-    var expressPrice = document.getElementById("express-price");
+    let budgetOption = document.getElementById("budget");
+    let standardOption = document.getElementById("standard");
+    let expressOption = document.getElementById("express");
+    let standardPrice = document.getElementById("standard-price");
+    let expressPrice = document.getElementById("express-price");
 
     if (!('budget' in shippingPrices)) {
         budgetOption.style.display = 'none';

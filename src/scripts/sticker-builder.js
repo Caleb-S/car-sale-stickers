@@ -5,29 +5,24 @@
 var ipaddr;
 var shippingPrices;
 var url = "https://api.carsalestickers.com/stripe";
+var env = 'live';
+var loggingOn = true;
 
 getPrice();
-
-var env = 'live';
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
     // Select all elements with the class 'sticker-builder'
-    const stickerBuilders = document.querySelectorAll('.sticker-builder');
+    let stickerBuilders = document.querySelectorAll('.sticker-builder');
 
     stickerBuilders.forEach((stickerBuilder) => {
-        const mobileText = stickerBuilder.querySelector('.num-input');
-        const mobileButton = stickerBuilder.querySelector('.mobile-btn');
-        const mobileLabel = stickerBuilder.querySelector('.mobile-txt');
-        const mobileImage = mobileButton.querySelector('img');
+        // Mobile Events
+        let mobileText = stickerBuilder.querySelector('.num-input');
+        let mobileButton = stickerBuilder.querySelector('.mobile-btn');
+        let mobileLabel = stickerBuilder.querySelector('.mobile-txt');
+        let mobileImage = mobileButton.querySelector('img');
         mobileText.style.display = 'none';
-
-        const emailText = stickerBuilder.querySelector('.mail-input');
-        const emailButton = stickerBuilder.querySelector('.email-btn');
-        const emailLabel = stickerBuilder.querySelector('.mail-txt');
-        const emailImage = emailButton.querySelector('img');
-        emailText.style.display = 'none';
 
         // Mobile button click event
         mobileButton.addEventListener('click', () => {
@@ -62,9 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-
-
-
         // Mobile button keydown event
         mobileButton.addEventListener('keydown', function (event) {
             if (event.key === 'Enter' || event.keyCode === 13) {
@@ -80,6 +72,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         });
+
+        // Email Events 
+        let emailText = stickerBuilder.querySelector('.mail-input');
+        let emailButton = stickerBuilder.querySelector('.email-btn');
+        let emailLabel = stickerBuilder.querySelector('.mail-txt');
+        let emailImage = emailButton.querySelector('img');
+        emailText.style.display = 'none';
 
         // Email button click event
         emailButton.addEventListener('click', () => {
@@ -131,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Order button click event
         stickerBuilder.querySelector(".order-btn").addEventListener("click", () => {
-            const params = new URLSearchParams();
+            let params = new URLSearchParams();
             params.append("quantity", 1);
 
             if (mobileText.style.display === 'none') {
@@ -151,15 +150,12 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = "checkout/index.html?" + params.toString();
         });
     });
-
-
-
 });
 
 function getCookie(name) {
-    const cookies = document.cookie.split('; ');
-    for (const cookie of cookies) {
-        const [cookieName, cookieValue] = cookie.split('=');
+    let cookies = document.cookie.split('; ');
+    for (let cookie of cookies) {
+        let [cookieName, cookieValue] = cookie.split('=');
         if (cookieName === name) {
             return decodeURIComponent(cookieValue);
         }
@@ -169,147 +165,140 @@ function getCookie(name) {
 
 
 async function getPriceOld() {
-
-
-
-    var payload = {
+    let ipaddr = await fetchUserIP();
+    let payload = {
         requestType: "getPrice",
         customerDetails: {
-            ipAddress: await fetchUserIP()
+            ipAddress: ipaddr
         }
     };
 
-    var updateData = fetch(url, {
+    let updateData = fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
     })
-        .then((response) => response.json())
-        .then((data) => {
+    .then((response) => response.json())
+    .then((data) => {
+        // Set productPrice cookie
+        let productPrice = data.body.productPrice;
+        if (getCookie("productPrice") === undefined) {
+            document.cookie = "productPrice=" + encodeURIComponent(productPrice) + "; path=/";
+        } else if ((productPrice !== getCookie("productPrice")) && productPrice) {
+            document.cookie = "productPrice=" + encodeURIComponent(productPrice) + "; path=/";
+        }
+
+        // Set shippingQuotes cookie
+        let shippingPrices = data.shippingQuotes;
+        if (getCookie("shippingPrices") === undefined) {
+            document.cookie = "shippingQuotes=" + encodeURIComponent(shippingPrices) + "; path=/";
+        } else if ((shippingPrices !== getCookie("shippingPrices")) && shippingPrices) {
+            document.cookie = "shippingQuotes=" + encodeURIComponent(shippingPrices) + "; path=/";
+        }
+
+        if (loggingOn) {
             console.log(data.body);
-
-
-
-            if (getCookie("productPrice") === undefined) {
-                document.cookie = "productPrice=" + encodeURIComponent(data.body.productPrice) + "; path=/";
-            } else if ((data.body.productPrice !== getCookie("productPrice")) && data.body.productPrice) {
-                document.cookie = "productPrice=" + encodeURIComponent(data.body.productPrice) + "; path=/";
-            }
-
-            if (getCookie("shippingPrices") === undefined) {
-
-                document.cookie = "shippingQuotes=" + encodeURIComponent(data.shippingQuotes) + "; path=/";
-
-            } else if ((data.shippingQuotes !== getCookie("shippingPrices")) && data.shippingQuotes) {
-
-                document.cookie = "shippingQuotes=" + encodeURIComponent(data.shippingQuotes) + "; path=/";
-
-            }
-
-            // Set productPrice cookie
-
-
-            // Set shippingQuotes cookie
-
-
-        })
-        .catch((error) => {
+        }
+    })
+    .catch((error) => {
+        if (loggingOn) {
             console.error("Error:", error);
-        });
-
-    updateData.then(() => {
-
+        }
     });
-
-
 }
 
 async function getPrice() {
+    let countryCode = await fetchUserCountry();
+    let apiUrl = 'https://api.carsalestickers.com/product?country=' + countryCode.toLowerCase() + '&stage=' + env;
 
-    var countryCode = await fetchUserCountry();
-
-    const apiUrl = 'https://api.carsalestickers.com/product?country=' + countryCode.toLowerCase() + '&stage=' + env;
-    console.log(apiUrl);
-
-
+    if (loggingOn) {
+        console.log(apiUrl);
+    }
 
     fetch(apiUrl, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
-    }).then(response => {
+    })
+    .then(response => {
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.statusText}`);
         }
+
         return response.json();
     })
-        .then(data => {
-            // Handle the data
+    .then(data => {
+        // let stripePrice = data.stripePrice;
+        // let stage = data.stage; 
+
+        let price = data.price;
+        if (getCookie("productPrice") === undefined) {
+            document.cookie = "productPrice=" + encodeURIComponent(price) + "; path=/";
+        } else if ((price !== getCookie("productPrice")) && price) {
+            document.cookie = "productPrice=" + encodeURIComponent(price) + "; path=/";
+        }
+
+
+        let sticker = data.sticker;
+        if (sticker === 'opaque') {
+            let headerSection = document.querySelector('.header-section');
+            headerSection.style.backgroundImage = 'url(/src/assets/cover-photo-opaque.webp)';
+        }
+
+        if (loggingOn) {
             console.log(data);
-
-
-
-            if (getCookie("productPrice") === undefined) {
-                document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
-            } else if ((data.price !== getCookie("productPrice")) && data.price) {
-                document.cookie = "productPrice=" + encodeURIComponent(data.price) + "; path=/";
-            }
-
-            // You can access specific values like this:
-            const stripePrice = data.stripePrice;
-            const price = data.price;
-            const sticker = data.sticker;
-            const stage = data.stage; 4
-
-            var headerSection = document.querySelector('.header-section');
-
-            if (sticker === 'opaque') {
-                headerSection.style.backgroundImage = 'url(/src/assets/cover-photo-opaque.webp)';
-
-            }
-
             console.log(price);
-
-            // Perform further actions with the data as needed
-        })
-        .catch(error => {
+        }
+    })
+    .catch(error => {
+        if (loggingOn) {
             console.error('Fetch error:', error);
-        });
-    // -------------------------------------------------------------------    
-
-
-
-
-
-}
+        }
+    });
+ }
 
 
 async function fetchUserCountry() {
     try {
-        const response = await fetch("https://freeipapi.com/api/json");
-        const data = await response.json();
-        //ipaddr = data.ipString;
-        console.log('country: ');
-        console.log(data.countryCode);
-        return "" + data.countryCode;
+        let response = await fetch("https://freeipapi.com/api/json");
+        let data = await response.json();
+        let countryCode = "" + data.countryCode;
+        // ipaddr = data.ipString;
+
+        if (loggingOn) {
+            console.log(`countryCode: ${countryCode}`);
+        }
+
+        return countryCode;
+
     } catch (error) {
-        console.error(error);
-        return null; // Return null if the IP fetch fails
+        if (loggingOn) {
+            console.error(error);
+        }
+
+        return null;
     }
 }
 
 async function fetchUserIP() {
     try {
-        const response = await fetch("https://api.bigdatacloud.net/data/client-ip");
-        const data = await response.json();
-        ipaddr = data.ipString;
-        console.log(ipaddr);
-        return data.ipString;
+        let response = await fetch("https://api.bigdatacloud.net/data/client-ip");
+        let data = await response.json();
+        let ipaddr = data.ipString;
+
+        if (loggingOn) {
+            console.log(`ipaddr: ${ipaddr}`);
+        }
+
+        return ipaddr;
     } catch (error) {
-        console.error(error);
+        if (loggingOn) {
+            console.error(error);
+        }
+
         return null; // Return null if the IP fetch fails
     }
 }

@@ -1,4 +1,11 @@
-checkout.js
+# Ignore specific files
+checkout.js/
 "assets/video/30 Minutes of Cars - count.mp4"
-assets/video/30\ Minutes\ of\ Cars\ -\ count.mp4
-assets/video/*
+tailwind.config.js
+.env
+.gitattributes
+.swp
+package.json
+package-lock.json
+src/styles/input.css
+node_modules/

@@ -660,7 +660,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const videoRect = video.getBoundingClientRect();
 
             // Check if the video is at least 50vh above the viewport
-            if (videoRect.top - window.innerHeight - 52 <= 0) { //original 59
+            if (videoRect.top - window.innerHeight - 59 <= 0) { //original 59
                 startVideo();
                 // Remove the scroll event listener once video starts
                 window.removeEventListener("scroll", checkVideoStart);
