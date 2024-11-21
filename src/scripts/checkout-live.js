@@ -7,7 +7,7 @@ let intentID;
 let country;
 let elements;
 
-let shippingMethod = 'budget'; // Default Shipping Method
+var shippingMethod = 'budget'; // Default Shipping Method
 
 // Turn logger on / off
 let logger = false;
