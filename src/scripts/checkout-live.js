@@ -1101,6 +1101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (logger) {
                 error ? handleError(error) : null;
             }
+        });
 
 
         async function handleSubmit(event) {
