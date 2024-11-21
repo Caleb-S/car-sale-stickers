@@ -1,4 +1,4 @@
-const ENV = 'live';
+const ENV = 'test';
 const URL = "https://api.carsalestickers.com/stripe";
 
 let clientSecret;
@@ -808,7 +808,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 let newNavTitle = navTitle.cloneNode(true);
                 navTitle.parentNode.replaceChild(newNavTitle, navTitle);
             }
-//            let navTitle = document.querySelector('.nav-title');
+            navTitle = document.querySelector('.nav-title');
             navTitle.onclick = null;
 
 
@@ -885,7 +885,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-                //navTitle = document.querySelector('.nav-title');
+                navTitle = document.querySelector('.nav-title');
                 navTitle.onclick = null;
 
 
