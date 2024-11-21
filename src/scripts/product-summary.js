@@ -1,6 +1,6 @@
 var ipaddr;
 var cart = [];
-var env = 'test';
+var env = 'live';
 var shippingMethod;
 // Function to get cookie value by name
 function getCookie(name) {

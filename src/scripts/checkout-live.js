@@ -1,4 +1,4 @@
-const ENV = 'test';
+const ENV = 'live';
 const URL = "https://api.carsalestickers.com/stripe";
 
 let clientSecret;
