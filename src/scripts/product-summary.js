@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initOrderSummary();
 
 
+    policiesPopup();
     updateCart();
     let checkInterval = setInterval(checkAndUpdateIntent, 1000);
 
@@ -1213,14 +1214,7 @@ function updateStickerPrice() {
 
     var paymentList = document.querySelector('.payment-list');
 
-    pintrk('track', 'addtocart', {
-        event_id: 'eventAddToCart',
-        value: cartValue,
-        order_quantity: itemQuantity,
-        currency: 'USD'
-    });
-
-
+ 
     // Clear the existing list
     paymentList.innerHTML = '';
 
@@ -1264,6 +1258,95 @@ function updateStickerPrice() {
 
 
 }
+
+function policiesPopup() {
+
+    // JavaScript to handle the refund button click
+    document.getElementById("refund-btn").addEventListener("click", function () {
+        let popupContainer = document.getElementById("popup-container");
+        let popupContent = document.getElementById("popup-content");
+        popupContainer.style.display = "block";
+        let firstChild = popupContent.firstChild;
+
+        // Create and append the iframe
+        let iframe = document.createElement("iframe");
+        iframe.src = "/policies/refunds/index.html";
+        iframe.id = "iframe-container";
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("width", "100% !important");
+        iframe.setAttribute("height", "100%");
+        iframe.style.minWidth = '100%';
+
+
+
+        popupContent.insertBefore(iframe, firstChild);
+
+
+    });
+
+    document.getElementById("privacy-btn").addEventListener("click", function () {
+        let popupContainer = document.getElementById("popup-container");
+        let popupContent = document.getElementById("popup-content");
+        popupContainer.style.display = "block";
+        let firstChild = popupContent.firstChild;
+
+        // Create and append the iframe
+        let iframe = document.createElement("iframe");
+        iframe.src = "/policies/privacy/index.html";
+        iframe.id = "iframe-container";
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("width", "100% !important");
+        iframe.setAttribute("height", "100%");
+        iframe.style.minWidth = '100%';
+
+
+        popupContent.insertBefore(iframe, firstChild);
+
+
+    });
+
+    document.getElementById("terms-btn").addEventListener("click", function () {
+        let popupContainer = document.getElementById("popup-container");
+        let popupContent = document.getElementById("popup-content");
+        popupContainer.style.display = "block";
+        let firstChild = popupContent.firstChild;
+
+        // Create and append the iframe
+        let iframe = document.createElement("iframe");
+        iframe.src = "/policies/terms/index.html";
+        iframe.id = "iframe-container";
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("width", "100% !important");
+        iframe.setAttribute("height", "100%");
+        iframe.style.minWidth = '100%';
+
+
+
+        popupContent.insertBefore(iframe, firstChild);
+
+
+    });
+
+
+}
+
+// JavaScript to close the popup and remove the appended iframe
+function closePopup() {
+    // needs to be global until event listeners are added
+    let popupContainer = document.getElementById("popup-container");
+    //var popupContent = document.getElementById("popup-content");
+
+    let iframeContainerToRemove = document.getElementById("iframe-container");
+    if (iframeContainerToRemove) {
+        iframeContainerToRemove.parentNode.removeChild(iframeContainerToRemove);
+    }
+
+    popupContainer.style.display = "none";
+}
+
+
+
+
 
 
 
