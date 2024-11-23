@@ -1,62 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const scrollbox = document.querySelector(".product-scrollbox");
-    const scrollSpeed = 1;
-    const scrollThreshold = 0.10;
 
     let isScrolling = false;
     let scrollDirection = 0;
 
-    function scrollBox() {
-        if (isScrolling && scrollDirection !== 0) {
-            scrollbox.scrollTop += scrollDirection * scrollSpeed;
-        }
-        requestAnimationFrame(scrollBox);
-    }
+    
 
     requestAnimationFrame(scrollBox);
 
-    scrollbox.addEventListener("mousemove", function (event) {
-        const scrollboxHeight = scrollbox.clientHeight;
-        const mouseY = event.clientY - scrollbox.getBoundingClientRect().top;
-
-        const distanceFromTop = scrollbox.scrollTop;
-        const distanceFromBottom = scrollbox.scrollHeight - scrollbox.scrollTop - scrollboxHeight;
-        const distanceFromThreshold = scrollboxHeight * scrollThreshold;
-
-
-
-
-
-
-        const screenWidth = document.documentElement.clientWidth;
-        if (!(screenWidth >= 0 && screenWidth <= 639)) {
-            if (scrollDirection === 1 && mouseY < distanceFromThreshold) {
-
-                scrollDirection = 1;
-                isScrolling = true;
-            } else if (scrollDirection === -1 && mouseY > scrollboxHeight - distanceFromThreshold) {
-
-                scrollDirection = -1;
-                isScrolling = true;
-            } else if (mouseY < distanceFromThreshold) {
-
-                scrollDirection = -1;
-                isScrolling = true;
-            } else if (mouseY > scrollboxHeight - distanceFromThreshold) {
-
-                scrollDirection = 1;
-                isScrolling = true;
-            } else if (scrollDirection != 0) {
-
-                scrollDirection = 0;
-                isScrolling = false;
-            }
-        }
-
-
-
-
-    });
+    let scrollbox = document.querySelector(".product-scrollbox");
+    scrollbox.addEventListener("mousemove", onMouseMove.bind(null, scrollbox, isScrolling, scrollDirection));
 
     function stopScrolling() {
         isScrolling = false;
@@ -66,29 +18,76 @@ document.addEventListener("DOMContentLoaded", function () {
     scrollbox.addEventListener("mouseleave", stopScrolling);
 });
 
+function onMouseMove(event, isScrolling, scrollDirection) {
+    const scrollSpeed = 1;
+    const scrollThreshold = 0.10;
+    let scrollboxHeight = scrollbox.clientHeight;
+    let mouseY = event.clientY - scrollbox.getBoundingClientRect().top;
+
+    let distanceFromTop = scrollbox.scrollTop;
+    let distanceFromBottom = scrollbox.scrollHeight - scrollbox.scrollTop - scrollboxHeight;
+    let distanceFromThreshold = scrollboxHeight * scrollThreshold;
+
+    let screenWidth = document.documentElement.clientWidth;
+
+    if (!(screenWidth >= 0 && screenWidth <= 639)) {
+        if (scrollDirection === 1 && mouseY < distanceFromThreshold) {
+
+            scrollDirection = 1;
+            isScrolling = true;
+        } else if (scrollDirection === -1 && mouseY > scrollboxHeight - distanceFromThreshold) {
+
+            scrollDirection = -1;
+            isScrolling = true;
+        } else if (mouseY < distanceFromThreshold) {
+
+            scrollDirection = -1;
+            isScrolling = true;
+        } else if (mouseY > scrollboxHeight - distanceFromThreshold) {
+
+            scrollDirection = 1;
+            isScrolling = true;
+        } else if (scrollDirection != 0) {
+
+            scrollDirection = 0;
+            isScrolling = false;
+        }
+    }
+}
+
+
+
+function scrollBox() {
+    let scrollbox = document.querySelector(".product-scrollbox");
+    if (isScrolling && scrollDirection !== 0) {
+        scrollbox.scrollTop += scrollDirection * scrollSpeed;
+    }
+    requestAnimationFrame(scrollBox);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-    const orderSubtotalDiv = document.querySelector(".order-subtotal");
-    const productSummaryDiv = document.querySelector(".product-scrollbox");
+    let orderSubtotalDiv = document.querySelector(".order-subtotal");
+    let productSummaryDiv = document.querySelector(".product-scrollbox");
 
     orderSubtotalDiv.addEventListener("click", function () {
-        const startScroll = productSummaryDiv.scrollTop;
-        const targetScroll = productSummaryDiv.scrollHeight;
+        let startScroll = productSummaryDiv.scrollTop;
+        let targetScroll = productSummaryDiv.scrollHeight;
 
-        const distance = targetScroll - startScroll;
-        const animationDuration = 1000;
+        let distance = targetScroll - startScroll;
+        let animationDuration = 1000;
 
         let startTime = null;
-
         function animationStep(timestamp) {
             if (!startTime) startTime = timestamp;
-            const progress = timestamp - startTime;
-            const scrollAmount = easeInOutCubic(progress, startScroll, distance, animationDuration);
+            
+            let progress = timestamp - startTime;
+            let scrollAmount = easeInOutCubic(progress, startScroll, distance, animationDuration);
             productSummaryDiv.scrollTo(0, scrollAmount);
+
             if (progress < animationDuration) {
                 requestAnimationFrame(animationStep);
             }
         }
-
         requestAnimationFrame(animationStep);
     });
 
@@ -100,11 +99,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-const productScrollbox = document.querySelector('.product-scrollbox');
-const orderSubtotal = document.querySelector('.order-subtotal');
+let productScrollbox = document.querySelector('.product-scrollbox');
+let orderSubtotal = document.querySelector('.order-subtotal');
 
 function isScrolledToBottom() {
-    const { scrollTop, scrollHeight, clientHeight } = productScrollbox;
+    let { scrollTop, scrollHeight, clientHeight } = productScrollbox;
     return scrollTop + clientHeight >= scrollHeight;
 }
 
