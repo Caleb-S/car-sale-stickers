@@ -1,53 +1,29 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const scrollSpeed = 1;
-    const scrollThreshold = 0.10;
+    
+   const scrollSpeed = 1;
+ 
 
     let isScrolling = false;
     let scrollDirection = 0;
-    let scrollbox = document.querySelector(".product-scrollbox");
+    let scrollboxElement = document.querySelector(".product-scrollbox");
 
     function scrollBox() {
         if (isScrolling && scrollDirection !== 0) {
-            scrollbox.scrollTop += scrollDirection * scrollSpeed;
+            scrollboxElement.scrollTop += scrollDirection * scrollSpeed;
         }
         requestAnimationFrame(scrollBox);
     }
-
     requestAnimationFrame(scrollBox);
 
-    scrollbox.addEventListener("mousemove", function (event) {
-        let scrollboxHeight = scrollbox.clientHeight;
-        let mouseY = event.clientY - scrollbox.getBoundingClientRect().top;
-
-        let distanceFromTop = scrollbox.scrollTop;
-        let distanceFromBottom = scrollbox.scrollHeight - scrollbox.scrollTop - scrollboxHeight;
-        let distanceFromThreshold = scrollboxHeight * scrollThreshold;
-
-        let screenWidth = document.documentElement.clientWidth;
-
-        if (!(screenWidth >= 0 && screenWidth <= 639)) {
-            if (scrollDirection === 1 && mouseY < distanceFromThreshold) {
-
-                scrollDirection = 1;
-                isScrolling = true;
-            } else if (scrollDirection === -1 && mouseY > scrollboxHeight - distanceFromThreshold) {
-
-                scrollDirection = -1;
-                isScrolling = true;
-            } else if (mouseY < distanceFromThreshold) {
-
-                scrollDirection = -1;
-                isScrolling = true;
-            } else if (mouseY > scrollboxHeight - distanceFromThreshold) {
-
-                scrollDirection = 1;
-                isScrolling = true;
-            } else if (scrollDirection != 0) {
-
-                scrollDirection = 0;
-                isScrolling = false;
-            }
-        }
+      scrollboxElement.addEventListener("mousemove", function (event) {
+        const { newScrolling, newDirection } = startScrolling(
+            event.clientY,
+            isScrolling,
+            scrollDirection,
+            scrollboxElement
+        );
+        isScrolling = newScrolling;
+        scrollDirection = newDirection;
     });
 
     function stopScrolling() {
@@ -55,8 +31,33 @@ document.addEventListener("DOMContentLoaded", function () {
         scrollDirection = 0;
     }
 
-    scrollbox.addEventListener("mouseleave", stopScrolling);
+    scrollboxElement.addEventListener("mouseleave", stopScrolling);
 });
+
+    function startScrolling(mousePos, isScrolling, scrollDirection, scrollbox) {
+        let scrollThreshold = 0.10;
+        const scrollboxHeight = scrollbox.clientHeight;
+        const mouseY = mousePos - scrollbox.getBoundingClientRect().top;
+
+        const distanceFromTop = scrollbox.scrollTop;
+        const distanceFromBottom = scrollbox.scrollHeight - scrollbox.scrollTop - scrollboxHeight;
+        const thresholdDistance = scrollboxHeight * scrollThreshold;
+
+        const screenWidth = document.documentElement.clientWidth;
+
+        // Only apply scrolling logic for screens larger than 639px width
+        if (screenWidth > 639) {
+            if (mouseY < thresholdDistance) {
+                // Near the top, scroll up
+                return { newScrolling: true, newDirection: -1 };
+            } else if (mouseY > scrollboxHeight - thresholdDistance) {
+                // Near the bottom, scroll down
+                return { newScrolling: true, newDirection: 1 };
+            }
+        }
+        // Stop scrolling if outside thresholds
+        return { newScrolling: false, newDirection: 0 };
+    }
 
 document.addEventListener("DOMContentLoaded", function () {
     let orderSubtotalDiv = document.querySelector(".order-subtotal");
