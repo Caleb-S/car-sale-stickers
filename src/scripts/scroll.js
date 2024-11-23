@@ -8,20 +8,21 @@ document.addEventListener("DOMContentLoaded", function () {
     let scrollboxElement = document.querySelector(".product-scrollbox");
 
     function scrollBox() {
+        console.log("scrollBox");
         if (isScrolling && scrollDirection !== 0) {
             scrollboxElement.scrollTop += scrollDirection * scrollSpeed;
         }
+        if (isScrolling) {
         requestAnimationFrame(scrollBox);
+            
+        }
     }
-    requestAnimationFrame(scrollBox);
 
-      scrollboxElement.addEventListener("mousemove", function (event) {
-        const { newScrolling, newDirection } = startScrolling(
-            event.clientY,
-            isScrolling,
-            scrollDirection,
-            scrollboxElement
-        );
+    scrollboxElement.addEventListener("mousemove", function (event) {
+        if (!isScrolling) { 
+        requestAnimationFrame(scrollBox);
+        }
+        let { newScrolling, newDirection } = startScrolling(event, isScrolling, scrollDirection);
         isScrolling = newScrolling;
         scrollDirection = newDirection;
     });
@@ -34,10 +35,11 @@ document.addEventListener("DOMContentLoaded", function () {
     scrollboxElement.addEventListener("mouseleave", stopScrolling);
 });
 
-    function startScrolling(mousePos, isScrolling, scrollDirection, scrollbox) {
+    function startScrolling(event, isScrolling, scrollDirection) {
+        let scrollbox = document.querySelector(".product-scrollbox");
         let scrollThreshold = 0.10;
         const scrollboxHeight = scrollbox.clientHeight;
-        const mouseY = mousePos - scrollbox.getBoundingClientRect().top;
+        const mouseY = event.clientY  - scrollbox.getBoundingClientRect().top;
 
         const distanceFromTop = scrollbox.scrollTop;
         const distanceFromBottom = scrollbox.scrollHeight - scrollbox.scrollTop - scrollboxHeight;
